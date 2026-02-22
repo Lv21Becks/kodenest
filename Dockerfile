@@ -1,6 +1,6 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
-# Install system dependencies
+# Install system dependencies + required extensions
 RUN apt-get update && apt-get install -y \
     unzip \
     git \
@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-    pdo \
     pdo_mysql \
     mbstring \
     bcmath \
