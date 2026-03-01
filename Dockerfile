@@ -1,43 +1,92 @@
-FROM node:20 AS node-builder
+# =============================================================================
+# Stage 1: Node — Build frontend assets
+# =============================================================================
+FROM node:22-alpine AS node-builder
+
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
 COPY . .
 RUN npm run build
 
-FROM php:8.4-fpm
-# Install system dependencies + required extensions
-RUN apt-get update && apt-get install -y \
-    unzip \
-    git \
+# =============================================================================
+# Stage 2: Composer — Install PHP dependencies
+# =============================================================================
+FROM composer:2 AS composer-builder
+
+WORKDIR /app
+
+COPY composer.json composer.lock* ./
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --no-progress \
+    --no-scripts \
+    --prefer-dist \
+    --optimize-autoloader
+
+# =============================================================================
+# Stage 3: Final image — PHP 8.2 FPM + Nginx
+# =============================================================================
+FROM php:8.2-fpm-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    nginx \
+    supervisor \
     curl \
-    libzip-dev \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libpq-dev \
-    zip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    freetype-dev \
+    libzip-dev \
+    oniguruma-dev \
+    icu-dev \
+    mysql-client \
+    nodejs \
+    npm
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+    pdo \
     pdo_mysql \
-    pdo_pgsql \
-    pgsql \
     mbstring \
+    exif \
+    pcntl \
     bcmath \
     gd \
-    zip
+    zip \
+    intl \
+    opcache
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+WORKDIR /var/www/html
 
-WORKDIR /var/www
+# Copy composer dependencies
+COPY --from=composer-builder /app/vendor ./vendor
+
+# Copy application files
 COPY . .
 
-# Copy built Vite assets from node builder
+# Copy built frontend assets
 COPY --from=node-builder /app/public/build ./public/build
 
-RUN composer install --no-dev --optimize-autoloader
+# Copy config files
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY docker/entrypoint.sh /entrypoint.sh
 
-EXPOSE 8080
-CMD php artisan serve --host=0.0.0.0 --port=8080
+RUN chmod +x /entrypoint.sh
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
+
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
