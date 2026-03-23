@@ -49,62 +49,68 @@ class StudentSeeder extends Seeder
         // Status Options
         $statuses = ['active', 'at_risk', 'completed', 'dropped', 'graduated', 'pending'];
 
-        // Payment Options
         $paymentStatuses = ['paid', 'pending', 'partial', 'due'];
-
-        // Methods
         $learningModes = ['online', 'physical', 'hybrid'];
 
         // Create 25 Students
         for ($i = 0; $i < 25; $i++) {
-            $status = $faker->randomElement($statuses);
-            $paymentStatus = $faker->randomElement($paymentStatuses);
+            // Generate Ughelli Address
+            $street = $faker->randomElement($ughelliStreets);
+            $houseNumber = $faker->numberBetween(1, 150);
+            $address = "$houseNumber, $street, Ughelli, Delta State";
 
-            // Logic: Graduated/Completed usually have high progress
+            $student = Student::create([
+                'first_name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'email' => $faker->unique()->safeEmail,
+                'phone' => $faker->phoneNumber,
+                'address' => $address,
+                'notes' => $faker->optional(0.3)->sentence, // 30% chance of notes
+                'created_at' => $faker->dateTimeBetween('-6 months', 'now'),
+                'updated_at' => now(),
+            ]);
+
+            // Add an enrollment
+            $programSlug = $faker->randomElement($programSlugs);
+            $program = current($programs->filter(fn($p) => $p->slug === $programSlug)->all()) ?: $programs->first();
+            $status = $faker->randomElement($statuses);
+            
             $progress = 0;
             if ($status == 'graduated' || $status == 'completed') {
                 $progress = 100;
-                $paymentStatus = 'paid'; // Force paid if graduated
             } elseif ($status == 'dropped') {
                 $progress = $faker->numberBetween(0, 50);
             } else {
                 $progress = $faker->numberBetween(10, 95);
             }
 
-            // Calculate Amount Paid
-            $programSlug = $faker->randomElement($programSlugs);
-            $program = $programs->where('slug', $programSlug)->first();
-            $price = $program ? $program->price : 150000; // Default price if not found
+            $enrollment = \App\Models\Enrollment::create([
+                'student_id' => $student->id,
+                'program_id' => $programSlug,
+                'status' => $status == 'active' ? 'active' : ($status == 'dropped' ? 'dropped' : ($status == 'completed' || $status == 'graduated' ? 'completed' : 'active')),
+                'progress' => $progress,
+                'enrollment_date' => $student->created_at,
+            ]);
 
+            // Add an Invoice since payments got moved.
+            $paymentStatus = $faker->randomElement($paymentStatuses);
+            $price = $program ? $program->price : 150000;
+            
             $amountPaid = 0;
-            if ($paymentStatus == 'paid') {
+            if ($paymentStatus == 'paid' || $progress == 100) {
+                $paymentStatus = 'paid';
                 $amountPaid = $price;
             } elseif ($paymentStatus == 'partial') {
-                $amountPaid = $price * $faker->randomFloat(2, 0.1, 0.9); // Random partial
-            } else {
-                $amountPaid = 0;
+                $amountPaid = $price * $faker->randomFloat(2, 0.1, 0.9);
             }
 
-            // Generate Ughelli Address
-            $street = $faker->randomElement($ughelliStreets);
-            $houseNumber = $faker->numberBetween(1, 150);
-            $address = "$houseNumber, $street, Ughelli, Delta State";
-
-            Student::create([
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
-                'email' => $faker->unique()->safeEmail,
-                'phone' => $faker->phoneNumber,
-                'program' => $programSlug,
-                'learning_mode' => $faker->randomElement($learningModes),
-                'payment_status' => $paymentStatus,
-                'status' => $status,
-                'progress' => $progress,
+            \App\Models\Invoice::create([
+                'student_id' => $student->id,
+                'total_amount' => $price,
                 'amount_paid' => $amountPaid,
-                'address' => $address,
-                'notes' => $faker->optional(0.3)->sentence, // 30% chance of notes
-                'created_at' => $faker->dateTimeBetween('-6 months', 'now'),
-                'updated_at' => now(),
+                'balance' => $price - $amountPaid,
+                'due_date' => $student->created_at->addDays(30),
+                'status' => $paymentStatus == 'paid' ? 'paid' : ($amountPaid > 0 ? 'partial' : 'unpaid'),
             ]);
         }
     }

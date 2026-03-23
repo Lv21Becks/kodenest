@@ -47,11 +47,30 @@ class User extends Authenticatable
         ];
     }
 
+    const ROLE_USER = 'user';
+    const ROLE_SUPER_ADMIN = 'super_admin';
+    const ROLE_FINANCE_ADMIN = 'finance_admin';
+    const ROLE_INSTRUCTOR = 'instructor';
+    const ROLE_ADMISSIONS = 'admissions_officer';
+    const ROLE_SUPPORT = 'support_staff';
+
     /**
-     * Check if user is an admin
+     * Check if user is any kind of admin
      */
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return in_array($this->role, [
+            self::ROLE_SUPER_ADMIN,
+            self::ROLE_FINANCE_ADMIN,
+            self::ROLE_INSTRUCTOR, // Instructors might need admin panel access
+            self::ROLE_ADMISSIONS,
+            self::ROLE_SUPPORT,
+            'admin' // legacy support
+        ]);
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->role === $role || $this->role === self::ROLE_SUPER_ADMIN; // Super admin has all roles
     }
 }

@@ -43,8 +43,8 @@
                         <div class="col-span-1">
                             <label for="featured_image" class="block text-sm font-medium text-gray-700">Featured Image
                                 URL</label>
-                            <input type="url" name="featured_image" id="featured_image" value="{{ old('featured_image') }}"
-                                placeholder="https://..."
+                            <input type="text" name="featured_image" id="featured_image" value="{{ old('featured_image') }}"
+                                placeholder="URL or mapped path (e.g. blog/image.png)"
                                 class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-brand-purple focus:ring focus:ring-brand-purple/20 transition-all">
                             @error('featured_image')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

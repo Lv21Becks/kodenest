@@ -12,12 +12,7 @@ class AdminStudentController extends Controller
      */
     public function index()
     {
-        // Subquery to get the latest student ID for each email
-        // This ensures we have one record per person (the most recent one)
-        $latestIds = \App\Models\Student::selectRaw('MAX(id) as id')
-            ->groupBy('email');
-
-        $query = \App\Models\Student::whereIn('id', $latestIds)->latest();
+        $query = \App\Models\Student::with(['enrollments.program'])->latest();
 
         // Filters
         if (request('search')) {
@@ -30,33 +25,27 @@ class AdminStudentController extends Controller
         }
 
         if (request('program')) {
-            $query->where('program', request('program'));
+            $query->whereHas('enrollments', function ($q) {
+                $q->where('program_id', request('program'));
+            });
         }
 
         if (request('status')) {
-            $query->where('status', request('status'));
+            $query->whereHas('enrollments', function ($q) {
+                $q->where('status', request('status'));
+            });
         }
 
         $students = $query->paginate(10);
 
-        // Hydrate with entire history
-        $students->getCollection()->transform(function ($student) {
-            $history = \App\Models\Student::where('email', $student->email)->latest()->get();
-            $student->history = $history;
-            $student->enrollments_count = $history->count();
-            // Check if ANY enrollment is active
-            $student->has_active_enrollment = $history->contains('status', 'active');
-            return $student;
-        });
-
         // Stats
         $stats = [
-            'total_people' => \App\Models\Student::distinct('email')->count(),
-            'total_enrollments' => \App\Models\Student::count(),
-            'active_people' => \App\Models\Student::where('status', 'active')->distinct('email')->count(),
-            'new_this_week' => \App\Models\Student::where('created_at', '>=', now()->startOfWeek())->distinct('email')->count(),
-            'at_risk' => \App\Models\Student::where('payment_status', 'pending')->distinct('email')->count(),
-            'graduated' => \App\Models\Student::where('status', 'completed')->distinct('email')->count(),
+            'total_people' => \App\Models\Student::count(),
+            'total_enrollments' => \App\Models\Enrollment::count(),
+            'active_people' => \App\Models\Enrollment::where('status', 'active')->distinct('student_id')->count(),
+            'new_this_week' => \App\Models\Student::where('created_at', '>=', now()->startOfWeek())->count(),
+            'at_risk' => \App\Models\Invoice::whereIn('status', ['unpaid', 'partial'])->distinct('student_id')->count(),
+            'graduated' => \App\Models\Enrollment::where('status', 'completed')->distinct('student_id')->count(),
         ];
 
         $programs = \App\Models\Program::orderBy('title')->get();
@@ -86,11 +75,6 @@ class AdminStudentController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email,' . $student->id,
             'phone' => 'required|string|max:20',
-            'program' => 'required|string',
-            'learning_mode' => 'required|string',
-            'payment_status' => 'required|string',
-            'amount_paid' => 'required|numeric|min:0',
-            'status' => 'required|string',
             'address' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
@@ -110,21 +94,38 @@ class AdminStudentController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
             'phone' => 'required|string|max:20',
-            'program' => 'required|string',
-            'learning_mode' => 'required|string',
-            'payment_status' => 'required|string',
-            'amount_paid' => 'nullable|numeric|min:0',
             'address' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
 
-        if (!isset($validated['amount_paid'])) {
-            $validated['amount_paid'] = 0;
-        }
-
         \App\Models\Student::create($validated);
 
         return redirect()->route('admin.students.index')->with('success', 'Student added successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(\App\Models\Student $student)
+    {
+        // 1. Profile (Student info) - already in $student
+
+        // 2. Program Info (Enrollments)
+        $enrollments = $student->enrollments()->with('program')->latest()->get();
+
+        // 3. Performance (Progress/Risk)
+        // Check for unpaid invoices to determine risk level
+        $hasUnpaid = \App\Models\Invoice::where('student_id', $student->id)
+            ->whereIn('status', ['unpaid', 'partial'])
+            ->exists();
+        
+        $riskLevel = $hasUnpaid ? 'high' : 'low';
+
+        // 4. Payments
+        $invoices = \App\Models\Invoice::where('student_id', $student->id)->latest()->get();
+        $outstandingBalance = $invoices->whereIn('status', ['unpaid', 'partial'])->sum('balance');
+
+        return view('admin.students.show', compact('student', 'enrollments', 'riskLevel', 'invoices', 'outstandingBalance'));
     }
 
     /**

@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('layouts.admin', function ($view) {
-            $view->with('pendingEnrollmentsCount', \App\Models\Student::where('status', 'pending')->count());
+            $view->with('pendingEnrollmentsCount', \App\Models\Application::where('status', 'pending')->count());
         });
     }
 }

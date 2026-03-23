@@ -1,0 +1,26 @@
+
+   INFO  Running migrations.  
+
+  2026_03_07_140125_alter_audit_logs_add_columns  50.35ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'admin_id' (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: kodenest, SQL: alter table `audit_logs` add `admin_id` bigint unsigned not null)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:831
+    827Ôûò             $exceptionType = $this->isUniqueConstraintError($e)
+    828Ôûò                 ? UniqueConstraintViolationException::class
+    829Ôûò                 : QueryException::class;
+    830Ôûò 
+  Ô×£ 831Ôûò             throw new $exceptionType(
+    832Ôûò                 $this->getNameWithReadWriteType(),
+    833Ôûò                 $query,
+    834Ôûò                 $this->prepareBindings($bindings),
+    835Ôûò                 $e,
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:577
+      PDOException::("SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'admin_id'")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:577
+      PDOStatement::execute()
+

@@ -24,25 +24,21 @@ class ProgramController extends Controller
         }
 
         $programs = $query->orderBy('order')->get()->map(function ($program) {
-            // Count students enrolled in this program
-            // Note: Adjusting for potential slug mismatches (e.g. software-dev vs software-development)
-            $slug = $program->slug;
-            if ($slug === 'software-development')
-                $slug = 'software-dev';
-
-            $studentCount = \App\Models\Student::where('program', $slug)->count();
+            // Count students enrolled in this program via Enrollments table
+            $studentCount = \App\Models\Enrollment::where('program_id', $program->slug)->count();
 
             $program->student_count = $studentCount;
             $program->revenue = $studentCount * $program->price;
+            
             // Completion Rate: Average progress of students in this program
-            $avgProgress = \App\Models\Student::where('program', $slug)->avg('progress');
+            $avgProgress = \App\Models\Enrollment::where('program_id', $program->slug)->avg('progress');
             $program->completion_rate = $avgProgress ? round($avgProgress) : 0;
 
-            // Growth: New students this month vs last month
-            $thisMonth = \App\Models\Student::where('program', $slug)
+            // Growth: New enrollments this month vs last month
+            $thisMonth = \App\Models\Enrollment::where('program_id', $program->slug)
                 ->where('created_at', '>=', now()->startOfMonth())
                 ->count();
-            $lastMonth = \App\Models\Student::where('program', $slug)
+            $lastMonth = \App\Models\Enrollment::where('program_id', $program->slug)
                 ->whereBetween('created_at', [now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()])
                 ->count();
 
@@ -109,7 +105,8 @@ class ProgramController extends Controller
     public function edit(Program $program)
     {
         // Hub Data
-        $enrollmentCount = \App\Models\Student::where('program', $program->slug)->count();
+        // Corrected: Count students via Enrollments relationship
+        $enrollmentCount = \App\Models\Enrollment::where('program_id', $program->slug)->count();
 
         $seoRecord = \App\Models\SeoMeta::where('route_name', 'programs.show')
             ->where('item_id', $program->id)
@@ -156,8 +153,33 @@ class ProgramController extends Controller
         return redirect()->route('admin.programs.index')->with('success', 'Program updated successfully!');
     }
 
+    public function show(Program $program)
+    {
+        $applications = \App\Models\Application::with('applicant')
+            ->where('program_id', $program->slug)
+            ->latest()
+            ->get();
+
+        $enrollments = \App\Models\Enrollment::with('student')
+            ->where('program_id', $program->slug)
+            ->latest()
+            ->get();
+
+        return view('admin.programs.show', compact('program', 'applications', 'enrollments'));
+    }
+
     public function destroy(Program $program)
     {
+        // Check for students (enrollments)
+        if (\App\Models\Enrollment::where('program_id', $program->slug)->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete program with active students. Deactivate it instead.');
+        }
+
+        // Check for applications
+        if (\App\Models\Application::where('program_id', $program->slug)->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete program with existing applications. Deactivate it instead.');
+        }
+
         $program->delete();
         return redirect()->route('admin.programs.index')->with('success', 'Program deleted successfully.');
     }

@@ -42,12 +42,36 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin routes (protected by auth and admin middleware)
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
+    
+    // Redirect base /admin to dashboard (which will then redirect to login if unauthenticated)
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
+    // Admin Guest Routes (Login)
+    Route::middleware('guest')->group(function () {
+        Route::get('login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'create'])->name('login');
+        Route::post('login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'store']);
+    });
+
+    // Admin Authenticated Routes
+    Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::post('programs/{program}/toggle-status', [AdminProgramController::class, 'toggleStatus'])->name('programs.toggle-status');
     Route::post('programs/reorder', [AdminProgramController::class, 'reorder'])->name('programs.reorder');
     Route::post('programs/{program}/duplicate', [AdminProgramController::class, 'duplicate'])->name('programs.duplicate');
     Route::resource('programs', AdminProgramController::class);
+
+    // Admissions (Applicants & Applications)
+    Route::get('applicants', [\App\Http\Controllers\Admin\ApplicantController::class, 'index'])->name('applicants.index');
+    Route::get('applicants/{applicant}', [\App\Http\Controllers\Admin\ApplicantController::class, 'show'])->name('applicants.show');
+    
+    Route::post('applications/bulk-approve', [\App\Http\Controllers\Admin\AdminApplicationController::class, 'bulkApprove'])->name('applications.bulk-approve');
+    Route::post('applications/bulk-reject', [\App\Http\Controllers\Admin\AdminApplicationController::class, 'bulkReject'])->name('applications.bulk-reject');
+    Route::post('applications/{application}/approve', [\App\Http\Controllers\Admin\AdminApplicationController::class, 'approve'])->name('applications.approve');
+    Route::post('applications/{application}/reject', [\App\Http\Controllers\Admin\AdminApplicationController::class, 'reject'])->name('applications.reject');
+    Route::resource('applications', \App\Http\Controllers\Admin\AdminApplicationController::class);
 
     // Enrollments
     Route::post('enrollments/bulk-approve', [\App\Http\Controllers\Admin\AdminEnrollmentController::class, 'bulkApprove'])->name('enrollments.bulk-approve');
@@ -62,13 +86,38 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('testimonials/{testimonial}/toggle-status', [AdminTestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
     Route::resource('testimonials', AdminTestimonialController::class);
     Route::resource('blog-posts', AdminBlogPostController::class);
+    // Payments
+    Route::post('payments/{payment}/verify', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'verify'])->name('payments.verify');
+    Route::resource('payments', \App\Http\Controllers\Admin\AdminPaymentController::class);
+    Route::view('payments/approvals', 'admin.payments.index')->name('payments.approvals_placeholder');
+    Route::view('payments/settings', 'admin.payments.index')->name('payments.settings_placeholder');
+    
+    // Certificates
+    Route::resource('certificates', \App\Http\Controllers\Admin\AdminCertificateController::class);
+    Route::view('certificates/verification', 'admin.certificates.index')->name('certificates.verification_placeholder');
+    
+    // Analytics
+    Route::get('analytics', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+    Route::view('analytics/student', 'admin.analytics.index')->name('analytics.student_placeholder');
+    Route::view('analytics/revenue', 'admin.analytics.index')->name('analytics.revenue_placeholder');
+    
+    // System (Admin Users & Roles)
+    Route::resource('system-users', \App\Http\Controllers\Admin\AdminSystemController::class);
+    Route::view('system-users/roles', 'admin.system-users.index')->name('system-users.roles_placeholder');
+
+    // Existing Resources
     Route::resource('features', \App\Http\Controllers\Admin\FeatureController::class);
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
     Route::resource('seo-meta', SeoMetaController::class);
     Route::resource('newsletter', \App\Http\Controllers\Admin\NewsletterController::class)->only(['index', 'destroy']);
+    Route::view('newsletter/campaigns', 'admin.newsletter.index')->name('newsletter.campaigns_placeholder');
     Route::resource('students', \App\Http\Controllers\Admin\AdminStudentController::class);
-});
+    Route::get('alumni', [\App\Http\Controllers\Admin\AdminEnrollmentController::class, 'index'])->name('alumni.index');
+    Route::view('students/progress', 'admin.students.index')->name('students.progress_placeholder');
+    Route::view('programs/lessons', 'admin.programs.index')->name('programs.lessons_placeholder');
+}); // Close the inner auth/admin middleware group
+}); // Close the outer admin prefix group
 
 require __DIR__ . '/auth.php';
 

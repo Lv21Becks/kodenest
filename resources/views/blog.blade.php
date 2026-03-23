@@ -58,21 +58,24 @@
                         class="blog-post-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col h-full">
 
                         {{-- Image --}}
-                        <div class="h-48 relative overflow-hidden bg-gray-100">
-                            @if($post->featured_image)
-                                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center text-4xl text-gray-300">
-                                    <i class="far fa-newspaper"></i>
-                                </div>
-                            @endif
-                            @if($post->category)
-                                <span
-                                    class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-bold text-gray-900 rounded-full shadow-sm">
-                                    {{ $post->category }}
-                                </span>
-                            @endif
+                        {{-- Image Area --}}
+                        <div class="h-56 relative p-4 pb-0">
+                            <div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
+                                @if($post->featured_image)
+                                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-4xl text-gray-300">
+                                        <i class="far fa-newspaper"></i>
+                                    </div>
+                                @endif
+                                @if($post->category)
+                                    <span
+                                        class="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm text-[10px] font-bold text-gray-900 rounded-full shadow-sm">
+                                        {{ $post->category }}
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
                         {{-- Content --}}

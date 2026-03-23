@@ -4,105 +4,99 @@
 @section('header_title', 'Features')
 
 @section('content')
-    <div class="relative group overflow-hidden bg-white/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-sm font-sans">
-        {{-- Header --}}
-        <div class="px-6 py-6 border-b border-gray-100/50 bg-gradient-to-r from-blue-50 via-white to-transparent">
-            <div class="sm:flex sm:items-center sm:justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900 font-heading">Features</h1>
-                    <p class="mt-1 text-sm text-gray-500">Manage 'Why Choose Us' content</p>
-                </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <a href="{{ route('admin.features.create') }}"
-                        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-blue-500/30 hover:bg-blue-700 hover:shadow-blue-500/40 transition-all duration-200">
-                        <i class="fas fa-plus text-xs"></i>
-                        Add New Feature
-                    </a>
-                </div>
-            </div>
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Homepage Features</h1>
+            <p class="text-gray-500 mt-1">Manage the 'Why Choose Us' and key benefits content.</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="{{ route('admin.features.create') }}"
+                class="bg-orange-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-orange-700 transition-colors flex items-center gap-2 shadow-sm">
+                <i class="fas fa-plus"></i> New Feature
+            </a>
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-sm font-bold text-gray-900">Active Features</h3>
+            <span class="inline-flex items-center rounded-md bg-white px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ $features->count() }} records</span>
         </div>
 
-        {{-- Table --}}
-        <div class="flow-root">
-            <div class="overflow-x-auto">
-                <div class="inline-block min-w-full align-middle">
-                    <table class="min-w-full divide-y divide-gray-100">
-                        <thead>
-                            <tr class="bg-gray-50/50">
-                                <th class="py-4 pl-6 pr-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Sort</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Icon</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Title</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Description</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading text-center">Active</th>
-                                <th class="relative py-4 pl-3 pr-6 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100 bg-transparent">
-                            @forelse($features as $feature)
-                                <tr class="hover:bg-blue-50/50 transition-colors duration-200">
-                                    <td class="whitespace-nowrap py-4 pl-6 pr-3 text-sm text-gray-500 font-mono">
-                                        {{ $feature->sort_order }}
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
-                                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 border border-blue-200">
-                                            <i class="{{ $feature->icon }}"></i>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 font-semibold text-gray-900 w-16">Sort</th>
+                        <th scope="col" class="px-6 py-3 font-semibold text-gray-900">Feature</th>
+                        <th scope="col" class="px-6 py-3 font-semibold text-gray-900">Status</th>
+                        <th scope="col" class="px-6 py-3 font-semibold text-gray-900 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 bg-white">
+                    @forelse($features as $feature)
+                        <tr class="hover:bg-gray-50 transition-colors group">
+                            <td class="px-6 py-4 text-sm text-gray-400 font-medium">
+                                {{ str_pad($feature->sort_order, 2, '0', STR_PAD_LEFT) }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600 ring-1 ring-inset ring-orange-500/20 shrink-0">
+                                        <i class="{{ $feature->icon }}"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">{{ $feature->title }}</div>
+                                        <div class="text-xs text-gray-500 line-clamp-2 max-w-md">
+                                            {{ $feature->description }}
                                         </div>
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900 font-heading">
-                                        {{ $feature->title }}
-                                    </td>
-                                    <td class="px-3 py-4 text-sm text-gray-500 max-w-xs truncate">
-                                        {{ Str::limit($feature->description, 50) }}
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-center">
-                                        @if($feature->is_active)
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Yes
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> No
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right text-sm font-medium sm:pr-6">
-                                        <div class="flex items-center justify-end gap-2">
-                                            <a href="{{ route('admin.features.edit', $feature) }}"
-                                                class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('admin.features.destroy', $feature) }}" method="POST"
-                                                class="inline-block"
-                                                onsubmit="return confirm('Are you sure you want to delete this feature?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="px-3 py-10 text-center text-sm text-gray-500">
-                                        <div class="flex flex-col items-center">
-                                            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                                                <i class="fas fa-star text-gray-400 text-xl"></i>
-                                            </div>
-                                            <p class="font-medium text-gray-900">No features found</p>
-                                            <a href="{{ route('admin.features.create') }}"
-                                                class="text-blue-600 hover:text-blue-700 font-medium mt-1">Add your first feature &rarr;</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                @if($feature->is_active)
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Active
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Inactive
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a href="{{ route('admin.features.edit', $feature) }}"
+                                        class="p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-colors" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('admin.features.destroy', $feature) }}" method="POST"
+                                        class="inline-block"
+                                        onsubmit="return confirm('Are you sure you want to delete this feature?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                                <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 ring-1 ring-inset ring-gray-500/10">
+                                    <i class="fas fa-star text-gray-400 text-2xl"></i>
+                                </div>
+                                <p class="text-sm font-medium mb-1">No homepage features configured</p>
+                                <a href="{{ route('admin.features.create') }}"
+                                    class="text-orange-600 hover:text-orange-700 font-medium text-sm">Add your first feature &rarr;</a>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+    </div>
     </div>
 @endsection

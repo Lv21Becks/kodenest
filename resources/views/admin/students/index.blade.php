@@ -3,112 +3,93 @@
 @section('title', 'Students')
 
 @section('content')
-    <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
-                    <i class="fas fa-users"></i>
-                </div>
-                <span
-                    class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">+{{ $stats['new_this_week'] }}
-                    week</span>
-            </div>
-            <h3 class="text-gray-500 text-sm font-medium">Total Students</h3>
-            <p class="text-3xl font-bold text-gray-800 mt-1">{{ $stats['total_people'] }}</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-xl">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">Active</span>
-            </div>
-            <h3 class="text-gray-500 text-sm font-medium">Active Students</h3>
-            <p class="text-3xl font-bold text-gray-800 mt-1">{{ $stats['active_people'] }}</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center text-xl">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <span class="text-xs font-bold text-red-500 bg-red-50 px-2 py-1 rounded-full">Alert</span>
-            </div>
-            <h3 class="text-gray-500 text-sm font-medium">At Risk</h3>
-            <p class="text-3xl font-bold text-gray-800 mt-1">{{ $stats['at_risk'] }}</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <span class="text-xs font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded-full">Alumni</span>
-            </div>
-            <h3 class="text-gray-500 text-sm font-medium">Graduated</h3>
-            <p class="text-3xl font-bold text-gray-800 mt-1">{{ $stats['graduated'] }}</p>
-        </div>
-    </div>
-
-    <!-- Actions Bar -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-        <div class="flex flex-wrap gap-4 items-center justify-between">
-            <div class="flex gap-3">
-                <button onclick="openAddStudentModal()"
-                    class="px-6 py-3 bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold rounded-lg hover:shadow-xl transition-all flex items-center gap-2">
-                    <i class="fas fa-plus"></i>
-                    Add New Student
-                </button>
-                <button
-                    class="px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
-                    <i class="fas fa-file-import"></i>
-                    Import CSV
-                </button>
-                <button
-                    class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-                    <i class="fas fa-download"></i>
-                    Export
-                </button>
-            </div>
-            <div class="flex gap-3">
-                <button
-                    class="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
-                    <i class="fas fa-envelope"></i>
-                    Send Email
-                </button>
-                <button
-                    class="px-6 py-3 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors flex items-center gap-2">
-                    <i class="fas fa-trash"></i>
-                    Delete Selected
-                </button>
-            </div>
-        </div>
+<div class="space-y-6">
+    <!-- Quick Actions -->
+    <div class="flex flex-wrap gap-3 mb-6">
+        <button onclick="openAddStudentModal()" class="inline-flex items-center gap-2 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-colors">
+            <i class="fas fa-plus"></i>
+            Add Student
+        </button>
+        <button class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+            <i class="fas fa-file-import text-orange-600"></i>
+            Import CSV
+        </button>
+        <button class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+            <i class="fas fa-download text-orange-600"></i>
+            Export
+        </button>
     </div>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div class="text-gray-500 text-sm font-medium mb-1">Total People</div>
-            <div class="text-3xl font-bold text-gray-800">{{ $stats['total_people'] }}</div>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Total Students -->
+        <div class="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm border border-gray-100">
+            <dt>
+                <div class="absolute rounded-lg bg-blue-50 p-3">
+                    <i class="fas fa-users text-xl text-blue-600"></i>
+                </div>
+                <p class="ml-16 truncate text-[10px] font-bold uppercase tracking-tight text-gray-400">Total Students</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-1 sm:pb-2 mt-1">
+                <p class="text-3xl font-black text-gray-900">{{ number_format($stats['total_people'] ?? 0) }}</p>
+                <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                    <i class="fas fa-arrow-up mr-1 text-xs"></i>
+                    {{ $stats['new_this_month'] ?? 0 }} this month
+                </div>
+            </dd>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div class="text-gray-500 text-sm font-medium mb-1">Active Students</div>
-            <div class="text-3xl font-bold text-brand-purple">{{ $stats['active_people'] }}</div>
+
+        <!-- Active Students -->
+        <div class="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm border border-gray-100">
+            <dt>
+                <div class="absolute rounded-lg bg-green-50 p-3">
+                    <i class="fas fa-user-check text-xl text-green-600"></i>
+                </div>
+                <p class="ml-16 truncate text-[10px] font-bold uppercase tracking-tight text-gray-400">Active Students</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-1 sm:pb-2 mt-1">
+                <p class="text-3xl font-black text-gray-900">{{ number_format($stats['active_people'] ?? 0) }}</p>
+                <div class="ml-2 flex items-baseline text-sm font-medium text-gray-500">
+                    Currently enrolled
+                </div>
+            </dd>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div class="text-gray-500 text-sm font-medium mb-1">Total Enrollments</div>
-            <div class="text-3xl font-bold text-gray-800">{{ $stats['total_enrollments'] }}</div>
+
+        <!-- At Risk -->
+        <div class="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm border border-gray-100">
+            <dt>
+                <div class="absolute rounded-lg bg-yellow-50 p-3">
+                    <i class="fas fa-exclamation-triangle text-xl text-yellow-600"></i>
+                </div>
+                <p class="ml-16 truncate text-[10px] font-bold uppercase tracking-tight text-gray-400">At Risk</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-1 sm:pb-2 mt-1">
+                <p class="text-3xl font-black text-gray-900">{{ number_format($stats['at_risk'] ?? 0) }}</p>
+                <div class="ml-2 flex items-baseline text-sm font-medium text-red-500">
+                    Needs attention
+                </div>
+            </dd>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div class="text-gray-500 text-sm font-medium mb-1">New This Week</div>
-            <div class="text-3xl font-bold text-green-600">+{{ $stats['new_this_week'] }}</div>
+
+        <!-- Alumni / Graduated -->
+        <div class="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm border border-gray-100">
+            <dt>
+                <div class="absolute rounded-lg bg-purple-50 p-3">
+                    <i class="fas fa-graduation-cap text-xl text-purple-600"></i>
+                </div>
+                <p class="ml-16 truncate text-[10px] font-bold uppercase tracking-tight text-gray-400">Graduated</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-1 sm:pb-2 mt-1">
+                <p class="text-3xl font-black text-gray-900">{{ number_format($stats['graduated'] ?? 0) }}</p>
+                <div class="ml-2 flex items-baseline text-sm font-medium text-gray-500">
+                    Alumni
+                </div>
+            </dd>
         </div>
     </div>
 
     <!-- Search & Filters -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+    <div class="rounded-xl bg-white shadow-sm border border-gray-100 p-6 mb-6">
         <form id="searchForm" action="{{ route('admin.students.index') }}" method="GET">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="md:col-span-2">
@@ -116,12 +97,12 @@
                         <input type="text" name="search" value="{{ request('search') }}"
                             oninput="debounceSubmit()"
                             placeholder="Search by name, email, or student ID..."
-                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                        <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                            class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 transition-colors bg-gray-50">
+                        <i class="fas fa-search absolute left-3.5 top-3 text-gray-400"></i>
                     </div>
                 </div>
                 <select name="program" onchange="this.form.submit()"
-                    class="px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
+                    class="px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 transition-colors bg-gray-50 text-gray-700">
                     <option value="">All Programs</option>
                     @foreach($programs as $program)
                         <option value="{{ $program->slug }}" {{ request('program') == $program->slug ? 'selected' : '' }}>
@@ -130,8 +111,8 @@
                     @endforeach
                 </select>
                 <select name="status" onchange="this.form.submit()"
-                    class="px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                    <option value="">All Status</option>
+                    class="px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 transition-colors bg-gray-50 text-gray-700">
+                    <option value="">All Statuses</option>
                     @foreach(['active' => 'Active', 'at-risk' => 'At Risk', 'completed' => 'Completed', 'dropped' => 'Dropped Out', 'graduated' => 'Graduated'] as $val => $label)
                         <option value="{{ $val }}" {{ request('status') == $val ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
@@ -139,92 +120,101 @@
             </div>
             <div class="flex gap-3 mt-4">
                 <button type="submit"
-                    class="px-4 py-2 bg-brand-purple text-white rounded-lg hover:bg-brand-pink transition-colors text-sm font-semibold">
-                    <i class="fas fa-search mr-2"></i>Search
+                    class="inline-flex items-center gap-2 rounded bg-orange-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-orange-500 transition-colors">
+                    <i class="fas fa-search"></i> Search
                 </button>
                 <a href="{{ route('admin.students.index') }}"
-                    class="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors text-sm font-semibold flex items-center">
-                    <i class="fas fa-times mr-2"></i>Clear Filters
+                    class="inline-flex items-center gap-2 rounded bg-white px-3 py-1.5 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-times text-red-500"></i> Clear Filters
                 </a>
             </div>
         </form>
     </div>
 
     <!-- Students Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50 border-b-2 border-gray-200">
+            <table class="w-full whitespace-nowrap text-left text-sm">
+                <thead class="bg-gray-50/80 border-b border-gray-100">
                     <tr>
-                        <th class="px-6 py-4 text-left w-10">
-                            <input type="checkbox"
-                                class="w-4 h-4 rounded border-gray-300 text-brand-purple focus:ring-brand-purple">
+                        <th scope="col" class="px-6 py-5 text-left w-10">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600">
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Joined</th>
-                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider text-right">Actions</th>
+                        <th scope="col" class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Avatar & Name</th>
+                        <th scope="col" class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Program</th>
+                        <th scope="col" class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Progress</th>
+                        <th scope="col" class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                        <th scope="col" class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @forelse($students as $student)
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4">
-                                <input type="checkbox"
-                                    class="w-4 h-4 rounded border-gray-300 text-brand-purple focus:ring-brand-purple">
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 bg-gradient-to-br from-brand-purple to-brand-pink rounded-full flex items-center justify-center text-white font-bold">
-                                        {{ strtoupper(substr($student->first_name, 0, 1) . substr($student->last_name, 0, 1)) }}
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-800">{{ $student->first_name }}
-                                            {{ $student->last_name }}</div>
-                                        <div class="text-xs text-gray-500">{{ $student->email }}</div>
+                <tbody class="divide-y divide-gray-100 bg-white">
+                        @forelse($students as $student)
+                            @php
+                                $latestEnrollment = $student->enrollments->sortByDesc('created_at')->first();
+                                $progress = $latestEnrollment?->progress ?? 0;
+                                $progressColor = $progress < 30 ? 'bg-red-500' : ($progress < 70 ? 'bg-yellow-500' : 'bg-green-500');
+                                $enrollStatus = $latestEnrollment?->status ?? 'none';
+                            @endphp
+                            <tr class="even:bg-gray-50/50 hover:bg-orange-50/30 transition-colors cursor-pointer group">
+                                <td class="px-6 py-5">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-orange-600 focus:ring-orange-600">
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold shadow-sm">
+                                            {{ strtoupper(substr($student->first_name, 0, 1) . substr($student->last_name, 0, 1)) }}
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-gray-900">{{ $student->first_name }} {{ $student->last_name }}</div>
+                                            <div class="text-xs text-gray-500">{{ $student->email }}</div>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">
-                                    <div>{{ $student->created_at->format('M d, Y') }}</div>
-                                    <div class="text-xs text-gray-400">{{ $student->created_at->diffForHumans() }}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if($student->has_active_enrollment)
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold border border-green-100">
-                                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                            Enrolled
-                                        </span>
+                                <td class="px-6 py-5">
+                                    @if($latestEnrollment?->program)
+                                        <span class="text-sm text-gray-700 font-medium">{{ $latestEnrollment->program->title }}</span>
+                                        <div class="text-xs text-gray-400 mt-0.5"><i class="fas fa-calendar-alt mr-1"></i>Enrolled {{ $latestEnrollment->enrollment_date?->format('M Y') ?? $student->created_at->format('M Y') }}</div>
                                     @else
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-xs font-medium border border-gray-100">
-                                            <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
-                                            Not Enrolled
-                                        </span>
-                                    @endif
-                                    @if($student->enrollments_count > 1)
-                                         <span class="ml-2 text-xs text-gray-400" title="{{ $student->enrollments_count }} total enrollments">
-                                            <i class="fas fa-history"></i> {{ $student->enrollments_count }}
-                                         </span>
+                                        <span class="text-xs text-gray-400">No enrollment</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 text-right">
-                                    <div class="flex items-center justify-end gap-2">
-                                        <button onclick='openViewModal(@json($student), @json($student->history))'
-                                            class="p-2 text-gray-400 hover:text-brand-purple hover:bg-purple-50 rounded-lg transition-colors"
-                                            title="View History">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
+                                <td class="px-6 py-5">
+                                    <div class="w-32">
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="font-medium text-gray-700">Progress</span>
+                                            <span class="text-gray-500">{{ $progress }}%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-1.5 flex overflow-hidden">
+                                            <div class="{{ $progressColor }} h-1.5 rounded-full" style="width: {{ $progress }}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    @if($enrollStatus === 'active')
+                                        <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Active</span>
+                                    @elseif($enrollStatus === 'completed')
+                                        <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">Completed</span>
+                                    @elseif($enrollStatus === 'dropped')
+                                        <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">Dropped</span>
+                                    @elseif($enrollStatus === 'suspended')
+                                        <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20">Suspended</span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">No Enrollment</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-5 text-right">
+                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <a href="{{ route('admin.students.edit', $student->id) }}"
-                                            class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                                            title="Edit Profile">
+                                            class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            title="Edit Student">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                         <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST"
-                                            class="inline-block" onsubmit="return confirm('Delete this record permanently?');">
+                                            class="inline-block" onsubmit="return confirm('Delete this student record permanently?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                 title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -250,10 +240,11 @@
         </div>
 
         <!-- Pagination -->
-        <div class="mt-4">
+        <div class="border-t border-gray-200 px-6 py-4">
             {{ $students->links() }}
         </div>
     </div>
+</div>
 
 
     <!-- Add Student Modal -->

@@ -3,29 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student;
-use App\Models\Program; // For filter dropdown
+use App\Models\Enrollment;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class AdminEnrollmentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Student::query();
+        $query = Enrollment::with(['student', 'program']);
 
         // Stats
         $stats = [
-            'pending' => Student::where('status', 'pending')->count(),
-            'approved' => Student::where('status', 'active')->count(),
-            'payment_due' => Student::where('payment_status', 'pending')->orWhere('payment_status', 'due')->count(),
-            'rejected' => Student::where('status', 'rejected')->count(),
-            'total' => Student::count(),
+            'active' => Enrollment::where('status', 'active')->count(),
+            'completed' => Enrollment::where('status', 'completed')->count(),
+            'at_risk' => \App\Models\Invoice::whereIn('status', ['unpaid', 'partial'])->distinct('student_id')->count(),
+            'total' => Enrollment::count(),
         ];
+
+        // Route-based filtering (Alumni)
+        if ($request->routeIs('admin.alumni.index')) {
+            $query->where('status', 'completed');
+        }
 
         // Filters
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function ($q) use ($search) {
+            $query->whereHas('student', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
                     ->orWhere('last_name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
@@ -33,58 +37,30 @@ class AdminEnrollmentController extends Controller
             });
         }
 
+        if ($request->filled('at_risk')) {
+            $atRiskIds = \App\Models\Invoice::whereIn('status', ['unpaid', 'partial'])->pluck('student_id');
+            $query->whereIn('student_id', $atRiskIds);
+        }
+
         if ($request->filled('program')) {
-            $query->where('program', $request->program);
+            $query->where('program_id', $request->program);
         }
 
         if ($request->filled('status')) {
-            if ($request->status === 'payment_due') {
-                $query->where('payment_status', 'pending');
-            } else {
-                $query->where('status', $request->status);
-            }
-        } else {
-            // Default view: Show pending first, then others
-            // Or just latest?
-            $query->orderByRaw("FIELD(status, 'pending') DESC")->latest();
+            $query->where('status', $request->status);
+        } else if (!$request->routeIs('admin.alumni.index')) {
+            $query->latest();
         }
 
-        $enrollments = $query->paginate(10)->withQueryString();
+        $enrollments = $query->paginate(15)->withQueryString();
         $programs = Program::orderBy('title')->get();
 
         return view('admin.enrollments.index', compact('enrollments', 'stats', 'programs'));
     }
 
-    public function approve(Student $student)
+    public function destroy(Enrollment $enrollment)
     {
-        $student->update(['status' => 'active']);
-        // Simulate sending email logic here if needed
-        return back()->with('success', 'Enrollment approved successfully.');
-    }
-
-    public function reject(Student $student)
-    {
-        $student->update(['status' => 'rejected']);
-        return back()->with('success', 'Enrollment rejected.');
-    }
-
-    public function destroy(Student $student)
-    {
-        $student->delete();
+        $enrollment->delete();
         return back()->with('success', 'Enrollment record deleted.');
-    }
-
-    public function bulkApprove(Request $request)
-    {
-        $request->validate(['ids' => 'required|array']);
-        Student::whereIn('id', $request->ids)->update(['status' => 'active']);
-        return back()->with('success', count($request->ids) . ' enrollments approved.');
-    }
-
-    public function bulkReject(Request $request)
-    {
-        $request->validate(['ids' => 'required|array']);
-        Student::whereIn('id', $request->ids)->update(['status' => 'rejected']);
-        return back()->with('success', count($request->ids) . ' enrollments rejected.');
     }
 }

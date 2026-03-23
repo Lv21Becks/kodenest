@@ -33,27 +33,27 @@
                 @foreach($programs as $program)
                     <div
                         class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col hover:-translate-y-2 transition-transform duration-300 group">
-                        {{-- Image Area (1/3) --}}
-                        <div class="h-56 relative bg-gray-100 overflow-hidden">
-                            @if($program->image_icon)
-                                <img src="{{ asset('storage/' . $program->image_icon) }}" alt="{{ $program->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
-                                    <i class="fas fa-image text-4xl"></i>
+                        {{-- Image Area --}}
+                        <div class="h-64 relative p-4 pb-0">
+                            <div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
+                                @if($program->image_icon)
+                                    <img src="{{ asset('storage/' . $program->image_icon) }}" alt="{{ $program->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                                        <i class="fas fa-image text-4xl"></i>
+                                    </div>
+                                @endif
+                                <div class="absolute top-3 left-3 flex gap-2">
+                                    <span
+                                        class="bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-gray-900 rounded-full shadow-sm">
+                                        Instructor Led
+                                    </span>
+                                    <span
+                                        class="bg-orange-500/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white rounded-full shadow-sm">
+                                        Online / Physical
+                                    </span>
                                 </div>
-                            @endif
-
-                            {{-- Top-left badges --}}
-                            <div class="absolute top-4 left-4 flex gap-2">
-                                <span
-                                    class="bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-gray-900 rounded-full shadow-sm">
-                                    Instructor Led
-                                </span>
-                                <span
-                                    class="bg-orange-500/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-white rounded-full shadow-sm">
-                                    Online / Physical
-                                </span>
                             </div>
                         </div>
 
@@ -94,7 +94,7 @@
 
                 @if($programs->isNotEmpty())
                     {{-- Coming Soon teaser --}}
-                    <div class="flex flex-col items-center justify-center text-center py-10">
+                    <div class="col-span-full flex flex-col items-center justify-center text-center py-10">
                         <div class="text-5xl mb-4 animate-bounce">🚀</div>
                         <span
                             class="inline-block bg-orange-100 text-orange-600 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">Coming

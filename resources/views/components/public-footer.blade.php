@@ -1,4 +1,4 @@
-<footer class="bg-[#111111] text-white pt-10 border-t border-gray-900 font-sans">
+<footer class="bg-slate-600 text-white pt-10 border-t border-slate-800 font-sans">
     <div class="max-w-7xl mx-auto px-6">
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="h-0.5 bg-gray-800 w-full mb-4"></div>
+            <div class="h-0.5 bg-slate-800 w-full mb-4"></div>
 
             <p class="text-xs text-gray-500 font-medium tracking-wide pb-6">
                 Copyright 2026 KODENEST LIMITED B.V.

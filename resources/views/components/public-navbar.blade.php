@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-50 bg-[#111111] shadow-sm border-b border-gray-800"
+<nav class="sticky top-0 z-50 bg-slate-600 shadow-sm border-b border-slate-800"
     x-data="{ open: false, coursesOpen: false }">
     <div class="max-w-7xl mx-auto px-6 py-3">
         <div class="flex justify-between items-center relative">
@@ -98,7 +98,7 @@
     <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-        class="xl:hidden absolute top-full left-0 w-full bg-[#111111] border-t border-gray-800 shadow-xl z-40 h-screen"
+        class="xl:hidden absolute top-full left-0 w-full bg-slate-900 border-t border-slate-800 shadow-xl z-40 h-screen"
         x-cloak>
         <ul class="flex flex-col p-6 gap-2 text-gray-200 font-medium">
             <li x-show="open" x-transition:enter="transition ease-out duration-500 delay-[100ms]"
@@ -106,7 +106,7 @@
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
                 <a href="/programs"
-                    class="block py-3 px-4 hover:bg-gray-800 hover:text-orange-500 rounded-lg transition-all">
+                    class="block py-3 px-4 hover:bg-slate-800 hover:text-orange-400 rounded-lg transition-all">
                     Courses
                 </a>
             </li>
@@ -115,7 +115,7 @@
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
                 <a href="/about"
-                    class="block py-3 px-4 hover:bg-gray-800 hover:text-orange-500 rounded-lg transition-all">
+                    class="block py-3 px-4 hover:bg-slate-800 hover:text-orange-400 rounded-lg transition-all">
                     About
                 </a>
             </li>
@@ -124,7 +124,7 @@
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
                 <a href="/testimonials"
-                    class="block py-3 px-4 hover:bg-gray-800 hover:text-orange-500 rounded-lg transition-all">
+                    class="block py-3 px-4 hover:bg-slate-800 hover:text-orange-400 rounded-lg transition-all">
                     Testimonials
                 </a>
             </li>
@@ -133,7 +133,7 @@
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
                 <a href="/blog"
-                    class="block py-3 px-4 hover:bg-gray-800 hover:text-orange-500 rounded-lg transition-all">
+                    class="block py-3 px-4 hover:bg-slate-800 hover:text-orange-400 rounded-lg transition-all">
                     Blog
                 </a>
             </li>
@@ -142,7 +142,7 @@
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
                 <a href="/contact"
-                    class="block py-3 px-4 hover:bg-gray-800 hover:text-orange-500 rounded-lg transition-all">
+                    class="block py-3 px-4 hover:bg-slate-800 hover:text-orange-400 rounded-lg transition-all">
                     Contact
                 </a>
             </li>
@@ -150,7 +150,7 @@
                 x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4"
-                class="pt-4 mt-2 border-t border-gray-800">
+                class="pt-4 mt-2 border-t border-slate-800">
                 <a href="/enroll"
                     class="block text-center w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all">
                     Enroll Now
@@ -159,5 +159,3 @@
         </ul>
     </div>
 </nav>
-
-{{-- Alpine.js is loaded via app.js --}}

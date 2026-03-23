@@ -41,67 +41,7 @@
                             class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
                     </div>
 
-                    <!-- Program -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Program</label>
-                        <select name="program" required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                            @foreach($programs as $program)
-                                <option value="{{ $program->slug }}" {{ old('program', $student->program) == $program->slug ? 'selected' : '' }}>
-                                    {{ $program->title }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
 
-                    <!-- Learning Mode -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Learning Mode</label>
-                        <select name="learning_mode" required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                            <option value="online" {{ old('learning_mode', $student->learning_mode) == 'online' ? 'selected' : '' }}>Online</option>
-                            <option value="physical" {{ old('learning_mode', $student->learning_mode) == 'physical' ? 'selected' : '' }}>Physical</option>
-                            <option value="hybrid" {{ old('learning_mode', $student->learning_mode) == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
-                        </select>
-                    </div>
-
-                    <!-- Payment Status -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Payment Status</label>
-                        <select name="payment_status" required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                            <option value="paid" {{ old('payment_status', $student->payment_status) == 'paid' ? 'selected' : '' }}>Paid</option>
-                            <option value="partial" {{ old('payment_status', $student->payment_status) == 'partial' ? 'selected' : '' }}>Partial</option>
-                            <option value="pending" {{ old('payment_status', $student->payment_status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="due" {{ old('payment_status', $student->payment_status) == 'due' ? 'selected' : '' }}>Due</option>
-                        </select>
-                    </div>
-
-                    <!-- Amount Paid -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Amount Paid (₦)</label>
-                        <input type="number" name="amount_paid" value="{{ old('amount_paid', $student->amount_paid) }}"
-                            min="0" step="0.01" required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                    </div>
-
-                    <!-- Status -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-                        <select name="status" required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-brand-purple focus:outline-none transition-colors">
-                            <option value="active" {{ old('status', $student->status) == 'active' ? 'selected' : '' }}>Active
-                            </option>
-                            <option value="pending" {{ old('status', $student->status) == 'pending' ? 'selected' : '' }}>
-                                Pending</option>
-                            <option value="graduated" {{ old('status', $student->status) == 'graduated' ? 'selected' : '' }}>
-                                Graduated</option>
-                            <option value="dropped" {{ old('status', $student->status) == 'dropped' ? 'selected' : '' }}>
-                                Dropped</option>
-                            <option value="at_risk" {{ old('status', $student->status) == 'at_risk' ? 'selected' : '' }}>At
-                                Risk</option>
-                        </select>
-                    </div>
 
                     <!-- Address -->
                     <div class="md:col-span-2">

@@ -4,17 +4,23 @@
 
 @section('content')
 
-    <div class="p-8">
-        <!-- Tabs / Sections -->
+    <div class="max-w-7xl mx-auto mb-8 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">SEO Meta Management</h1>
+            <p class="text-gray-500 mt-1">Configure search engine metadata for static pages and dynamic content.</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
         <div class="space-y-12">
 
             <!-- Static Pages Section -->
             <section>
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-brand-purple/10 rounded-lg flex items-center justify-center text-brand-purple">
-                        <i class="fas fa-columns text-xl"></i>
+                    <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-orange-600 ring-1 ring-inset ring-orange-500/20">
+                        <i class="fas fa-columns"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-800">Static Pages</h2>
+                    <h2 class="text-xl font-bold text-gray-900">Static Pages</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -23,41 +29,44 @@
                             $meta = $seoMeta[$page] ?? null;
                             $isConfigured = !is_null($meta);
                         @endphp
-                        <div
-                            class="bg-white rounded-2xl shadow-sm overflow-hidden border {{ $isConfigured ? 'border-green-200' : 'border-gray-100' }} hover:shadow-md transition-all">
-                            <div class="p-6">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow">
+                            <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
-                                    <div
-                                        class="p-3 {{ $isConfigured ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500' }} rounded-lg">
+                                    <div class="w-10 h-10 {{ $isConfigured ? 'bg-green-50 text-green-600 ring-green-500/20' : 'bg-gray-50 text-gray-500 ring-gray-500/10' }} rounded-lg flex items-center justify-center ring-1 ring-inset shrink-0">
                                         <i class="fas fa-globe"></i>
                                     </div>
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold {{ $isConfigured ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
-                                        {{ $isConfigured ? 'CUSTOMIZED' : 'DEFAULT' }}
-                                    </span>
+                                    @if($isConfigured)
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                            Customized
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                            Default
+                                        </span>
+                                    @endif
                                 </div>
 
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 capitalize">{{ $page }} Page</h3>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 capitalize">{{ $page }} Page</h3>
 
                                 @if($isConfigured)
-                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ $meta->description }}</p>
-                                    <div class="text-xs text-gray-400 mb-6">
+                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">{{ $meta->description }}</p>
+                                    <div class="text-xs text-gray-400 font-medium mb-6">
                                         Updated: {{ $meta->updated_at->diffForHumans() }}
                                     </div>
                                 @else
-                                    <p class="text-sm text-gray-500 mb-6 italic">Using system defaults.</p>
+                                    <p class="text-sm text-gray-500 mb-6 italic flex-1">Using system defaults.</p>
                                 @endif
 
                                 <div>
                                     @if($isConfigured)
                                         <a href="{{ route('admin.seo-meta.edit', $meta->id) }}"
-                                            class="block w-full text-center px-4 py-2 bg-brand-purple text-white font-bold rounded-lg hover:bg-brand-pink transition-colors">
-                                            <i class="fas fa-edit mr-2"></i>Edit Metadata
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors border border-gray-300 shadow-sm text-sm">
+                                            <i class="fas fa-edit"></i> Edit Metadata
                                         </a>
                                     @else
                                         <a href="{{ route('admin.seo-meta.create', ['page' => $page]) }}"
-                                            class="block w-full text-center px-4 py-2 bg-gray-800 text-white font-bold rounded-lg hover:bg-black transition-colors">
-                                            <i class="fas fa-plus mr-2"></i>Configure
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors shadow-sm text-sm">
+                                            <i class="fas fa-plus"></i> Configure
                                         </a>
                                     @endif
                                 </div>
@@ -70,10 +79,10 @@
             <!-- Programs Section -->
             <section>
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-                        <i class="fas fa-graduation-cap text-xl"></i>
+                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 ring-1 ring-inset ring-blue-500/20">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-800">Programs (Dynamic)</h2>
+                    <h2 class="text-xl font-bold text-gray-900">Programs (Dynamic)</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -83,46 +92,50 @@
                             $meta = $seoMeta[$key] ?? null;
                             $isConfigured = !is_null($meta);
                         @endphp
-                        <div
-                            class="bg-white rounded-2xl shadow-sm overflow-hidden border {{ $isConfigured ? 'border-green-200' : 'border-blue-100' }} hover:shadow-md transition-all">
-                            <div class="p-6">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow">
+                            <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
-                                    <div
-                                        class="p-3 {{ $isConfigured ? 'bg-green-100 text-green-600' : 'bg-blue-50 text-blue-500' }} rounded-lg">
+                                    <div class="w-10 h-10 {{ $isConfigured ? 'bg-green-50 text-green-600 ring-green-500/20' : 'bg-blue-50 text-blue-500 ring-blue-500/20' }} rounded-lg flex items-center justify-center ring-1 ring-inset shrink-0">
                                         <i class="fas fa-book-open"></i>
                                     </div>
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold {{ $isConfigured ? 'bg-green-100 text-green-700' : 'bg-blue-50 text-blue-600' }}">
-                                        {{ $isConfigured ? 'OVERRIDDEN' : 'AUTO-GENERATED' }}
-                                    </span>
+                                    @if($isConfigured)
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                            Overridden
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+                                            Auto-Generated
+                                        </span>
+                                    @endif
                                 </div>
 
-                                <h3 class="text-lg font-bold text-gray-800 mb-1 line-clamp-1">{{ $program->title }}</h3>
-                                <p class="text-xs text-gray-400 mb-4 uppercase tracking-wide">Program Page</p>
+                                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1" title="{{ $program->title }}">{{ $program->title }}</h3>
+                                <p class="text-xs text-gray-400 mb-4 uppercase tracking-wide font-medium">Program Page</p>
 
                                 @if($isConfigured)
-                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ $meta->description }}</p>
-                                    <div class="text-xs text-gray-400 mb-6">
+                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">{{ $meta->description }}</p>
+                                    <div class="text-xs text-gray-400 font-medium mb-6">
                                         Customized: {{ $meta->updated_at->diffForHumans() }}
                                     </div>
                                 @else
-                                    <div class="bg-gray-50 rounded p-3 mb-6">
-                                        <p class="text-xs text-gray-500 italic line-clamp-2">
+                                    <div class="bg-gray-50 rounded-lg p-3 mb-6 flex-1 ring-1 ring-inset ring-gray-200">
+                                        <p class="text-sm text-gray-500 italic line-clamp-2">
                                             "{{ Str::limit($program->description, 100) }}"
                                         </p>
                                     </div>
+                                    <div class="mb-2"></div>
                                 @endif
 
                                 <div>
                                     @if($isConfigured)
                                         <a href="{{ route('admin.seo-meta.edit', $meta->id) }}"
-                                            class="block w-full text-center px-4 py-2 bg-brand-purple text-white font-bold rounded-lg hover:bg-brand-pink transition-colors">
-                                            <i class="fas fa-edit mr-2"></i>Edit Override
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors border border-gray-300 shadow-sm text-sm">
+                                            <i class="fas fa-edit"></i> Edit Override
                                         </a>
                                     @else
                                         <a href="{{ route('admin.seo-meta.create', ['page' => $key, 'item_id' => $program->id, 'route_name' => 'programs.show']) }}"
-                                            class="block w-full text-center px-4 py-2 border-2 border-brand-purple text-brand-purple font-bold rounded-lg hover:bg-brand-purple hover:text-white transition-colors">
-                                            <i class="fas fa-magic mr-2"></i>Override
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-white text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-colors border border-orange-200 shadow-sm text-sm">
+                                            <i class="fas fa-magic"></i> Override
                                         </a>
                                     @endif
                                 </div>
@@ -135,10 +148,10 @@
             <!-- Blog Posts Section -->
             <section>
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
-                        <i class="fas fa-newspaper text-xl"></i>
+                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600 ring-1 ring-inset ring-purple-500/20">
+                        <i class="fas fa-newspaper"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-800">Blog Posts (Dynamic)</h2>
+                    <h2 class="text-xl font-bold text-gray-900">Blog Posts (Dynamic)</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -148,46 +161,50 @@
                             $meta = $seoMeta[$key] ?? null;
                             $isConfigured = !is_null($meta);
                         @endphp
-                        <div
-                            class="bg-white rounded-2xl shadow-sm overflow-hidden border {{ $isConfigured ? 'border-green-200' : 'border-orange-100' }} hover:shadow-md transition-all">
-                            <div class="p-6">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow">
+                            <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
-                                    <div
-                                        class="p-3 {{ $isConfigured ? 'bg-green-100 text-green-600' : 'bg-orange-50 text-orange-500' }} rounded-lg">
+                                    <div class="w-10 h-10 {{ $isConfigured ? 'bg-green-50 text-green-600 ring-green-500/20' : 'bg-purple-50 text-purple-600 ring-purple-500/20' }} rounded-lg flex items-center justify-center ring-1 ring-inset shrink-0">
                                         <i class="fas fa-pen-nib"></i>
                                     </div>
-                                    <span
-                                        class="px-3 py-1 rounded-full text-xs font-bold {{ $isConfigured ? 'bg-green-100 text-green-700' : 'bg-orange-50 text-orange-600' }}">
-                                        {{ $isConfigured ? 'OVERRIDDEN' : 'AUTO-GENERATED' }}
-                                    </span>
+                                    @if($isConfigured)
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                            Overridden
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/20">
+                                            Auto-Generated
+                                        </span>
+                                    @endif
                                 </div>
 
-                                <h3 class="text-lg font-bold text-gray-800 mb-1 line-clamp-1">{{ $post->title }}</h3>
-                                <p class="text-xs text-gray-400 mb-4 uppercase tracking-wide">Blog Post</p>
+                                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1" title="{{ $post->title }}">{{ $post->title }}</h3>
+                                <p class="text-xs text-gray-400 mb-4 uppercase tracking-wide font-medium">Blog Post</p>
 
                                 @if($isConfigured)
-                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ $meta->description }}</p>
-                                    <div class="text-xs text-gray-400 mb-6">
+                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">{{ $meta->description }}</p>
+                                    <div class="text-xs text-gray-400 font-medium mb-6">
                                         Customized: {{ $meta->updated_at->diffForHumans() }}
                                     </div>
                                 @else
-                                    <div class="bg-gray-50 rounded p-3 mb-6">
-                                        <p class="text-xs text-gray-500 italic line-clamp-2">
+                                    <div class="bg-gray-50 rounded-lg p-3 mb-6 flex-1 ring-1 ring-inset ring-gray-200">
+                                        <p class="text-sm text-gray-500 italic line-clamp-2">
                                             "{{ Str::limit(strip_tags($post->content), 100) }}"
                                         </p>
                                     </div>
+                                    <div class="mb-2"></div>
                                 @endif
 
                                 <div>
                                     @if($isConfigured)
                                         <a href="{{ route('admin.seo-meta.edit', $meta->id) }}"
-                                            class="block w-full text-center px-4 py-2 bg-brand-purple text-white font-bold rounded-lg hover:bg-brand-pink transition-colors">
-                                            <i class="fas fa-edit mr-2"></i>Edit Override
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors border border-gray-300 shadow-sm text-sm">
+                                            <i class="fas fa-edit"></i> Edit Override
                                         </a>
                                     @else
                                         <a href="{{ route('admin.seo-meta.create', ['page' => $key]) }}"
-                                            class="block w-full text-center px-4 py-2 border-2 border-brand-purple text-brand-purple font-bold rounded-lg hover:bg-brand-purple hover:text-white transition-colors">
-                                            <i class="fas fa-magic mr-2"></i>Override
+                                            class="flex w-full items-center justify-center gap-2 px-4 py-2 bg-white text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-colors border border-orange-200 shadow-sm text-sm">
+                                            <i class="fas fa-magic"></i> Override
                                         </a>
                                     @endif
                                 </div>

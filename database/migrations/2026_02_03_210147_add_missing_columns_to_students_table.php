@@ -12,19 +12,19 @@ return new class extends Migration {
     {
         Schema::table('students', function (Blueprint $table) {
             if (!Schema::hasColumn('students', 'learning_mode')) {
-                $table->string('learning_mode')->default('online')->after('program');
+                $table->string('learning_mode')->default('online')->nullable();
             }
             if (!Schema::hasColumn('students', 'amount_paid')) {
-                $table->decimal('amount_paid', 10, 2)->default(0)->after('payment_status');
+                $table->decimal('amount_paid', 10, 2)->default(0)->nullable();
             }
             if (!Schema::hasColumn('students', 'progress')) {
-                $table->integer('progress')->default(0)->after('status');
+                $table->integer('progress')->default(0)->nullable();
             }
             if (!Schema::hasColumn('students', 'address')) {
-                $table->text('address')->nullable()->after('payment_status');
+                $table->text('address')->nullable();
             }
             if (!Schema::hasColumn('students', 'notes')) {
-                $table->text('notes')->nullable()->after('address');
+                $table->text('notes')->nullable();
             }
         });
     }
