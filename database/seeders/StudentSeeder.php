@@ -4,20 +4,21 @@ namespace Database\Seeders;
 
 use App\Models\Student;
 use App\Models\Program;
+use App\Models\Enrollment;
+use App\Models\Invoice;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
 class StudentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Use Nigerian Locale
+        // Skip if students already exist
+        if (Student::count() > 0)
+            return;
+
         $faker = Faker::create('en_NG');
 
-        // Ughelli Streets
         $ughelliStreets = [
             'Isoko Road',
             'Market Road',
@@ -34,27 +35,27 @@ class StudentSeeder extends Seeder
             'General Hospital Road',
             'School Road',
             'Oharisi Street',
-            'Uduere Road'
+            'Uduere Road',
         ];
 
-        // Get Program Slugs
         $programs = Program::all();
         $programSlugs = $programs->pluck('slug')->toArray();
 
         if (empty($programSlugs)) {
-            // Default fallbacks if no programs exist yet
-            $programSlugs = ['data-analytics', 'software-dev', 'cybersecurity', 'uiux', 'office', 'kids'];
+            $programSlugs = [
+                'data-analytics',
+                'software-development',
+                'cybersecurity',
+                'ui-ux-design',
+                'office-productivity',
+                'coding-for-kids',
+            ];
         }
 
-        // Status Options
         $statuses = ['active', 'at_risk', 'completed', 'dropped', 'graduated', 'pending'];
-
         $paymentStatuses = ['paid', 'pending', 'partial', 'due'];
-        $learningModes = ['online', 'physical', 'hybrid'];
 
-        // Create 25 Students
         for ($i = 0; $i < 25; $i++) {
-            // Generate Ughelli Address
             $street = $faker->randomElement($ughelliStreets);
             $houseNumber = $faker->numberBetween(1, 150);
             $address = "$houseNumber, $street, Ughelli, Delta State";
@@ -65,52 +66,53 @@ class StudentSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'phone' => $faker->phoneNumber,
                 'address' => $address,
-                'notes' => $faker->optional(0.3)->sentence, // 30% chance of notes
+                'notes' => $faker->optional(0.3)->sentence,
                 'created_at' => $faker->dateTimeBetween('-6 months', 'now'),
                 'updated_at' => now(),
             ]);
 
-            // Add an enrollment
             $programSlug = $faker->randomElement($programSlugs);
-            $program = current($programs->filter(fn($p) => $p->slug === $programSlug)->all()) ?: $programs->first();
+            $program = $programs->firstWhere('slug', $programSlug) ?? $programs->first();
             $status = $faker->randomElement($statuses);
-            
-            $progress = 0;
-            if ($status == 'graduated' || $status == 'completed') {
-                $progress = 100;
-            } elseif ($status == 'dropped') {
-                $progress = $faker->numberBetween(0, 50);
-            } else {
-                $progress = $faker->numberBetween(10, 95);
-            }
 
-            $enrollment = \App\Models\Enrollment::create([
+            $progress = match (true) {
+                in_array($status, ['graduated', 'completed']) => 100,
+                $status === 'dropped' => $faker->numberBetween(0, 50),
+                default => $faker->numberBetween(10, 95),
+            };
+
+            $enrollmentStatus = match (true) {
+                in_array($status, ['completed', 'graduated']) => 'completed',
+                $status === 'dropped' => 'dropped',
+                default => 'active',
+            };
+
+            Enrollment::create([
                 'student_id' => $student->id,
                 'program_id' => $programSlug,
-                'status' => $status == 'active' ? 'active' : ($status == 'dropped' ? 'dropped' : ($status == 'completed' || $status == 'graduated' ? 'completed' : 'active')),
+                'status' => $enrollmentStatus,
                 'progress' => $progress,
                 'enrollment_date' => $student->created_at,
             ]);
 
-            // Add an Invoice since payments got moved.
-            $paymentStatus = $faker->randomElement($paymentStatuses);
             $price = $program ? $program->price : 150000;
-            
+            $paymentStatus = $faker->randomElement($paymentStatuses);
             $amountPaid = 0;
-            if ($paymentStatus == 'paid' || $progress == 100) {
+
+            if ($paymentStatus === 'paid' || $progress === 100) {
                 $paymentStatus = 'paid';
                 $amountPaid = $price;
-            } elseif ($paymentStatus == 'partial') {
+            } elseif ($paymentStatus === 'partial') {
                 $amountPaid = $price * $faker->randomFloat(2, 0.1, 0.9);
             }
 
-            \App\Models\Invoice::create([
+            Invoice::create([
                 'student_id' => $student->id,
                 'total_amount' => $price,
                 'amount_paid' => $amountPaid,
                 'balance' => $price - $amountPaid,
                 'due_date' => $student->created_at->addDays(30),
-                'status' => $paymentStatus == 'paid' ? 'paid' : ($amountPaid > 0 ? 'partial' : 'unpaid'),
+                'status' => $paymentStatus === 'paid' ? 'paid' : ($amountPaid > 0 ? 'partial' : 'unpaid'),
             ]);
         }
     }
