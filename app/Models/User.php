@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'two_factor_code',
+        'two_factor_expires_at',
     ];
 
     /**
@@ -44,33 +46,43 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_expires_at' => 'datetime',
         ];
     }
 
     const ROLE_USER = 'user';
     const ROLE_SUPER_ADMIN = 'super_admin';
-    const ROLE_FINANCE_ADMIN = 'finance_admin';
-    const ROLE_INSTRUCTOR = 'instructor';
-    const ROLE_ADMISSIONS = 'admissions_officer';
-    const ROLE_SUPPORT = 'support_staff';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MODERATOR = 'moderator';
 
     /**
-     * Check if user is any kind of admin
+     * Check if user has backend system access
      */
     public function isAdmin(): bool
     {
         return in_array($this->role, [
             self::ROLE_SUPER_ADMIN,
-            self::ROLE_FINANCE_ADMIN,
-            self::ROLE_INSTRUCTOR, // Instructors might need admin panel access
-            self::ROLE_ADMISSIONS,
-            self::ROLE_SUPPORT,
-            'admin' // legacy support
+            self::ROLE_ADMIN,
+            self::ROLE_MODERATOR,
         ]);
     }
 
-    public function hasRole($role): bool
+    /**
+     * Check explicit role match, with super_admin bypassing
+     */
+    public function hasRole(string $role): bool
     {
-        return $this->role === $role || $this->role === self::ROLE_SUPER_ADMIN; // Super admin has all roles
+        return $this->role === $role || $this->role === self::ROLE_SUPER_ADMIN;
+    }
+
+    /**
+     * Check array of allowed roles
+     */
+    public function hasAnyRole(array $roles): bool
+    {
+        if ($this->role === self::ROLE_SUPER_ADMIN) {
+            return true;
+        }
+        return in_array($this->role, $roles);
     }
 }

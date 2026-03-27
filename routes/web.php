@@ -49,14 +49,31 @@ Route::prefix('admin')->name('admin.')->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
-    // Admin Guest Routes (Login)
+    // Admin Guest Routes (Login + Password Reset)
     Route::middleware('guest')->group(function () {
         Route::get('login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'create'])->name('login');
         Route::post('login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'store']);
+        Route::get('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->name('forgot-password');
+        Route::post('forgot-password', [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->name('password.email');
+        Route::get('reset-password/{token}', [\App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->name('password.reset');
+        Route::post('reset-password', [\App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->name('password.store');
     });
 
-    // Admin Authenticated Routes
+    // Admin 2FA Routes (Require auth and admin role, but MUST NOT require 2fa verified session)
     Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('2fa', [\App\Http\Controllers\Admin\TwoFactorController::class, 'index'])->name('2fa.index');
+        Route::post('2fa', [\App\Http\Controllers\Admin\TwoFactorController::class, 'store'])->name('2fa.store');
+        Route::post('2fa/resend', [\App\Http\Controllers\Admin\TwoFactorController::class, 'resend'])->name('2fa.resend');
+    });
+
+    // Admin Authenticated Routes (Fully guarded)
+    Route::middleware(['auth', 'admin', '2fa'])->group(function () {
+        
+        // Settings Restricted to Super Admin Only
+        Route::middleware(['role:' . \App\Models\User::ROLE_SUPER_ADMIN])->group(function () {
+            Route::get('settings', [\App\Http\Controllers\Admin\AdminSettingController::class, 'index'])->name('settings.index');
+            Route::post('settings', [\App\Http\Controllers\Admin\AdminSettingController::class, 'update'])->name('settings.update');
+        });
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::post('programs/{program}/toggle-status', [AdminProgramController::class, 'toggleStatus'])->name('programs.toggle-status');
     Route::post('programs/reorder', [AdminProgramController::class, 'reorder'])->name('programs.reorder');
@@ -86,32 +103,44 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('testimonials/{testimonial}/toggle-status', [AdminTestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
     Route::resource('testimonials', AdminTestimonialController::class);
     Route::resource('blog-posts', AdminBlogPostController::class);
-    // Payments
-    Route::post('payments/{payment}/verify', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'verify'])->name('payments.verify');
-    Route::resource('payments', \App\Http\Controllers\Admin\AdminPaymentController::class);
-    Route::view('payments/approvals', 'admin.payments.index')->name('payments.approvals_placeholder');
-    Route::view('payments/settings', 'admin.payments.index')->name('payments.settings_placeholder');
-    
+    // ==========================================
+    // ROLE: RESTRICTED TO SUPER ADMIN & ADMIN
+    // ==========================================
+    Route::middleware('role:super_admin,admin')->group(function () {
+        // Payments
+        Route::post('payments/{payment}/verify', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'verify'])->name('payments.verify');
+        Route::resource('payments', \App\Http\Controllers\Admin\AdminPaymentController::class);
+        Route::view('payments/approvals', 'admin.payments.index')->name('payments.approvals_placeholder');
+        Route::view('payments/settings', 'admin.payments.index')->name('payments.settings_placeholder');
+        
+        // Analytics
+        Route::get('analytics', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+        Route::view('analytics/student', 'admin.analytics.index')->name('analytics.student_placeholder');
+        Route::view('analytics/revenue', 'admin.analytics.index')->name('analytics.revenue_placeholder');
+        
+        // System (Admin Users & Roles)
+        Route::resource('system-users', \App\Http\Controllers\Admin\AdminSystemController::class);
+        Route::view('system-users/roles', 'admin.system-users.index')->name('system-users.roles_placeholder');
+    });
+
+    // ==========================================
+    // ROLE: STRICTLY SUPER ADMIN
+    // ==========================================
+    Route::middleware('role:super_admin')->group(function () {
+        Route::resource('features', \App\Http\Controllers\Admin\FeatureController::class);
+        Route::resource('seo-meta', SeoMetaController::class);
+        Route::resource('newsletter', \App\Http\Controllers\Admin\NewsletterController::class)->only(['index', 'destroy']);
+        Route::view('newsletter/campaigns', 'admin.newsletter.index')->name('newsletter.campaigns_placeholder');
+    });
+
+    // Testimonials
+    Route::post('testimonials/{testimonial}/toggle-status', [\App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
+    Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+
     // Certificates
     Route::resource('certificates', \App\Http\Controllers\Admin\AdminCertificateController::class);
     Route::view('certificates/verification', 'admin.certificates.index')->name('certificates.verification_placeholder');
-    
-    // Analytics
-    Route::get('analytics', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
-    Route::view('analytics/student', 'admin.analytics.index')->name('analytics.student_placeholder');
-    Route::view('analytics/revenue', 'admin.analytics.index')->name('analytics.revenue_placeholder');
-    
-    // System (Admin Users & Roles)
-    Route::resource('system-users', \App\Http\Controllers\Admin\AdminSystemController::class);
-    Route::view('system-users/roles', 'admin.system-users.index')->name('system-users.roles_placeholder');
 
-    // Existing Resources
-    Route::resource('features', \App\Http\Controllers\Admin\FeatureController::class);
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
-    Route::resource('seo-meta', SeoMetaController::class);
-    Route::resource('newsletter', \App\Http\Controllers\Admin\NewsletterController::class)->only(['index', 'destroy']);
-    Route::view('newsletter/campaigns', 'admin.newsletter.index')->name('newsletter.campaigns_placeholder');
     Route::resource('students', \App\Http\Controllers\Admin\AdminStudentController::class);
     Route::get('alumni', [\App\Http\Controllers\Admin\AdminEnrollmentController::class, 'index'])->name('alumni.index');
     Route::view('students/progress', 'admin.students.index')->name('students.progress_placeholder');

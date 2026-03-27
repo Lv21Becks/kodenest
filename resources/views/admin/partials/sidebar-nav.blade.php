@@ -79,6 +79,7 @@
 {{-- ──────────────────────────────────────────────────────────────────────────
      FINANCE
      ────────────────────────────────────────────────────────────────────────── --}}
+@if(auth()->user()->hasAnyRole(['super_admin', 'admin']))
 <div class="mb-8">
     <h3 class="px-5 text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Finance</h3>
     <nav class="space-y-1">
@@ -89,6 +90,7 @@
         </a>
     </nav>
 </div>
+@endif
 
 {{-- ──────────────────────────────────────────────────────────────────────────
      CERTIFICATES
@@ -122,25 +124,30 @@
             <i class="fas fa-comment-dots w-6 text-center mr-3 {{ request()->routeIs('admin.testimonials.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
             Testimonials
         </a>
+        @if(auth()->user()->hasRole('super_admin'))
         <a href="{{ route('admin.seo-meta.index') }}" 
            class="group flex items-center rounded-r-lg border-l-4 px-4 py-3 text-sm font-medium transition-all {{ request()->routeIs('admin.seo-meta.*') ? 'border-orange-600 bg-orange-50 text-orange-600' : 'border-transparent text-gray-600 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}">
             <i class="fas fa-search w-6 text-center mr-3 {{ request()->routeIs('admin.seo-meta.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
             SEO Meta
         </a>
+        @endif
     </nav>
 </div>
 
 {{-- ──────────────────────────────────────────────────────────────────────────
      SYSTEM
      ────────────────────────────────────────────────────────────────────────── --}}
+@if(auth()->user()->hasAnyRole(['super_admin', 'admin']))
 <div class="mb-8">
     <h3 class="px-5 text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">System</h3>
     <nav class="space-y-1">
+        @if(auth()->user()->hasRole('super_admin'))
         <a href="{{ route('admin.settings.index') }}" 
            class="group flex items-center rounded-r-lg border-l-4 px-4 py-3 text-sm font-medium transition-all {{ request()->routeIs('admin.settings.*') ? 'border-orange-600 bg-orange-50 text-orange-600' : 'border-transparent text-gray-600 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}">
             <i class="fas fa-sliders-h w-6 text-center mr-3 {{ request()->routeIs('admin.settings.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
             Settings
         </a>
+        @endif
         <a href="{{ route('admin.system-users.index') }}" 
            class="group flex items-center rounded-r-lg border-l-4 px-4 py-3 text-sm font-medium transition-all {{ request()->routeIs('admin.system-users.*') ? 'border-orange-600 bg-orange-50 text-orange-600' : 'border-transparent text-gray-600 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}">
             <i class="fas fa-user-shield w-6 text-center mr-3 {{ request()->routeIs('admin.system-users.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
@@ -148,3 +155,4 @@
         </a>
     </nav>
 </div>
+@endif

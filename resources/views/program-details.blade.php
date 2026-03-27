@@ -9,7 +9,7 @@
         {{-- Abstract Background --}}
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div
-                class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-purple/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
+                class="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
             </div>
             <div
                 class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3">
@@ -59,7 +59,7 @@
                         </div>
                     @else
                         <div class="p-8 animate-[float_6s_ease-in-out_infinite]">
-                            <i class="fa-solid fa-graduation-cap text-9xl text-brand-purple drop-shadow-2xl"></i>
+                            <i class="fa-solid fa-graduation-cap text-9xl text-orange-600 drop-shadow-2xl"></i>
                         </div>
                     @endif
                 </div>
@@ -71,7 +71,7 @@
     <div
         class="bg-white border-b border-gray-100 relative z-20 -mt-8 mx-6 rounded-2xl shadow-xl max-w-7xl lg:mx-auto p-8 flex flex-wrap justify-between gap-8">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+            <div class="w-12 h-12 rounded-full bg-orange-600/10 flex items-center justify-center text-orange-600">
                 <i class="fas fa-clock text-xl"></i>
             </div>
             <div>
@@ -130,9 +130,9 @@
                     <h2 class="text-3xl font-black text-gray-900 mb-8">Program Highlights</h2>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div
-                            class="bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-brand-purple/20 transition-colors group">
+                            class="bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-orange-600/20 transition-colors group">
                             <div
-                                class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-purple mb-4 group-hover:scale-110 transition-transform">
+                                class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-orange-600 mb-4 group-hover:scale-110 transition-transform">
                                 <i class="fas fa-project-diagram text-xl"></i>
                             </div>
                             <h3 class="text-lg font-bold text-gray-900 mb-2">Project-Based Learning</h3>
@@ -247,7 +247,7 @@
                 <div class="sticky top-24 space-y-8">
                     {{-- Enrollment Card --}}
                     <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative" id="enroll">
-                        <div class="h-3 bg-gradient-to-r from-brand-purple to-orange-500"></div>
+                        <div class="h-3 bg-gradient-to-r from-orange-600 to-orange-500"></div>
                         <div class="p-8">
                             <p class="text-gray-500 font-medium mb-1 uppercase tracking-wide text-xs">Total Program Fee</p>
                             <div class="text-4xl font-black text-gray-900 mb-6">
@@ -261,19 +261,19 @@
 
                             <div class="space-y-4 text-sm text-gray-600">
                                 <div class="flex items-center gap-3">
-                                    <i class="fas fa-chalkboard-teacher text-brand-purple w-5"></i>
+                                    <i class="fas fa-chalkboard-teacher text-orange-600 w-5"></i>
                                     <span>Instructor-led training</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <i class="fas fa-calendar-alt text-brand-purple w-5"></i>
+                                    <i class="fas fa-calendar-alt text-orange-600 w-5"></i>
                                     <span>Flexible schedule</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <i class="fas fa-medal text-brand-purple w-5"></i>
+                                    <i class="fas fa-medal text-orange-600 w-5"></i>
                                     <span>Professional Certificate</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <i class="fas fa-infinity text-brand-purple w-5"></i>
+                                    <i class="fas fa-infinity text-orange-600 w-5"></i>
                                     <span>Lifetime access to community</span>
                                 </div>
                             </div>

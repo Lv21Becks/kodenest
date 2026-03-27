@@ -27,7 +27,21 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('layouts.admin', function ($view) {
-            $view->with('pendingEnrollmentsCount', \App\Models\Application::where('status', 'pending')->count());
+            $pendingApplicationsList = \App\Models\Application::with('program')->where('status', 'pending')->orderBy('created_at', 'desc')->take(3)->get();
+            $pendingPaymentsList = \App\Models\Payment::with('student')->where('status', 'pending')->orderBy('created_at', 'desc')->take(3)->get();
+            
+            $pendingApplications = \App\Models\Application::where('status', 'pending')->count();
+            $pendingPayments = \App\Models\Payment::where('status', 'pending')->count();
+            
+            $totalNotificationsCount = $pendingApplications + $pendingPayments;
+
+            $view->with(compact(
+                'pendingApplicationsList',
+                'pendingPaymentsList',
+                'pendingApplications',
+                'pendingPayments',
+                'totalNotificationsCount'
+            ));
         });
     }
 }

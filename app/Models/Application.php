@@ -24,6 +24,11 @@ class Application extends Model
         return $this->belongsTo(Applicant::class);
     }
 
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
+
     public function enrollment()
     {
         return $this->hasOne(Enrollment::class);

@@ -14,7 +14,7 @@
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 animate-fade-in-up">
             <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
                 Start Your <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">
                     Tech Journey.
                 </span>
             </h1>
@@ -36,7 +36,7 @@
                     <div class="flex justify-between mb-12">
                         <div class="step flex-1 text-center relative">
                             <div
-                                class="step-number w-10 h-10 bg-gradient-to-r from-brand-purple to-pink-600 text-white rounded-full inline-flex items-center justify-center font-bold mb-2">
+                                class="step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2">
                                 1</div>
                             <div class="text-sm text-gray-600">Personal Info</div>
                         </div>
@@ -58,7 +58,7 @@
 
                         {{-- Step 1: Personal Information --}}
                         <div class="form-step" data-step="1">
-                            <h2 class="text-brand-purple text-3xl font-bold mb-4">Personal Information</h2>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Personal Information</h2>
                             <p class="text-gray-600 mb-8">Please provide your basic information</p>
 
                             <div class="grid md:grid-cols-2 gap-6">
@@ -66,13 +66,13 @@
                                     <label class="block text-gray-800 font-semibold mb-2">First Name <span
                                             class="text-pink-700">*</span></label>
                                     <input type="text" name="firstName" required placeholder="Enter your first name"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                 </div>
                                 <div>
                                     <label class="block text-gray-800 font-semibold mb-2">Last Name <span
                                             class="text-pink-700">*</span></label>
                                     <input type="text" name="lastName" required placeholder="Enter your last name"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                 </div>
                             </div>
 
@@ -80,21 +80,21 @@
                                 <label class="block text-gray-800 font-semibold mb-2">Email Address <span
                                         class="text-pink-700">*</span></label>
                                 <input type="email" name="email" required placeholder="your.email@example.com"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                             </div>
 
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">Phone Number <span
                                         class="text-pink-700">*</span></label>
                                 <input type="tel" name="phone" required placeholder="+234 XXX XXX XXXX"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                             </div>
 
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">Gender <span
                                         class="text-pink-700">*</span></label>
                                 <select name="gender" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -105,20 +105,20 @@
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">Address</label>
                                 <textarea name="address" placeholder="Enter your address" rows="3"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors resize-none"></textarea>
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors resize-none"></textarea>
                             </div>
                         </div>
 
                         {{-- Step 2: Program Selection --}}
                         <div class="form-step hidden" data-step="2">
-                            <h2 class="text-brand-purple text-3xl font-bold mb-4">Program Selection</h2>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Program Selection</h2>
                             <p class="text-gray-600 mb-8">Choose your program and preferences</p>
 
                             <div>
                                 <label class="block text-gray-800 font-semibold mb-2">Select Program <span
                                         class="text-pink-700">*</span></label>
                                 <select name="program" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                     <option value="">Choose a program</option>
                                     @foreach($programs as $program)
                                         <option value="{{ $program->slug }}" {{ request('program') == $program->slug ? 'selected' : '' }}>
@@ -132,7 +132,7 @@
                                 <label class="block text-gray-800 font-semibold mb-2">Learning Mode <span
                                         class="text-pink-700">*</span></label>
                                 <select name="mode" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                     <option value="">Select learning mode</option>
                                     <option value="online">Online</option>
                                     <option value="physical">Physical</option>
@@ -146,7 +146,7 @@
                                 <label class="block text-gray-800 font-semibold mb-2">Current Experience Level <span
                                         class="text-pink-700">*</span></label>
                                 <select name="experience" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                     <option value="">Select your level</option>
                                     <option value="beginner">Complete Beginner</option>
                                     <option value="some-knowledge">Some Knowledge</option>
@@ -158,7 +158,7 @@
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">How did you hear about us?</label>
                                 <select name="referral"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
                                     <option value="">Select an option</option>
                                     <option value="social-media">Social Media</option>
                                     <option value="friend">Friend/Family</option>
@@ -173,13 +173,13 @@
                                     Questions</label>
                                 <textarea name="additionalInfo" placeholder="Tell us anything else we should know..."
                                     rows="4"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-purple transition-colors resize-none"></textarea>
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors resize-none"></textarea>
                             </div>
                         </div>
 
                         {{-- Step 3: Confirmation --}}
                         <div class="form-step hidden" data-step="3">
-                            <h2 class="text-brand-purple text-3xl font-bold mb-4">Confirmation</h2>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Confirmation</h2>
                             <p class="text-gray-600 mb-8">Review your information and complete enrollment</p>
 
                             <div id="reviewInfo" class="bg-gray-100 p-6 rounded-xl mb-8">
@@ -207,9 +207,9 @@
                             <button type="button" id="prevBtn"
                                 class="hidden px-8 py-4 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400 transition-colors">Previous</button>
                             <button type="button" id="nextBtn"
-                                class="px-8 py-4 bg-gradient-to-r from-brand-purple to-pink-600 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Next</button>
+                                class="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Next</button>
                             <button type="submit" id="submitBtn"
-                                class="hidden px-8 py-4 bg-gradient-to-r from-brand-purple to-pink-600 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Complete
+                                class="hidden px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Complete
                                 Enrollment</button>
                         </div>
                     </form>
@@ -223,7 +223,7 @@
                         <p class="text-gray-600 text-lg mb-8">Our team will contact you within 24 hours to complete your
                             registration.</p>
                         <a href="/"
-                            class="inline-block px-10 py-4 bg-gradient-to-r from-brand-purple to-pink-600 text-white font-semibold rounded-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Return
+                            class="inline-block px-10 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Return
                             to Home</a>
                     </div>
                 </div>
@@ -232,7 +232,7 @@
                 <div class="space-y-8">
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg">
-                        <h3 class="text-brand-purple text-xl font-bold mb-4">📋 What Happens Next?</h3>
+                        <h3 class="text-orange-600 text-xl font-bold mb-4">📋 What Happens Next?</h3>
                         <ul class="space-y-3">
                             <li
                                 class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
@@ -253,7 +253,7 @@
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg">
-                        <h3 class="text-brand-purple text-xl font-bold mb-4">💰 Payment Information</h3>
+                        <h3 class="text-orange-600 text-xl font-bold mb-4">💰 Payment Information</h3>
                         <ul class="space-y-3">
                             <li
                                 class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
@@ -271,7 +271,7 @@
                     </div>
 
                     <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
-                        <h4 class="text-brand-purple font-bold mb-2">Need Help?</h4>
+                        <h4 class="text-orange-600 font-bold mb-2">Need Help?</h4>
                         <p class="text-gray-600 text-sm mb-3">If you have questions about enrollment, contact us at:</p>
                         <p class="text-sm mb-2">📧 <a href="mailto:Kodenestlimited@gmail.com"
                                 class="text-pink-700 hover:text-orange-500 font-semibold">Kodenestlimited@gmail.com</a></p>
@@ -306,12 +306,12 @@
                 const stepNum = s.querySelector('.step-number');
                 if (i + 1 === step) {
                     stepNum.classList.remove('bg-gray-300', 'text-gray-500', 'bg-green-600');
-                    stepNum.classList.add('bg-gradient-to-r', 'from-brand-purple', 'to-pink-600', 'text-white');
+                    stepNum.classList.add('bg-gradient-to-r', 'from-orange-600', 'to-orange-500', 'text-white');
                 } else if (i + 1 < step) {
-                    stepNum.classList.remove('bg-gray-300', 'text-gray-500', 'bg-gradient-to-r', 'from-brand-purple', 'to-pink-600');
+                    stepNum.classList.remove('bg-gray-300', 'text-gray-500', 'bg-gradient-to-r', 'from-orange-600', 'to-orange-500');
                     stepNum.classList.add('bg-green-600', 'text-white');
                 } else {
-                    stepNum.classList.remove('bg-gradient-to-r', 'from-brand-purple', 'to-pink-600', 'text-white', 'bg-green-600');
+                    stepNum.classList.remove('bg-gradient-to-r', 'from-orange-600', 'to-orange-500', 'text-white', 'bg-green-600');
                     stepNum.classList.add('bg-gray-300', 'text-gray-500');
                 }
             });
@@ -355,7 +355,7 @@
             const selectedExp = expSelect.options[expSelect.selectedIndex]?.text || data.experience;
 
             const reviewHTML = `
-                    <h3 class="text-brand-purple text-xl font-bold mb-4">Review Your Information</h3>
+                    <h3 class="text-orange-600 text-xl font-bold mb-4">Review Your Information</h3>
                     <p class="mb-2"><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
                     <p class="mb-2"><strong>Email:</strong> ${data.email}</p>
                     <p class="mb-2"><strong>Phone:</strong> ${data.phone}</p>

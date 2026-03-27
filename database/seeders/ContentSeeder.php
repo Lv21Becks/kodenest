@@ -90,7 +90,7 @@ class ContentSeeder extends Seeder
             [
                 'name' => 'Adaeze Okoro',
                 'position' => 'Data Analytics Graduate',
-                'content' => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills and confidence to land my first job as a Data Analyst. The instructors are patient, knowledgeable, and truly care about your success.',
+                'content' => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors are knowledgeable and truly care about your success.',
                 'rating' => 5,
                 'status' => true,
             ],
@@ -142,7 +142,7 @@ class ContentSeeder extends Seeder
                 'slug' => '5-steps-to-land-your-first-tech-job-in-nigeria',
                 'category' => 'Career Advice',
                 'excerpt' => 'Breaking into tech can seem daunting, but with the right strategy, you can land your dream job faster than you think. Here\'s how to get started...',
-                'content' => 'Full content here...', // Placeholder
+                'content' => '',
                 'published' => true,
                 'published_at' => now()->subDays(3),
                 'read_time' => 5,

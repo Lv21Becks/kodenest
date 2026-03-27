@@ -13,7 +13,7 @@
         <div class="max-w-4xl mx-auto px-6 relative z-10 animate-fade-in-up">
             <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
                 Master the Skills that <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600">Matter.</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">Matter.</span>
             </h1>
             <p class="text-xl text-gray-600 leading-relaxed font-light max-w-2xl mx-auto">
                 Comprehensive tech training designed to launch your career. From beginner to pro.
@@ -59,7 +59,7 @@
 
                         {{-- Content Area --}}
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-gray-900 mb-6 group-hover:text-brand-purple transition-colors">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6 group-hover:text-orange-600 transition-colors">
                                 {{ $program->title }}
                             </h3>
 

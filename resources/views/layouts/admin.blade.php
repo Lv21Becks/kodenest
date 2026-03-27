@@ -53,9 +53,8 @@
                     </button>
 
                     <!-- Page Header Title -->
-                    <div class="flex-1 px-4 lg:px-6">
-                        <h1 class="text-2xl font-black text-gray-900 tracking-tight">@yield('title', 'Admin Dashboard')
-                        </h1>
+                    <div class="flex-1 px-2 lg:px-6 min-w-0">
+                        <h1 class="text-base sm:text-xl lg:text-2xl font-black text-gray-900 tracking-tight truncate">@yield('title', 'Admin Dashboard')</h1>
                     </div>
 
                     <!-- Header Right Section -->
@@ -67,14 +66,79 @@
                             <i class="fas fa-globe text-lg"></i>
                         </a>
 
-                        <!-- Notifications -->
-                        <button
-                            class="relative p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-50 rounded-full transition-colors">
-                            <span class="sr-only">View notifications</span>
-                            <i class="fas fa-bell text-lg"></i>
-                            <span
-                                class="absolute top-2 right-2 block h-2 w-2 rounded-full bg-orange-500 ring-2 ring-white"></span>
-                        </button>
+                        <!-- Notifications Dropdown -->
+                        <div class="relative" x-data="{ notifOpen: false }">
+                            <button @click="notifOpen = !notifOpen" @click.away="notifOpen = false"
+                                class="relative p-2 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                                <span class="sr-only">View notifications</span>
+                                <i class="fas fa-bell text-lg"></i>
+                                @if(($totalNotificationsCount ?? 0) > 0)
+                                    <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500 ring-2 ring-white"></span>
+                                    </span>
+                                @endif
+                            </button>
+
+                            <!-- Dropdown Panel -->
+                            <div x-show="notifOpen" x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="transform opacity-0 scale-95"
+                                x-transition:enter-end="transform opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="transform opacity-100 scale-100"
+                                x-transition:leave-end="transform opacity-0 scale-95"
+                                class="absolute right-0 z-50 mt-2 w-80 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden"
+                                style="display: none;">
+                                
+                                <div class="px-4 py-3 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
+                                    <span class="text-sm font-bold text-gray-900">Notifications</span>
+                                    @if(($totalNotificationsCount ?? 0) > 0)
+                                        <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-bold">{{ $totalNotificationsCount }} New</span>
+                                    @endif
+                                </div>
+
+                                <div class="max-h-96 overflow-y-auto">
+                                    @if(($totalNotificationsCount ?? 0) === 0)
+                                        <div class="px-4 py-6 text-center text-sm text-gray-500">
+                                            <i class="fas fa-check-circle text-green-400 text-2xl mb-2"></i>
+                                            <p>You're all caught up!</p>
+                                        </div>
+                                    @else
+                                        <!-- Pending Applications -->
+                                        @foreach($pendingApplicationsList ?? [] as $app)
+                                            <a href="{{ route('admin.applications.index') }}" class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
+                                                <div class="flex items-start gap-3">
+                                                    <div class="mt-0.5 flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                                        <i class="fas fa-file-signature text-xs"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm font-semibold text-gray-900">New Application</p>
+                                                        <p class="text-xs text-gray-500 mt-0.5 truncate">{{ $app->first_name }} {{ $app->last_name }} applied for {{ optional($app->program)->title ?? 'a program' }}</p>
+                                                        <p class="text-[10px] text-gray-400 mt-1"><i class="far fa-clock"></i> {{ optional($app->created_at)->diffForHumans() ?? 'recently' }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endforeach
+
+                                        <!-- Pending Payments -->
+                                        @foreach($pendingPaymentsList ?? [] as $payment)
+                                            <a href="{{ route('admin.payments.index') }}" class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
+                                                <div class="flex items-start gap-3">
+                                                    <div class="mt-0.5 flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                                        <i class="fas fa-file-invoice-dollar text-xs"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm font-semibold text-gray-900">Payment Verification</p>
+                                                        <p class="text-xs text-gray-500 mt-0.5 truncate">₦{{ number_format($payment->amount ?? 0) }} received from {{ optional(optional($payment->student)->user)->name ?? 'Student' }}</p>
+                                                        <p class="text-[10px] text-gray-400 mt-1"><i class="far fa-clock"></i> {{ optional($payment->created_at)->diffForHumans() ?? 'recently' }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="h-6 w-px bg-gray-200 mx-2 hidden sm:block"></div>
 
@@ -85,10 +149,10 @@
                                 <span class="sr-only">Open user menu</span>
                                 <div
                                     class="h-8 w-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex justify-center items-center text-white font-bold shadow-sm text-sm">
-                                    {{ substr(Auth::user()->first_name ?? 'A', 0, 1) }}
+                                    {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
                                 </div>
                                 <span
-                                    class="hidden text-sm font-semibold text-gray-700 md:block">{{ Auth::user()->first_name ?? 'Admin' }}</span>
+                                    class="hidden text-sm font-semibold text-gray-700 md:block">{{ Auth::user()->name ?? 'Admin' }}</span>
                                 <i class="fas fa-chevron-down text-xs text-gray-400 hidden md:block"></i>
                             </button>
 
@@ -103,9 +167,8 @@
                                 style="display: none;">
                                 <div class="px-4 py-3 border-b border-gray-100">
                                     <p class="text-sm font-semibold text-gray-900">
-                                        {{ Auth::user()->first_name ?? 'Admin User' }}</p>
-                                    <p class="text-xs font-medium text-gray-500 truncate">{{ Auth::user()->email ??
-                                        'admin@kodenest.com' }}</p>
+                                        {{ Auth::user()->name ?? 'Admin User' }}</p>
+                                    <p class="text-xs font-medium text-gray-500 truncate">{{ Auth::user()->email ?? 'admin@kodenest.com' }}</p>
                                 </div>
                                 <a href="{{ route('profile.edit') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 font-medium transition-colors">Your

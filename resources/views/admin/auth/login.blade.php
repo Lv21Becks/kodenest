@@ -131,9 +131,9 @@
                                     me</span>
                             </label>
 
-                            @if (Route::has('password.request'))
+                            @if (Route::has('admin.forgot-password'))
                                 <a class="text-sm font-bold text-gray-600 hover:text-orange-600 transition-colors"
-                                    href="{{ route('password.request') }}">
+                                    href="{{ route('admin.forgot-password') }}">
                                     Forgot password?
                                 </a>
                             @endif

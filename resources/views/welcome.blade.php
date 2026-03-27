@@ -25,7 +25,7 @@
             <h1
                 class="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-900 mb-8 tracking-tight leading-[1.1] animate-fade-in-up delay-100">
                 Turn your ambition <br> into a <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600">career.</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">career.</span>
             </h1>
 
             {{-- Subhead --}}
@@ -239,7 +239,7 @@
 
                         {{-- Content Area --}}
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-gray-900 mb-6 group-hover:text-brand-purple transition-colors">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6 group-hover:text-orange-600 transition-colors">
                                 {{ $program->title }}
                             </h3>
 

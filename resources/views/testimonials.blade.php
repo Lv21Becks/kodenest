@@ -13,7 +13,7 @@
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 animate-fade-in-up">
             <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
                 Real Stories, <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-pink-600">Real
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">Real
                     Impact.</span>
             </h1>
             <p class="text-xl text-gray-600 leading-relaxed font-light">
@@ -67,7 +67,7 @@
                                     class="w-12 h-12 rounded-full object-cover ring-2 ring-white">
                             @else
                                 <div
-                                    class="w-12 h-12 bg-gradient-to-br from-brand-purple to-pink-600 rounded-full flex items-center justify-center text-white text-sm font-bold ring-2 ring-white">
+                                    class="w-12 h-12 bg-gradient-to-br from-orange-600 to-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold ring-2 ring-white">
                                     {{ substr($testimonial->name, 0, 1) }}{{ substr(explode(' ', $testimonial->name)[1] ?? '', 0, 1) }}
                                 </div>
                             @endif

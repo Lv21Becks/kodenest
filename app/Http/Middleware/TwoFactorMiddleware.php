@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureUserIsAdmin
+class TwoFactorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,12 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isAdmin()) {
-            abort(403, 'Unauthorized access. You do not have an administrator role.');
+        if (auth()->check() && auth()->user()->isAdmin()) {
+            if (!session('2fa_verified') && !$request->is('admin/2fa*') && !$request->is('logout')) {
+                return redirect()->route('admin.2fa.index');
+            }
         }
-
+        
         return $next($request);
     }
 }

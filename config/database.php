@@ -8,8 +8,8 @@ return [
 
     'connections' => [
 
-        'mysql' => [
-            'driver' => 'mysql',
+        'pgsql' => [
+            'driver' => 'pgsql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', 'ep-rapid-brook-a2jc9yah.aws-eu-central-1.pg.laravel.cloud'),
             'port' => env('DB_PORT', '5432'),
