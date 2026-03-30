@@ -249,10 +249,7 @@
                     <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative" id="enroll">
                         <div class="h-3 bg-gradient-to-r from-orange-600 to-orange-500"></div>
                         <div class="p-8">
-                            <p class="text-gray-500 font-medium mb-1 uppercase tracking-wide text-xs">Total Program Fee</p>
-                            <div class="text-4xl font-black text-gray-900 mb-6">
-                                ₦{{ number_format($program->price) }}
-                            </div>
+
 
                             <a href="/enroll?program={{ $program->slug }}"
                                 class="block w-full py-4 bg-gray-900 text-white text-center font-bold rounded-xl hover:bg-orange-600 hover:shadow-lg hover:-translate-y-1 transition-all mb-6">

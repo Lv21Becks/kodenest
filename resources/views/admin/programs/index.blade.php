@@ -54,7 +54,7 @@
                     <tr>
                         <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Program</th>
                         <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Duration</th>
-                        <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Price</th>
+
                         <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Enrolled</th>
                         <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
                         <th class="px-6 py-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Actions</th>
@@ -81,9 +81,7 @@
                         <td class="px-6 py-5 text-center">
                             <span class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-xs font-bold uppercase">{{ $program->duration }}</span>
                         </td>
-                        <td class="px-6 py-5 text-center">
-                            <p class="text-sm font-bold text-gray-900">₦{{ number_format($program->price) }}</p>
-                        </td>
+
                         <td class="px-6 py-5">
                             <div class="flex flex-col items-center">
                                 <span class="text-sm font-bold text-gray-900">{{ $program->student_count }}</span>

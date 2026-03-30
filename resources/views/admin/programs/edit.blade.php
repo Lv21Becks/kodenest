@@ -111,13 +111,7 @@
                         @error('duration')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
                     </div>
 
-                    <div class="sm:col-span-3">
-                        <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Price (₦) *</label>
-                        <input type="number" name="price" id="price" value="{{ old('price', $program->price) }}" step="0.01"
-                            min="0" required
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">
-                        @error('price')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
+
 
                     <div class="col-span-full">
                         <label for="target_audience" class="block text-sm font-medium leading-6 text-gray-900">Target

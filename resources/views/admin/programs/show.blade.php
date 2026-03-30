@@ -40,9 +40,7 @@
                             <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-100 text-sm font-bold text-gray-700">
                                 <i class="fas fa-clock text-orange-500 text-xs"></i> {{ $program->duration }}
                             </span>
-                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-100 text-sm font-bold text-gray-700">
-                                <i class="fas fa-tag text-green-500 text-xs"></i> ₦{{ number_format($program->price) }}
-                            </span>
+
                         </div>
                     </div>
                 </div>

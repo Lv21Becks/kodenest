@@ -254,13 +254,7 @@
                                     <div class="w-8 flex justify-center"><i class="fas fa-book-open text-purple-600"></i></div>
                                     <span class="font-medium text-sm ml-2">20+ Lessons & Projects</span>
                                 </div>
-                                {{-- Amount --}}
-                                <div class="flex items-center text-gray-600">
-                                    <div class="w-8 flex justify-center"><i class="fas fa-tag text-pink-500"></i></div>
-                                    <span class="font-bold text-lg ml-2 text-gray-900">
-                                        {{ $program->price > 0 ? '₦' . number_format($program->price) : 'Free' }}
-                                    </span>
-                                </div>
+
                             </div>
 
                             {{-- Enroll Button --}}
