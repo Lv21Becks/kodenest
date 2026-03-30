@@ -3,120 +3,171 @@
 @section('title', 'Create Program')
 
 @section('content')
-    <div class="md:flex md:items-center md:justify-between">
-        <div class="min-w-0 flex-1">
-            <h2 class="text-3xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Create New
-                Program</h2>
+<div class="space-y-6">
+
+    {{-- Header --}}
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-black text-gray-900 tracking-tight">Create New Program</h2>
+            <p class="text-sm text-gray-500 mt-1 font-medium">Add a new course to the KodeNest curriculum.</p>
         </div>
-        <div class="mt-4 flex md:ml-4 md:mt-0">
-            <a href="{{ route('admin.programs.index') }}"
-                class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                Cancel
-            </a>
-        </div>
+        <a href="{{ route('admin.programs.index') }}"
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 transition-colors">
+            <i class="fas fa-arrow-left text-xs"></i> Back
+        </a>
     </div>
 
-    <form action="{{ route('admin.programs.store') }}" method="POST" class="mt-8" enctype="multipart/form-data">
+    <form action="{{ route('admin.programs.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Program Information</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">Enter the details for the new program</p>
+        <div class="grid lg:grid-cols-3 gap-8">
 
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-4">
-                        <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title *</label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" required
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">
-                        @error('title')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+            {{-- Main Fields --}}
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                        <h3 class="text-sm font-bold text-gray-900">Program Information</h3>
                     </div>
+                    <div class="p-6 space-y-5">
 
-                    <div class="sm:col-span-4">
-                        <label for="image_icon" class="block text-sm font-medium leading-6 text-gray-900">Program Logo /
-                            Icon (Image) - Overrides Emoji</label>
-                        <input type="file" name="image_icon" id="image_icon" accept="image/*"
-                            class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-brand-purple file:text-white hover:file:bg-pink-600">
-                        @error('image_icon')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
+                        <div>
+                            <label for="title" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                Title <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="title" id="title" value="{{ old('title') }}" required
+                                placeholder="e.g. Full-Stack Web Development"
+                                class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm">
+                            @error('title')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                        </div>
 
-                    <div class="col-span-full">
-                        <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description
-                            *</label>
-                        <textarea name="description" id="description" rows="4" required
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">{{ old('description') }}</textarea>
-                        @error('description')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
+                        <div>
+                            <label for="description" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea name="description" id="description" rows="5" required
+                                placeholder="A clear description of the program..."
+                                class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm resize-none">{{ old('description') }}</textarea>
+                            @error('description')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                        </div>
 
-                    <div class="sm:col-span-3">
-                        <label for="duration" class="block text-sm font-medium leading-6 text-gray-900">Duration *</label>
-                        <input type="text" name="duration" id="duration" value="{{ old('duration') }}"
-                            placeholder="e.g., 12 weeks" required
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">
-                        @error('duration')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
+                        <div>
+                            <label for="target_audience" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                Target Audience <span class="text-red-500">*</span>
+                            </label>
+                            <textarea name="target_audience" id="target_audience" rows="2" required
+                                placeholder="Who is this program for?"
+                                class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm resize-none">{{ old('target_audience') }}</textarea>
+                            @error('target_audience')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                        </div>
 
-
-
-                    <div class="col-span-full">
-                        <label for="target_audience" class="block text-sm font-medium leading-6 text-gray-900">Target
-                            Audience *</label>
-                        <textarea name="target_audience" id="target_audience" rows="2" required
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">{{ old('target_audience') }}</textarea>
-                        @error('target_audience')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div class="col-span-full">
-                        <label for="skills" class="block text-sm font-medium leading-6 text-gray-900">Skills
-                            (comma-separated) *</label>
-                        <textarea name="skills" id="skills" rows="3" required placeholder="Python, Data Analysis, SQL"
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">{{ old('skills') }}</textarea>
-                        <p class="mt-2 text-sm text-gray-500">Separate each skill with a comma</p>
-                        @error('skills')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div class="col-span-full">
-                        <label for="tools" class="block text-sm font-medium leading-6 text-gray-900">Tools / Software
-                            (comma-separated)</label>
-                        <textarea name="tools" id="tools" rows="2" placeholder="VS Code, Tableau, Figma"
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">{{ old('tools') }}</textarea>
-                        <p class="mt-2 text-sm text-gray-500">Separate each tool with a comma</p>
-                        @error('tools')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div class="sm:col-span-2">
-                        <label for="order" class="block text-sm font-medium leading-6 text-gray-900">Display Order</label>
-                        <input type="number" name="order" id="order" value="{{ old('order', 0) }}" min="0"
-                            class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-purple px-3">
-                        @error('order')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div class="sm:col-span-4">
-                        <div class="flex items-center gap-6 flex-wrap">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" name="status" id="status" value="1" {{ old('status', true) ? 'checked' : '' }}
-                                    class="h-4 w-4 rounded border-gray-300 text-brand-purple focus:ring-brand-purple">
-                                <label for="status" class="text-sm font-medium leading-6 text-gray-900">Active (visible on
-                                    website)</label>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="duration" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Duration <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="duration" id="duration" value="{{ old('duration') }}"
+                                    placeholder="e.g. 12 weeks" required
+                                    class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm">
+                                @error('duration')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
                             </div>
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" name="coming_soon" id="coming_soon" value="1" {{ old('coming_soon') ? 'checked' : '' }}
-                                    class="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
-                                <label for="coming_soon" class="text-sm font-medium leading-6 text-gray-900">Mark as <span
-                                        class="text-orange-600 font-semibold">Coming Soon</span></label>
+                            <div>
+                                <label for="order" class="block text-sm font-semibold text-gray-700 mb-1.5">Display Order</label>
+                                <input type="number" name="order" id="order" value="{{ old('order', 0) }}" min="0"
+                                    class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm">
+                                @error('order')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
                             </div>
                         </div>
+
+                        <div>
+                            <label for="skills" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                Skills <span class="text-red-500">*</span>
+                                <span class="font-normal text-gray-400 ml-1">(comma-separated)</span>
+                            </label>
+                            <textarea name="skills" id="skills" rows="3" required
+                                placeholder="Python, Data Analysis, SQL, Machine Learning"
+                                class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm resize-none">{{ old('skills') }}</textarea>
+                            @error('skills')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                        </div>
+
+                        <div>
+                            <label for="tools" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                Tools / Software
+                                <span class="font-normal text-gray-400 ml-1">(comma-separated)</span>
+                            </label>
+                            <textarea name="tools" id="tools" rows="2"
+                                placeholder="VS Code, Tableau, Figma"
+                                class="w-full rounded-xl border border-gray-200 py-2.5 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-shadow shadow-sm resize-none">{{ old('tools') }}</textarea>
+                            @error('tools')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a href="{{ route('admin.programs.index') }}" class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
-            <button type="submit"
-                class="rounded-md bg-brand-purple px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple">
-                Create Program
-            </button>
+            {{-- Sidebar --}}
+            <div class="space-y-6">
+
+                {{-- Image Upload --}}
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                        <h3 class="text-sm font-bold text-gray-900">Program Image</h3>
+                    </div>
+                    <div class="p-6">
+                        <label for="image_icon" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Logo / Icon
+                        </label>
+                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-orange-300 transition-colors cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-300 mb-2"></i>
+                            <p class="text-xs text-gray-400 font-medium mb-3">PNG, JPG, SVG up to 2MB</p>
+                            <input type="file" name="image_icon" id="image_icon" accept="image/*"
+                                class="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-600 hover:file:bg-orange-100 file:transition-colors cursor-pointer">
+                        </div>
+                        @error('image_icon')<p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+
+                {{-- Settings --}}
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                        <h3 class="text-sm font-bold text-gray-900">Settings</h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-700">Active</p>
+                                <p class="text-xs text-gray-400 mt-0.5">Visible on the public website</p>
+                            </div>
+                            <div class="relative">
+                                <input type="checkbox" name="status" id="status" value="1" {{ old('status', true) ? 'checked' : '' }} class="sr-only peer">
+                                <div class="w-10 h-6 bg-gray-200 peer-checked:bg-orange-500 rounded-full transition-colors"></div>
+                                <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                            </div>
+                        </label>
+
+                        <div class="border-t border-gray-100 pt-4">
+                            <label class="flex items-center justify-between cursor-pointer group">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-700">Coming Soon</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">Show "Coming Soon" badge</p>
+                                </div>
+                                <div class="relative">
+                                    <input type="checkbox" name="coming_soon" id="coming_soon" value="1" {{ old('coming_soon') ? 'checked' : '' }} class="sr-only peer">
+                                    <div class="w-10 h-6 bg-gray-200 peer-checked:bg-orange-500 rounded-full transition-colors"></div>
+                                    <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Submit --}}
+                <button type="submit"
+                    class="w-full py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fas fa-plus text-xs"></i> Create Program
+                </button>
+
+            </div>
         </div>
     </form>
+</div>
 @endsection

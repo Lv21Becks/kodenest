@@ -249,7 +249,18 @@
                     <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative" id="enroll">
                         <div class="h-3 bg-gradient-to-r from-orange-600 to-orange-500"></div>
                         <div class="p-8">
-
+                            {{-- Enquire about fees --}}
+                            <div class="flex items-center gap-3 p-4 bg-orange-50 border border-orange-100 rounded-xl mb-6">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600">
+                                    <i class="fas fa-comments text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-900 mb-0.5">Flexible Payment Plans</p>
+                                    <a href="/contact" class="text-xs text-orange-600 font-semibold hover:text-orange-700 transition-colors">
+                                        Enquire about fees →
+                                    </a>
+                                </div>
+                            </div>
 
                             <a href="/enroll?program={{ $program->slug }}"
                                 class="block w-full py-4 bg-gray-900 text-white text-center font-bold rounded-xl hover:bg-orange-600 hover:shadow-lg hover:-translate-y-1 transition-all mb-6">

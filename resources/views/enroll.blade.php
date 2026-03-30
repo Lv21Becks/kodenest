@@ -33,24 +33,27 @@
                 <div class="lg:col-span-2 bg-white rounded-2xl p-8 md:p-12 shadow-lg">
 
                     {{-- Step Indicator --}}
-                    <div class="flex justify-between mb-12">
-                        <div class="step flex-1 text-center relative">
+                    <div class="flex items-center justify-between mb-12 relative">
+                        {{-- Connector lines --}}
+                        <div class="absolute top-5 left-[calc(16.67%)] right-[calc(16.67%)] h-0.5 bg-gray-200 z-0"></div>
+
+                        <div class="step flex-1 text-center relative z-10">
                             <div
-                                class="step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2">
+                                class="step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2 shadow-md shadow-orange-200">
                                 1</div>
-                            <div class="text-sm text-gray-600">Personal Info</div>
+                            <div class="text-xs font-bold text-gray-600 uppercase tracking-wide">Personal Info</div>
                         </div>
-                        <div class="step flex-1 text-center relative">
+                        <div class="step flex-1 text-center relative z-10">
                             <div
-                                class="step-number w-10 h-10 bg-gray-300 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
+                                class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
                                 2</div>
-                            <div class="text-sm text-gray-600">Program Selection</div>
+                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Program</div>
                         </div>
-                        <div class="step flex-1 text-center relative">
+                        <div class="step flex-1 text-center relative z-10">
                             <div
-                                class="step-number w-10 h-10 bg-gray-300 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
+                                class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
                                 3</div>
-                            <div class="text-sm text-gray-600">Confirmation</div>
+                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Confirm</div>
                         </div>
                     </div>
 
@@ -270,13 +273,22 @@
                         </ul>
                     </div>
 
-                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
-                        <h4 class="text-orange-600 font-bold mb-2">Need Help?</h4>
-                        <p class="text-gray-600 text-sm mb-3">If you have questions about enrollment, contact us at:</p>
-                        <p class="text-sm mb-2">📧 <a href="mailto:Kodenestlimited@gmail.com"
-                                class="text-pink-700 hover:text-orange-500 font-semibold">Kodenestlimited@gmail.com</a></p>
-                        <p class="text-sm">📞 <a href="tel:07016262826"
-                                class="text-pink-700 hover:text-orange-500 font-semibold">07016262826</a></p>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-600 to-orange-400"></div>
+                        <h4 class="text-gray-900 font-bold mb-3 flex items-center gap-2">
+                            <i class="fas fa-headset text-orange-500"></i> Need Help?
+                        </h4>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">If you have questions about enrollment, our team is ready to help:</p>
+                        <div class="space-y-2">
+                            <a href="mailto:Kodenestlimited@gmail.com"
+                                class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors">
+                                <i class="fas fa-envelope text-orange-400 w-4"></i> Kodenestlimited@gmail.com
+                            </a>
+                            <a href="tel:07016262826"
+                                class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors">
+                                <i class="fas fa-phone text-orange-400 w-4"></i> 07016262826
+                            </a>
+                        </div>
                     </div>
                 </div>
 
