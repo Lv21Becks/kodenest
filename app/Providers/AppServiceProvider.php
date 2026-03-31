@@ -21,8 +21,7 @@ class AppServiceProvider extends ServiceProvider
             return Password::min(8)
                 ->mixedCase()
                 ->numbers()
-                ->symbols()
-                ->uncompromised();
+                ->symbols();
         });
 
         View::composer('components.public-navbar', function ($view) {

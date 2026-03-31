@@ -18,13 +18,25 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         // ──────────────────────────────────────────────────
+        // 🔴 DEVELOPER: CHANGE DEFAULT PASSWORDS HERE
+        // When deploying, change these or update via UI immediately.
+        // ──────────────────────────────────────────────────
+        $superAdminPassword = 'SuperK0de#2025!';
+        $adminPassword      = 'Adm!nK0de#2025';
+        $reviewerPassword   = 'Rev!ewK0de#2025';
+
+        // NOTE: We do NOT use Hash::make() here because the User model
+        // has 'password' => 'hashed' in its $casts array, which automatically
+        // hashes it on assignment. Using Hash::make() would double-hash it!
+
+        // ──────────────────────────────────────────────────
         // SUPER ADMIN
         // ──────────────────────────────────────────────────
         User::updateOrCreate(
             ['email' => 'superadmin@kodenest.com'],
             [
                 'name'     => 'Super Admin',
-                'password' => Hash::make('SuperK0de#2025!'),
+                'password' => $superAdminPassword,
                 'role'     => User::ROLE_SUPER_ADMIN,
             ]
         );
@@ -36,7 +48,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@kodenest.com'],
             [
                 'name'     => 'KodeNest Admin',
-                'password' => Hash::make('Adm!nK0de#2025'),
+                'password' => $adminPassword,
                 'role'     => User::ROLE_ADMIN,
             ]
         );
@@ -48,7 +60,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'reviewer@kodenest.com'],
             [
                 'name'     => 'KodeNest Reviewer',
-                'password' => Hash::make('Rev!ewK0de#2025'),
+                'password' => $reviewerPassword,
                 'role'     => User::ROLE_MODERATOR,
             ]
         );
