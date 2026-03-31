@@ -1,198 +1,152 @@
-<!DOCTYPE html>
-<html lang="en" class="h-full">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Two-Factor Authentication — KodeNest</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        body { font-family: 'Montserrat', sans-serif; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+@extends('layouts.admin-auth')
 
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-        .scanner-line {
-            position: absolute;
-            left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #f97316, transparent);
-            animation: scan 3s linear infinite;
-            pointer-events: none;
-        }
+@section('title', 'Two-Factor Authentication - KodeNest')
+@section('body_class', 'bg-white overflow-x-hidden')
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .cursor-blink { animation: blink 1s step-end infinite; }
+@section('content')
+    <div class="min-h-screen w-full flex">
+        {{-- Left Side: Branding / Logo (Matches Login Seamlessly) --}}
+        <div class="hidden lg:flex w-[45%] relative flex-col justify-center items-center bg-[#111111] overflow-hidden" 
+             style="view-transition-name: auth-branding;">
+            <style>
+                @keyframes blob {
+                    0% { transform: translate(0px, 0px) scale(1); }
+                    50% { transform: translate(0px, -20px) scale(1.05); }
+                    100% { transform: translate(0px, 0px) scale(1); }
+                }
+                .animate-blob { animation: blob 8s infinite ease-in-out; }
+                .animation-delay-2000 { animation-delay: 4s; }
+            </style>
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up { animation: fadeUp 0.6s ease forwards; }
-        .fade-up-delay { animation: fadeUp 0.6s 0.15s ease forwards; opacity: 0; }
-        .fade-up-delay-2 { animation: fadeUp 0.6s 0.3s ease forwards; opacity: 0; }
-
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
-        }
-        .pulse-orange { animation: pulse-ring 2s ease-out infinite; }
-
-        .otp-input {
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.7em;
-            caret-color: #f97316;
-        }
-        .otp-input::placeholder { letter-spacing: 0.4em; }
-    </style>
-</head>
-<body class="h-full min-h-screen bg-[#0d0d0d] flex items-center justify-center p-4 overflow-hidden">
-
-    {{-- Ambient glow --}}
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-[-20%] left-[10%] w-[600px] h-[600px] rounded-full bg-orange-600/10 blur-[120px]"></div>
-        <div class="absolute bottom-[-20%] right-[10%] w-[500px] h-[500px] rounded-full bg-orange-900/15 blur-[100px]"></div>
-    </div>
-
-    {{-- Grid overlay --}}
-    <div class="fixed inset-0 pointer-events-none opacity-[0.03]"
-        style="background-image: linear-gradient(#f97316 1px, transparent 1px), linear-gradient(90deg, #f97316 1px, transparent 1px); background-size: 40px 40px;">
-    </div>
-
-    <div class="w-full max-w-md relative z-10">
-
-        {{-- Logo header --}}
-        <div class="fade-up text-center mb-8">
-            <a href="/" class="inline-flex items-center gap-3">
-                <img src="{{ asset('images/KODENEST icon 4.png') }}" alt="KodeNest" class="h-10 w-auto">
-                <span class="mono text-white font-bold text-xl tracking-tight">
-                    Kode<span class="text-orange-500">Nest</span>
-                </span>
-            </a>
-        </div>
-
-        {{-- Main card --}}
-        <div class="fade-up-delay relative border border-white/10 rounded-2xl overflow-hidden bg-[#111111] shadow-2xl shadow-black/60">
-
-            {{-- Scanner animation --}}
-            <div class="scanner-line"></div>
-
-            {{-- Top accent bar --}}
-            <div class="h-0.5 w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
-
-            {{-- Card Header --}}
-            <div class="px-8 pt-8 pb-6 border-b border-white/5 flex items-center gap-4">
-                <div class="pulse-orange w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-shield-halved text-orange-400 text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-white font-black text-lg tracking-tight">Identity Verification</h1>
-                    <p class="text-gray-500 text-xs mono mt-0.5">TWO-FACTOR AUTHENTICATION REQUIRED</p>
-                </div>
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                <div class="absolute -top-[20%] -right-[20%] w-[80%] h-[80%] bg-orange-600 rounded-full blur-[150px] opacity-40 animate-blob"></div>
+                <div class="absolute -bottom-[20%] -left-[20%] w-[80%] h-[80%] bg-purple-600 rounded-full blur-[150px] opacity-40 animate-blob animation-delay-2000"></div>
             </div>
 
-            {{-- Body --}}
-            <div class="px-8 py-6 space-y-5">
-
-                {{-- Terminal-style info block --}}
-                <div class="mono bg-black/40 border border-white/5 rounded-xl p-4 text-xs space-y-1.5">
-                    <p class="text-green-400"><span class="text-gray-600">$</span> auth <span class="text-yellow-400">--method</span>=2fa <span class="text-yellow-400">--send</span>=email</p>
-                    <p class="text-gray-400">→ Code dispatched to: <span class="text-orange-400">{{ \Illuminate\Support\Str::mask(auth()->user()->email, '*', 3, strpos(auth()->user()->email, '@') - 4) }}</span></p>
-                    <p class="text-gray-400">→ Expires in: <span class="text-white">10 minutes</span></p>
-                    <p class="text-gray-500 flex items-center gap-1">→ Awaiting input<span class="cursor-blink text-orange-500 font-bold">█</span></p>
+            <div class="relative z-10 flex flex-col items-center animate-fade-in-up w-full px-12 pb-12">
+                <a href="/">
+                    <img src="{{ asset('images/KODENEST icon 4.png') }}" alt="KodeNest Logo"
+                        class="h-28 w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+                </a>
+                <div class="mt-10 text-center px-8">
+                    <h2 class="text-4xl font-bold text-white mb-4 tracking-tight">Admin Portal</h2>
+                    <p class="text-gray-400 text-lg font-light leading-relaxed">Secure access to manage the KodeNest learning platform, programs, and students.</p>
                 </div>
+            </div>
+        </div>
 
-                {{-- Status message --}}
-                @if (session('status'))
-                    <div class="flex items-center gap-3 bg-green-500/10 border border-green-500/20 rounded-xl px-4 py-3">
-                        <i class="fas fa-check-circle text-green-400 text-sm flex-shrink-0"></i>
-                        <p class="text-green-400 text-sm mono">{{ session('status') }}</p>
+        {{-- Right Side: 2FA Form (Slides in gracefully to replace the login box) --}}
+        <div class="w-full lg:w-[55%] flex flex-col justify-center items-center px-6 py-12 bg-gray-50 relative h-full">
+            
+            <div class="absolute lg:hidden top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                <div class="absolute -top-[10%] -right-[10%] w-[50%] h-[50%] bg-orange-50 rounded-full blur-[120px] opacity-60"></div>
+                <div class="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-purple-50 rounded-full blur-[120px] opacity-60"></div>
+            </div>
+
+            {{-- The Slide In / Fade In box --}}
+            <div class="w-full max-w-xl relative z-10 animate-[slideInRight_0.6s_cubic-bezier(0.16,1,0.3,1)]">
+
+                <style>
+                    @keyframes slideInRight {
+                        from { opacity: 0; transform: translateX(30px); }
+                        to { opacity: 1; transform: translateX(0); }
+                    }
+                    .otp-input {
+                        letter-spacing: 0.7em;
+                    }
+                    .otp-input::placeholder {
+                        letter-spacing: 0.4em;
+                    }
+                </style>
+
+                <div class="bg-white rounded-[2rem] p-10 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-100 text-center relative overflow-hidden">
+                    
+                    {{-- Logo for Mobile only --}}
+                    <div class="lg:hidden flex justify-center mb-8">
+                        <img src="{{ asset('images/KODENEST icon 4.png') }}" alt="KodeNest Logo"
+                            class="h-14 w-auto drop-shadow-md bg-[#111111] p-3 rounded-xl">
                     </div>
-                @endif
 
-                {{-- Form --}}
-                <form method="POST" action="{{ route('admin.2fa.store') }}" class="space-y-4">
-                    @csrf
-
-                    <div>
-                        <label for="code" class="block mono text-xs text-gray-500 uppercase tracking-widest mb-2">
-                            Enter Security Code
-                        </label>
-                        <input id="code" type="text" name="code"
-                            required autofocus autocomplete="one-time-code"
-                            maxlength="6" inputmode="numeric" pattern="[0-9]{6}"
-                            class="otp-input w-full bg-black/50 border-2 border-white/10 rounded-xl px-5 py-4 text-white text-2xl font-bold text-center tracking-widest focus:border-orange-500 focus:ring-0 focus:outline-none transition-colors placeholder:text-gray-700"
-                            placeholder="• • • • • •">
-                        @error('code')
-                            <div class="mt-2 flex items-center gap-2 text-red-400 text-xs mono bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-                                <i class="fas fa-triangle-exclamation flex-shrink-0"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
+                    {{-- Header Icon --}}
+                    <div class="mx-auto w-16 h-16 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-3xl mb-6 shadow-inner border border-orange-100">
+                        <i class="fas fa-shield-halved"></i>
                     </div>
 
-                    {{-- Trust device feature --}}
-                    <div class="flex items-center pt-2 pb-1">
-                        <label for="trust_device" class="flex items-center gap-3 cursor-pointer group">
-                            <div class="relative flex items-center justify-center">
-                                <input type="checkbox" id="trust_device" name="trust_device" value="1" class="peer sr-only">
-                                <div class="w-5 h-5 border-2 border-gray-600 rounded bg-black/50 peer-checked:bg-orange-500 peer-checked:border-orange-500 transition-all flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Identity Verification</h1>
+                    <p class="text-gray-500 text-base mb-2 font-medium">A security code was sent to <span class="text-gray-800 font-bold">{{ \Illuminate\Support\Str::mask(auth()->user()->email, '*', 3, strpos(auth()->user()->email, '@') - 4) }}</span></p>
+
+                    @if (session('status'))
+                        <div class="my-4 flex items-center justify-center gap-2 text-green-700 bg-green-50 border border-green-200 rounded-xl px-4 py-3 font-semibold text-sm">
+                            <i class="fas fa-check-circle"></i>
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('admin.2fa.store') }}" class="text-left mt-8 space-y-6">
+                        @csrf
+
+                        <div>
+                            <label for="code" class="block text-sm font-bold text-gray-700 mb-2 text-center uppercase tracking-wider">Enter 6-Digit Code</label>
+                            <input id="code" type="text" name="code"
+                                required autofocus autocomplete="one-time-code"
+                                maxlength="6" inputmode="numeric" pattern="[0-9]{6}"
+                                class="otp-input block w-full px-5 py-5 rounded-2xl border-2 border-gray-200 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition-all text-gray-900 text-3xl font-bold text-center placeholder:text-gray-300 placeholder:font-normal"
+                                placeholder="------">
+                            @error('code')
+                                <div class="mt-3 flex items-center justify-center gap-2 text-red-600 text-sm font-semibold bg-red-50 py-2 rounded-lg">
+                                    <i class="fas fa-triangle-exclamation"></i>
+                                    {{ $message }}
                                 </div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-400 group-hover:text-gray-300 transition-colors">Trust this device for 30 days</span>
-                        </label>
+                            @enderror
+                        </div>
+
+                        {{-- Trust device feature --}}
+                        <div class="flex items-center justify-center pt-2">
+                            <label for="trust_device" class="flex items-center gap-3 cursor-pointer group bg-gray-50 hover:bg-orange-50 px-4 py-2.5 rounded-xl border border-gray-100 transition-colors">
+                                <div class="relative flex items-center justify-center">
+                                    <input type="checkbox" id="trust_device" name="trust_device" value="1" class="peer sr-only">
+                                    <div class="w-6 h-6 border-2 border-gray-300 rounded peer-checked:bg-orange-600 peer-checked:border-orange-600 transition-all flex items-center justify-center bg-white shadow-sm">
+                                        <i class="fas fa-check text-white text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-bold text-gray-600 group-hover:text-orange-900 transition-colors">Trust this device for 30 days</span>
+                            </label>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit"
+                                class="w-full py-5 bg-orange-600 text-white font-bold text-xl rounded-2xl shadow-[0_10px_20px_rgba(249,115,22,0.3)] hover:shadow-[0_15px_30px_rgba(249,115,22,0.4)] hover:-translate-y-1 hover:bg-orange-500 transition-all duration-300 flex items-center justify-center gap-3">
+                                <i class="fas fa-unlock-keyhole"></i>
+                                Authenticate
+                            </button>
+                        </div>
+                    </form>
+
+                    {{-- Actions --}}
+                    <div class="flex items-center justify-between pt-8 mt-6 border-t border-gray-100">
+                        <form method="POST" action="{{ route('admin.2fa.resend') }}">
+                            @csrf
+                            <button type="submit" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors flex items-center gap-2 focus:outline-none bg-gray-50 hover:bg-orange-50 px-4 py-2 rounded-lg">
+                                <i class="fas fa-rotate-right"></i>
+                                Re-send Code
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{{ route('admin.logout') }}">
+                            @csrf
+                            <button type="submit" class="text-sm font-semibold text-gray-500 hover:text-red-600 transition-colors flex items-center gap-2 focus:outline-none bg-gray-50 hover:bg-red-50 px-4 py-2 rounded-lg">
+                                <i class="fas fa-right-from-bracket"></i>
+                                Abort & Logout
+                            </button>
+                        </form>
                     </div>
 
-                    <button type="submit"
-                        class="w-full py-4 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-sm tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/20 hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <i class="fas fa-unlock-keyhole"></i>
-                        AUTHENTICATE ACCESS
-                    </button>
-                </form>
-
-                {{-- Actions --}}
-                <div class="flex items-center justify-between pt-3 mt-4 border-t border-white/5">
-                    <form method="POST" action="{{ route('admin.2fa.resend') }}">
-                        @csrf
-                        <button type="submit" class="mono text-xs text-gray-500 hover:text-orange-400 transition-colors flex items-center gap-1.5 focus:outline-none">
-                            <i class="fas fa-rotate-right text-[10px]"></i>
-                            Re-send Code
-                        </button>
-                    </form>
-
-                    <form method="POST" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <button type="submit" class="mono text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1.5 focus:outline-none">
-                            <i class="fas fa-right-from-bracket text-[10px]"></i>
-                            Abort & Logout
-                        </button>
-                    </form>
                 </div>
-            </div>
 
-            {{-- Footer --}}
-            <div class="px-8 py-4 border-t border-white/5 bg-black/20 flex items-center justify-between">
-                <p class="mono text-xs text-gray-700">KodeNest Security System</p>
-                <div class="flex items-center gap-1.5 mono text-xs text-gray-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
-                    LIVE
-                </div>
+                <p class="text-center text-sm text-gray-400 mt-8 font-medium">
+                    &copy; {{ date('Y') }} KodeNest Security.
+                </p>
             </div>
         </div>
-
-        <p class="text-center mono text-xs text-gray-700 mt-6">
-            &copy; {{ date('Y') }} KodeNest ICT Academy
-        </p>
     </div>
-
-</body>
-</html>
+@endsection
