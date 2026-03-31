@@ -132,7 +132,7 @@
                             </button>
                         </form>
 
-                        <form method="POST" action="{{ route('admin.logout') }}">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="text-sm font-semibold text-gray-500 hover:text-red-600 transition-colors flex items-center gap-2 focus:outline-none bg-gray-50 hover:bg-red-50 px-4 py-2 rounded-lg">
                                 <i class="fas fa-right-from-bracket"></i>
