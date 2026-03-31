@@ -29,7 +29,25 @@ class TwoFactorController extends Controller
                 'two_factor_expires_at' => null,
             ]);
 
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+            $response = redirect()->intended(route('admin.dashboard', absolute: false));
+
+            if ($request->boolean('trust_device')) {
+                $token = \Illuminate\Support\Str::random(60);
+                
+                \App\Models\AdminTrustedDevice::create([
+                    'user_id' => $user->id,
+                    'token' => hash('sha256', $token),
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'last_used_at' => now(),
+                    'expires_at' => now()->addDays(30),
+                ]);
+
+                // 43200 minutes = 30 days
+                \Illuminate\Support\Facades\Cookie::queue('admin_device_trust', $token, 43200);
+            }
+
+            return $response;
         }
 
         throw ValidationException::withMessages([

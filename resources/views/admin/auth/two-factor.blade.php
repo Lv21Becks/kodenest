@@ -139,6 +139,19 @@
                         @enderror
                     </div>
 
+                    {{-- Trust device feature --}}
+                    <div class="flex items-center pt-2 pb-1">
+                        <label for="trust_device" class="flex items-center gap-3 cursor-pointer group">
+                            <div class="relative flex items-center justify-center">
+                                <input type="checkbox" id="trust_device" name="trust_device" value="1" class="peer sr-only">
+                                <div class="w-5 h-5 border-2 border-gray-600 rounded bg-black/50 peer-checked:bg-orange-500 peer-checked:border-orange-500 transition-all flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                </div>
+                            </div>
+                            <span class="text-sm font-medium text-gray-400 group-hover:text-gray-300 transition-colors">Trust this device for 30 days</span>
+                        </label>
+                    </div>
+
                     <button type="submit"
                         class="w-full py-4 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-sm tracking-wide transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/20 hover:-translate-y-0.5 flex items-center justify-center gap-2">
                         <i class="fas fa-unlock-keyhole"></i>

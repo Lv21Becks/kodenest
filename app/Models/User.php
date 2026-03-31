@@ -85,4 +85,12 @@ class User extends Authenticatable
         }
         return in_array($this->role, $roles);
     }
+
+    /**
+     * Get the trusted devices for two-factor authentication.
+     */
+    public function trustedDevices()
+    {
+        return $this->hasMany(AdminTrustedDevice::class);
+    }
 }

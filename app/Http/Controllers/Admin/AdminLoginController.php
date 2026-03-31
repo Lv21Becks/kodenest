@@ -51,6 +51,30 @@ class AdminLoginController extends Controller
             ]);
         }
 
+        // Adaptive Authentication Check
+        if ($trustToken = $request->cookie('admin_device_trust')) {
+            $trustedDevice = \App\Models\AdminTrustedDevice::where('token', hash('sha256', $trustToken))
+                ->where('user_id', $user->id)
+                ->where('expires_at', '>', now())
+                ->where('ip_address', $request->ip())
+                ->where('user_agent', $request->userAgent())
+                ->first();
+
+            if ($trustedDevice) {
+                // Device is trusted and IP + UA match! Bypass 2FA
+                $trustedDevice->update(['last_used_at' => now()]);
+                session(['2fa_verified' => true]);
+                
+                // Clear any lingering code
+                $user->update([
+                    'two_factor_code' => null,
+                    'two_factor_expires_at' => null,
+                ]);
+                
+                return redirect()->intended(route('admin.dashboard', absolute: false));
+            }
+        }
+
         // Generate 2FA OTP
         $code = str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $user->update([
