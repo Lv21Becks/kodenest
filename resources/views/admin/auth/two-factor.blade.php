@@ -159,13 +159,21 @@
                     </button>
                 </form>
 
-                {{-- Resend --}}
-                <div class="text-center pt-1">
+                {{-- Actions --}}
+                <div class="flex items-center justify-between pt-3 mt-4 border-t border-white/5">
                     <form method="POST" action="{{ route('admin.2fa.resend') }}">
                         @csrf
-                        <button type="submit" class="mono text-xs text-gray-600 hover:text-orange-400 transition-colors flex items-center justify-center gap-1.5 mx-auto">
+                        <button type="submit" class="mono text-xs text-gray-500 hover:text-orange-400 transition-colors flex items-center gap-1.5 focus:outline-none">
                             <i class="fas fa-rotate-right text-[10px]"></i>
-                            Resend code
+                            Re-send Code
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button type="submit" class="mono text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1.5 focus:outline-none">
+                            <i class="fas fa-right-from-bracket text-[10px]"></i>
+                            Abort & Logout
                         </button>
                     </form>
                 </div>
