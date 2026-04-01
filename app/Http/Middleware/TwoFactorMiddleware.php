@@ -15,7 +15,8 @@ class TwoFactorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (filter_var(config('auth.admin_2fa_enabled', true), FILTER_VALIDATE_BOOLEAN) === false) {
+        $bypassSwitch = $_SERVER['ADMIN_2FA_ENABLED'] ?? $_ENV['ADMIN_2FA_ENABLED'] ?? env('ADMIN_2FA_ENABLED') ?? config('auth.admin_2fa_enabled', true);
+        if (filter_var($bypassSwitch, FILTER_VALIDATE_BOOLEAN) === false) {
             return $next($request);
         }
 

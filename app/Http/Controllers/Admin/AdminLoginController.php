@@ -51,8 +51,9 @@ class AdminLoginController extends Controller
             ]);
         }
 
-        // Development / Emergency 2FA Bypass
-        if (filter_var(config('auth.admin_2fa_enabled', true), FILTER_VALIDATE_BOOLEAN) === false) {
+        // Development / Emergency 2FA Bypass (Direct ENV read to bypass PaaS config caching)
+        $bypassSwitch = $_SERVER['ADMIN_2FA_ENABLED'] ?? $_ENV['ADMIN_2FA_ENABLED'] ?? env('ADMIN_2FA_ENABLED') ?? config('auth.admin_2fa_enabled', true);
+        if (filter_var($bypassSwitch, FILTER_VALIDATE_BOOLEAN) === false) {
             session(['2fa_verified' => true]);
             return redirect()->intended(route('admin.dashboard', absolute: false));
         }
