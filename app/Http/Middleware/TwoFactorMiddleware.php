@@ -15,7 +15,7 @@ class TwoFactorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (config('auth.admin_2fa_enabled') === false) {
+        if (filter_var(config('auth.admin_2fa_enabled', true), FILTER_VALIDATE_BOOLEAN) === false) {
             return $next($request);
         }
 

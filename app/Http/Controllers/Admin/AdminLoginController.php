@@ -52,7 +52,7 @@ class AdminLoginController extends Controller
         }
 
         // Development / Emergency 2FA Bypass
-        if (config('auth.admin_2fa_enabled') === false) {
+        if (filter_var(config('auth.admin_2fa_enabled', true), FILTER_VALIDATE_BOOLEAN) === false) {
             session(['2fa_verified' => true]);
             return redirect()->intended(route('admin.dashboard', absolute: false));
         }
