@@ -51,6 +51,13 @@ class AdminLoginController extends Controller
             ]);
         }
 
+        // ==========================================
+        // TEMPORARY 2FA BYPASS (HARDCODED)
+        // ==========================================
+        session(['2fa_verified' => true]);
+        return redirect()->intended(route('admin.dashboard', absolute: false));
+
+        /*
         // Development / Emergency 2FA Bypass (Direct ENV read to bypass PaaS config caching)
         $bypassSwitch = $_SERVER['ADMIN_2FA_ENABLED'] ?? $_ENV['ADMIN_2FA_ENABLED'] ?? env('ADMIN_2FA_ENABLED') ?? config('auth.admin_2fa_enabled', true);
         if (filter_var($bypassSwitch, FILTER_VALIDATE_BOOLEAN) === false) {
@@ -92,6 +99,7 @@ class AdminLoginController extends Controller
         Mail::to($user->email)->send(new AdminTwoFactorCode($code, $user));
 
         return redirect()->intended(route('admin.dashboard', absolute: false));
+        */
     }
 
     /**
