@@ -51,6 +51,12 @@ class AdminLoginController extends Controller
             ]);
         }
 
+        // Development / Emergency 2FA Bypass
+        if (config('auth.admin_2fa_enabled') === false) {
+            session(['2fa_verified' => true]);
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        }
+
         // Adaptive Authentication Check
         if ($trustToken = $request->cookie('admin_device_trust')) {
             $trustedDevice = \App\Models\AdminTrustedDevice::where('token', hash('sha256', $trustToken))
