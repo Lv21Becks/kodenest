@@ -96,10 +96,8 @@
                 <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
                     <div class="flex flex-col md:flex-row gap-8 md:gap-12">
                         <div class="md:w-1/3 flex flex-col items-center text-center">
-                            <div
-                                class="w-32 h-32 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-bold mb-6 shadow-lg">
-                                TJ
-                            </div>
+                            <img src="{{ asset('images/tunde-johnson.png') }}" alt="Tunde Johnson"
+                                class="w-32 h-32 rounded-full object-cover object-top mb-6 shadow-lg ring-4 ring-orange-100">
                             <h3 class="font-bold text-xl text-gray-900">Tunde Johnson</h3>
                             <p class="text-sm text-gray-500 mb-4">Software Developer</p>
                             <span
@@ -127,10 +125,8 @@
                 <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
                     <div class="flex flex-col md:flex-row gap-8 md:gap-12">
                         <div class="md:w-1/3 flex flex-col items-center text-center">
-                            <div
-                                class="w-32 h-32 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-4xl font-bold mb-6 shadow-lg">
-                                SA
-                            </div>
+                            <img src="{{ asset('images/sandra-adekunle.png') }}" alt="Sandra Adekunle"
+                                class="w-32 h-32 rounded-full object-cover object-top mb-6 shadow-lg ring-4 ring-purple-100">
                             <h3 class="font-bold text-xl text-gray-900">Sandra Adekunle</h3>
                             <p class="text-sm text-gray-500 mb-4">Data Analyst</p>
                             <span
