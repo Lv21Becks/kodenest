@@ -439,6 +439,24 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            // If user opted in for updates, silently subscribe them to the newsletter
+            const updatesCheckbox = document.getElementById('updates');
+            if (updatesCheckbox && updatesCheckbox.checked) {
+                const email = form.querySelector('[name="email"]').value;
+                if (email) {
+                    fetch('{{ route("newsletter.subscribe") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({ email: email }),
+                    }).catch(() => {}); // Silent fail — don't block form success
+                }
+            }
+
             // Hide step indicators and form, show success
             document.querySelector('.step').closest('.flex').style.display = 'none';
             form.style.display = 'none';
