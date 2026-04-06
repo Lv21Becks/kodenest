@@ -20,9 +20,23 @@
 
             {{-- Contact Form --}}
             <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 animate-fade-in-up delay-100">
-                <h2 class="text-2xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
 
-                <form id="contactForm" class="space-y-6">
+                @if(session('success'))
+                    <div class="mb-6 flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl font-semibold text-sm">
+                        <i class="fas fa-check-circle"></i> {{ session('success') }}
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('contact.send') }}" method="POST" class="space-y-6">
+                    @csrf
                     <div>
                         <label for="name" class="block text-gray-700 font-bold mb-2 text-sm">Full Name</label>
                         <input type="text" id="name" name="name" required placeholder="John Doe"
@@ -147,23 +161,4 @@
         </iframe>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Simple visual feedback
-            const btn = this.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = 'Sending...';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                alert('Thank you! We will get back to you shortly.');
-                this.reset();
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }, 1000);
-        });
-    </script>
-@endpush
+

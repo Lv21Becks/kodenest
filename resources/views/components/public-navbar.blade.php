@@ -19,7 +19,7 @@
                 <div class="hidden xl:flex flex-1 justify-center px-4">
                     <ul class="flex items-center gap-8 text-gray-300 font-medium text-sm tracking-wide ml-32">
                         {{-- Courses Dropdown --}}
-                        <li class="relative" @mouseenter="coursesOpen = true" @mouseleave="coursesOpen = false">
+                        <li class="relative" @mouseenter="coursesOpen = true" @mouseleave="coursesOpen = false" @click.stop>
                             <button
                                 class="flex items-center gap-1.5 font-semibold text-white hover:text-orange-400 transition-colors py-3">
                                 Courses
@@ -109,9 +109,13 @@
         </div>
 
         {{-- Mobile Menu --}}
-        <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        <div x-show="open"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-4"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-4"
             class="xl:hidden absolute top-full left-0 w-full mt-4 bg-[#0a192f]/95 backdrop-blur-xl border border-white/10 shadow-2xl z-40 rounded-3xl overflow-hidden pointer-events-auto"
             x-cloak>
             <ul class="flex flex-col p-6 gap-2 text-gray-200 font-medium">

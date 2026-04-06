@@ -124,6 +124,15 @@
             <i class="fas fa-comment-dots w-6 text-center mr-3 {{ request()->routeIs('admin.testimonials.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
             Testimonials
         </a>
+        <a href="{{ route('admin.contact-messages.index') }}" 
+           class="group flex items-center rounded-r-lg border-l-4 px-4 py-3 text-sm font-medium transition-all {{ request()->routeIs('admin.contact-messages.*') ? 'border-orange-600 bg-orange-50 text-orange-600' : 'border-transparent text-gray-600 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}">
+            <i class="fas fa-envelope-open-text w-6 text-center mr-3 {{ request()->routeIs('admin.contact-messages.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}"></i>
+            Contact Messages
+            @php $unread = \App\Models\ContactMessage::where('is_read', false)->count(); @endphp
+            @if($unread > 0)
+                <span class="ml-auto inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-orange-100 text-orange-600">{{ $unread }}</span>
+            @endif
+        </a>
         @if(auth()->user()->hasRole('super_admin'))
         <a href="{{ route('admin.seo-meta.index') }}" 
            class="group flex items-center rounded-r-lg border-l-4 px-4 py-3 text-sm font-medium transition-all {{ request()->routeIs('admin.seo-meta.*') ? 'border-orange-600 bg-orange-50 text-orange-600' : 'border-transparent text-gray-600 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}">

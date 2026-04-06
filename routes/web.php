@@ -26,6 +26,7 @@ Route::controller(PageController::class)->group(function () {
 });
 
 Route::post('/newsletter/subscribe', [\App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('/contact/send', [\App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
 
 // Breeze default dashboard (redirect admins to admin dashboard)
 Route::get('/dashboard', function () {
@@ -145,6 +146,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('alumni', [\App\Http\Controllers\Admin\AdminEnrollmentController::class, 'index'])->name('alumni.index');
     Route::view('students/progress', 'admin.students.index')->name('students.progress_placeholder');
     Route::view('programs/lessons', 'admin.programs.index')->name('programs.lessons_placeholder');
+
+    // Contact Messages
+    Route::get('contact-messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('contact-messages.index');
+    Route::get('contact-messages/{contactMessage}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'show'])->name('contact-messages.show');
+    Route::delete('contact-messages/{contactMessage}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
+    Route::post('contact-messages/mark-all-read', [\App\Http\Controllers\Admin\ContactMessageController::class, 'markAllRead'])->name('contact-messages.mark-all-read');
 }); // Close the inner auth/admin middleware group
 }); // Close the outer admin prefix group
 

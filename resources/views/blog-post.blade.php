@@ -58,27 +58,47 @@
             </div>
 
             {{-- Footer: Back link + Social Share --}}
-            <div class="flex items-center justify-between border-t border-gray-200 pt-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-gray-200 pt-8 mt-4">
                 <a href="{{ route('blog') }}"
-                    class="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors group">
+                    class="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-orange-600 transition-colors group bg-gray-50 hover:bg-orange-50 px-4 py-2.5 rounded-xl">
                     <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
                     Back to Blog
                 </a>
 
-                <div class="flex items-center gap-4">
-                    <span class="text-sm font-semibold text-gray-500">Share:</span>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
-                        target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors text-lg">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
-                        target="_blank" class="text-gray-400 hover:text-sky-500 transition-colors text-lg">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
-                        target="_blank" class="text-gray-400 hover:text-blue-700 transition-colors text-lg">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share</span>
+                    <div class="flex items-center gap-2">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                            target="_blank"
+                            title="Share on Facebook"
+                            class="w-9 h-9 rounded-full bg-gray-100 hover:bg-blue-600 text-gray-500 hover:text-white transition-all flex items-center justify-center text-sm">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                            target="_blank"
+                            title="Share on X"
+                            class="w-9 h-9 rounded-full bg-gray-100 hover:bg-black text-gray-500 hover:text-white transition-all flex items-center justify-center text-sm">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
+                            target="_blank"
+                            title="Share on LinkedIn"
+                            class="w-9 h-9 rounded-full bg-gray-100 hover:bg-blue-700 text-gray-500 hover:text-white transition-all flex items-center justify-center text-sm">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . request()->url()) }}"
+                            target="_blank"
+                            title="Share on WhatsApp"
+                            class="w-9 h-9 rounded-full bg-gray-100 hover:bg-green-500 text-gray-500 hover:text-white transition-all flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/"
+                            target="_blank"
+                            title="Share on Instagram"
+                            class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-500 hover:to-orange-400 text-gray-500 hover:text-white transition-all flex items-center justify-center text-sm">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </article>
