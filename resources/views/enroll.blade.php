@@ -170,9 +170,9 @@
 
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">
-                                    Why do you want to join this programme? <span class="text-pink-700">*</span>
+                                    Why do you want to join this programme? <span class="text-gray-400 font-normal text-sm">(Optional)</span>
                                 </label>
-                                <textarea name="motivation" required rows="4"
+                                <textarea name="motivation" rows="4"
                                     placeholder="Tell us your goals and what you hope to achieve..."
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300 resize-none"></textarea>
                             </div>
@@ -201,10 +201,6 @@
                             </div>
 
                             <div class="space-y-4">
-                                <div class="flex items-start gap-3">
-                                    <input type="checkbox" id="terms" name="terms" required class="mt-1 w-4 h-4 accent-orange-600 cursor-pointer">
-                                    <label for="terms" class="text-gray-700 text-sm">I agree to the <a href="#" class="text-orange-600 font-semibold hover:underline">Terms and Conditions</a> and <a href="{{ route('privacy-policy') }}" class="text-orange-600 font-semibold hover:underline">Privacy Policy</a> <span class="text-pink-700">*</span></label>
-                                </div>
                                 <div class="flex items-start gap-3">
                                     <input type="checkbox" id="updates" name="updates" class="mt-1 w-4 h-4 accent-orange-600 cursor-pointer">
                                     <label for="updates" class="text-gray-700 text-sm">I'd like to receive updates and information from KodeNest</label>
@@ -443,10 +439,6 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (!document.getElementById('terms').checked) {
-                alert('Please agree to the Terms and Conditions to proceed.');
-                return;
-            }
             // Hide step indicators and form, show success
             document.querySelector('.step').closest('.flex').style.display = 'none';
             form.style.display = 'none';

@@ -90,7 +90,7 @@
 
                     <a href="/enroll"
                         class="animate-breathe px-7 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all text-sm shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.23)] hover:-translate-y-0.5 ring-1 ring-orange-500/50">
-                        Enroll Now
+                        Apply Now
                     </a>
                 </div>
 
@@ -178,7 +178,7 @@
                     x-transition:leave-end="opacity-0 -translate-y-4" class="pt-4 mt-2 border-t border-slate-800">
                     <a href="/enroll"
                         class="animate-breathe block text-center w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all">
-                        Enroll Now
+                        Apply Now
                     </a>
                 </li>
             </ul>
