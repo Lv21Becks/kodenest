@@ -45,11 +45,6 @@
                         class="absolute inset-0 bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
                 </a>
-
-                <a href="/contact"
-                    class="px-10 py-5 bg-white border-2 border-gray-200 text-gray-700 font-bold text-lg rounded-full hover:border-orange-500 hover:text-orange-600 hover:shadow-lg transition-all duration-300">
-                    Talk to an Advisor
-                </a>
             </div>
 
             {{-- Social Proof --}}
@@ -79,16 +74,17 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {{-- Card 1: Students --}}
+                {{-- Card 1: SIWES / IT Students --}}
                 <div
                     class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:-translate-y-2 reveal delay-100">
                     <div
                         class="w-16 h-16 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center text-orange-600 text-2xl group-hover:scale-110 transition-transform">
-                        <i class="fas fa-user-graduate"></i>
+                        <i class="fas fa-laptop-code"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Students</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Recent graduates looking to replace theory with
-                        job-ready practical skills.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">SIWES / IT Students</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Make the most of your industrial training. Gain real tech experience.
+                    </p>
                 </div>
 
                 {{-- Card 2: Beginners --}}
@@ -215,7 +211,8 @@
                         {{-- Image Area (1/3) --}}
                         {{-- Image Area --}}
                         <div class="h-64 relative p-4 pb-0">
-                            <div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
+                            <div
+                                class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
                                 @if($program->image_icon)
                                     <img src="{{ asset('storage/' . $program->image_icon) }}" alt="{{ $program->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">

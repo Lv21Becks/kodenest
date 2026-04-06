@@ -1,26 +1,47 @@
 @extends('layouts.public')
 
-@section('title', 'Enroll Now - KodeNest ICT Academy')
+@section('title', 'Apply Now - KodeNest ICT Academy')
 @section('body_class', 'bg-gray-50')
 
 @section('content')
-    {{-- Main Content --}}
     {{-- Hero Section --}}
     <section class="relative pt-24 pb-16 bg-white overflow-hidden">
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-orange-50 rounded-full blur-[100px] opacity-60"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-50 rounded-full blur-[100px] opacity-60">
-        </div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-50 rounded-full blur-[100px] opacity-60"></div>
 
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 animate-fade-in-up">
             <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
-                Start Your <br>
+                Apply to Join <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500">
-                    Tech Journey.
+                    KodeNest Academy
                 </span>
             </h1>
-            <p class="text-xl text-gray-600 leading-relaxed font-light">
-                Take the first step towards a rewarding career. Enroll in one of our expert-led programs today.
+            <p class="text-xl text-gray-600 leading-relaxed font-light max-w-2xl mx-auto">
+                Get trained with industry-relevant skills and real-world projects designed to prepare you for tech careers.
             </p>
+
+            {{-- Trust Stats Bar --}}
+            <div class="mt-10 flex flex-wrap justify-center gap-8 md:gap-12 text-center">
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">500+</p>
+                    <p class="text-gray-500 text-sm">Students Trained</p>
+                </div>
+                <div class="hidden md:block w-px bg-gray-200"></div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">85%</p>
+                    <p class="text-gray-500 text-sm">Completion Rate</p>
+                </div>
+                <div class="hidden md:block w-px bg-gray-200"></div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">Real Projects</p>
+                    <p class="text-gray-500 text-sm">Hands-on Learning</p>
+                </div>
+                <div class="hidden md:block w-px bg-gray-200"></div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">24–48hrs</p>
+                    <p class="text-gray-500 text-sm">Review Response</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -38,66 +59,60 @@
                         <div class="absolute top-5 left-[calc(16.67%)] right-[calc(16.67%)] h-0.5 bg-gray-200 z-0"></div>
 
                         <div class="step flex-1 text-center relative z-10">
-                            <div
-                                class="step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2 shadow-md shadow-orange-200">
+                            <div class="step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2 shadow-md shadow-orange-200">
                                 1</div>
-                            <div class="text-xs font-bold text-gray-600 uppercase tracking-wide">Personal Info</div>
+                            <div class="text-xs font-bold text-gray-600 uppercase tracking-wide">Profile Details</div>
                         </div>
                         <div class="step flex-1 text-center relative z-10">
-                            <div
-                                class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
+                            <div class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
                                 2</div>
-                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Program</div>
+                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Programme Selection</div>
                         </div>
                         <div class="step flex-1 text-center relative z-10">
-                            <div
-                                class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
+                            <div class="step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2">
                                 3</div>
-                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Confirm</div>
+                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">Review & Submit</div>
                         </div>
                     </div>
 
-                    <form id="enrollmentForm">
+                    <form id="applicationForm">
 
-                        {{-- Step 1: Personal Information --}}
+                        {{-- Step 1: Profile Details --}}
                         <div class="form-step" data-step="1">
-                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Personal Information</h2>
-                            <p class="text-gray-600 mb-8">Please provide your basic information</p>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-2">Profile Details</h2>
+                            <p class="text-gray-500 mb-8">Please provide your basic information so we can get to know you.</p>
 
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-gray-800 font-semibold mb-2">First Name <span
-                                            class="text-pink-700">*</span></label>
+                                    <label class="block text-gray-800 font-semibold mb-2">First Name <span class="text-pink-700">*</span></label>
                                     <input type="text" name="firstName" required placeholder="Enter your first name"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm focus:shadow-orange-50 transition-all hover:border-gray-300">
                                 </div>
                                 <div>
-                                    <label class="block text-gray-800 font-semibold mb-2">Last Name <span
-                                            class="text-pink-700">*</span></label>
+                                    <label class="block text-gray-800 font-semibold mb-2">Last Name <span class="text-pink-700">*</span></label>
                                     <input type="text" name="lastName" required placeholder="Enter your last name"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm focus:shadow-orange-50 transition-all hover:border-gray-300">
                                 </div>
                             </div>
 
                             <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Email Address <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Email Address <span class="text-pink-700">*</span></label>
                                 <input type="email" name="email" required placeholder="your.email@example.com"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
+                                <p class="text-xs text-gray-400 mt-1.5">We'll only use this to contact you about your application.</p>
                             </div>
 
                             <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Phone Number <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Phone Number <span class="text-pink-700">*</span></label>
                                 <input type="tel" name="phone" required placeholder="+234 XXX XXX XXXX"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
+                                <p class="text-xs text-gray-400 mt-1.5">We'll only use this to contact you about your application.</p>
                             </div>
 
                             <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Gender <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Gender <span class="text-pink-700">*</span></label>
                                 <select name="gender" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -108,21 +123,20 @@
                             <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">Address</label>
                                 <textarea name="address" placeholder="Enter your address" rows="3"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors resize-none"></textarea>
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300 resize-none"></textarea>
                             </div>
                         </div>
 
-                        {{-- Step 2: Program Selection --}}
+                        {{-- Step 2: Programme Selection --}}
                         <div class="form-step hidden" data-step="2">
-                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Program Selection</h2>
-                            <p class="text-gray-600 mb-8">Choose your program and preferences</p>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-2">Programme Selection</h2>
+                            <p class="text-gray-500 mb-8">Choose your programme and tell us a bit about yourself.</p>
 
                             <div>
-                                <label class="block text-gray-800 font-semibold mb-2">Select Program <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Select Programme <span class="text-pink-700">*</span></label>
                                 <select name="program" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
-                                    <option value="">Choose a program</option>
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
+                                    <option value="">Choose a programme</option>
                                     @foreach($programs as $program)
                                         <option value="{{ $program->slug }}" {{ request('program') == $program->slug ? 'selected' : '' }}>
                                             {{ $program->title }}
@@ -132,10 +146,9 @@
                             </div>
 
                             <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Learning Mode <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Learning Mode <span class="text-pink-700">*</span></label>
                                 <select name="mode" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
                                     <option value="">Select learning mode</option>
                                     <option value="online">Online</option>
                                     <option value="physical">Physical</option>
@@ -143,13 +156,10 @@
                                 </select>
                             </div>
 
-
-
                             <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Current Experience Level <span
-                                        class="text-pink-700">*</span></label>
+                                <label class="block text-gray-800 font-semibold mb-2">Current Experience Level <span class="text-pink-700">*</span></label>
                                 <select name="experience" required
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
                                     <option value="">Select your level</option>
                                     <option value="beginner">Complete Beginner</option>
                                     <option value="some-knowledge">Some Knowledge</option>
@@ -159,9 +169,18 @@
                             </div>
 
                             <div class="mt-6">
+                                <label class="block text-gray-800 font-semibold mb-2">
+                                    Why do you want to join this programme? <span class="text-pink-700">*</span>
+                                </label>
+                                <textarea name="motivation" required rows="4"
+                                    placeholder="Tell us your goals and what you hope to achieve..."
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300 resize-none"></textarea>
+                            </div>
+
+                            <div class="mt-6">
                                 <label class="block text-gray-800 font-semibold mb-2">How did you hear about us?</label>
                                 <select name="referral"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 shadow-sm transition-all hover:border-gray-300">
                                     <option value="">Select an option</option>
                                     <option value="social-media">Social Media</option>
                                     <option value="friend">Friend/Family</option>
@@ -170,64 +189,61 @@
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-
-                            <div class="mt-6">
-                                <label class="block text-gray-800 font-semibold mb-2">Additional Information or
-                                    Questions</label>
-                                <textarea name="additionalInfo" placeholder="Tell us anything else we should know..."
-                                    rows="4"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition-colors resize-none"></textarea>
-                            </div>
                         </div>
 
-                        {{-- Step 3: Confirmation --}}
+                        {{-- Step 3: Review & Submit --}}
                         <div class="form-step hidden" data-step="3">
-                            <h2 class="text-orange-600 text-3xl font-bold mb-4">Confirmation</h2>
-                            <p class="text-gray-600 mb-8">Review your information and complete enrollment</p>
+                            <h2 class="text-orange-600 text-3xl font-bold mb-2">Review & Submit</h2>
+                            <p class="text-gray-500 mb-8">Review your information carefully before submitting your application.</p>
 
-                            <div id="reviewInfo" class="bg-gray-100 p-6 rounded-xl mb-8">
-                                {{-- Review details will be inserted here --}}
+                            <div id="reviewInfo" class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mb-8 space-y-5">
+                                {{-- Review details inserted by JS --}}
                             </div>
 
                             <div class="space-y-4">
                                 <div class="flex items-start gap-3">
-                                    <input type="checkbox" id="terms" name="terms" required class="mt-1">
-                                    <label for="terms" class="text-gray-700">I agree to the <a href="#"
-                                            class="text-pink-700 hover:text-orange-500">Terms and Conditions</a> and <a
-                                            href="#" class="text-pink-700 hover:text-orange-500">Payment Policy</a> <span
-                                            class="text-pink-700">*</span></label>
+                                    <input type="checkbox" id="terms" name="terms" required class="mt-1 w-4 h-4 accent-orange-600 cursor-pointer">
+                                    <label for="terms" class="text-gray-700 text-sm">I agree to the <a href="#" class="text-orange-600 font-semibold hover:underline">Terms and Conditions</a> and <a href="{{ route('privacy-policy') }}" class="text-orange-600 font-semibold hover:underline">Privacy Policy</a> <span class="text-pink-700">*</span></label>
                                 </div>
-
                                 <div class="flex items-start gap-3">
-                                    <input type="checkbox" id="updates" name="updates" class="mt-1">
-                                    <label for="updates" class="text-gray-700">I want to receive updates and information
-                                        from KodeNest</label>
+                                    <input type="checkbox" id="updates" name="updates" class="mt-1 w-4 h-4 accent-orange-600 cursor-pointer">
+                                    <label for="updates" class="text-gray-700 text-sm">I'd like to receive updates and information from KodeNest</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex justify-between gap-4 mt-8">
+                        <div class="flex justify-between gap-4 mt-10">
                             <button type="button" id="prevBtn"
-                                class="hidden px-8 py-4 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400 transition-colors">Previous</button>
+                                class="hidden px-8 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                                <i class="fas fa-arrow-left mr-2"></i>Previous
+                            </button>
                             <button type="button" id="nextBtn"
-                                class="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Next</button>
+                                class="ml-auto px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-xl hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
                             <button type="submit" id="submitBtn"
-                                class="hidden px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-lg hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Complete
-                                Enrollment</button>
+                                class="hidden ml-auto px-10 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold rounded-xl hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                                <i class="fas fa-paper-plane mr-2"></i>Submit Application
+                            </button>
                         </div>
                     </form>
 
                     {{-- Success Message --}}
                     <div id="successMessage" class="hidden text-center py-12">
-                        <div class="text-7xl mb-6">✅</div>
-                        <h2 class="text-green-600 text-3xl font-bold mb-4">Enrollment Successful!</h2>
-                        <p class="text-gray-600 text-lg mb-4">Thank you for enrolling at KodeNest ICT Academy. We've sent a
-                            confirmation email with next steps and payment instructions to your email address.</p>
-                        <p class="text-gray-600 text-lg mb-8">Our team will contact you within 24 hours to complete your
-                            registration.</p>
+                        <div class="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-green-100">
+                            <i class="fas fa-check text-green-600 text-4xl"></i>
+                        </div>
+                        <h2 class="text-green-600 text-3xl font-bold mb-4">Application Submitted!</h2>
+                        <p class="text-gray-600 text-lg mb-4">
+                            Your application has been received and is currently under review.
+                        </p>
+                        <p class="text-gray-600 text-lg mb-8">
+                            Our team will contact you within <strong>24–48 hours</strong> with next steps.
+                        </p>
                         <a href="/"
-                            class="inline-block px-10 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300">Return
-                            to Home</a>
+                            class="inline-block px-10 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold rounded-full hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 hover:scale-[1.02]">
+                            Return to Home
+                        </a>
                     </div>
                 </div>
 
@@ -235,41 +251,54 @@
                 <div class="space-y-8">
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg">
-                        <h3 class="text-orange-600 text-xl font-bold mb-4">📋 What Happens Next?</h3>
-                        <ul class="space-y-3">
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Receive confirmation email</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Payment instructions sent</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Access to pre-course materials</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Welcome call from our team</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Join your cohort group</li>
+                        <h3 class="text-orange-600 text-xl font-bold mb-5 flex items-center gap-2">
+                            <i class="fas fa-list-check text-orange-400"></i> What Happens Next?
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-gray-600 text-sm">
+                                <span class="flex-shrink-0 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                                <span>You'll receive a <strong>confirmation email</strong> acknowledging your application</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-gray-600 text-sm">
+                                <span class="flex-shrink-0 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                                <span>Our team will <strong>review your application</strong> within 24–48 hours</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-gray-600 text-sm">
+                                <span class="flex-shrink-0 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                                <span>You'll receive an <strong>acceptance notification</strong> with onboarding details</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-gray-600 text-sm">
+                                <span class="flex-shrink-0 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold mt-0.5">4</span>
+                                <span>Complete your <strong>enrolment & onboarding</strong> and join your cohort</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="bg-white rounded-2xl p-8 shadow-lg">
-                        <h3 class="text-orange-600 text-xl font-bold mb-4">💰 Payment Information</h3>
+                        <h3 class="text-orange-600 text-xl font-bold mb-5 flex items-center gap-2">
+                            <i class="fas fa-shield-halved text-orange-400"></i> Why KodeNest?
+                        </h3>
                         <ul class="space-y-3">
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Flexible payment plans available</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Early bird discounts</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Secure payment methods</li>
-                            <li
-                                class="text-gray-600 pl-6 relative before:content-['✓'] before:absolute before:left-0 before:text-green-600 before:font-bold">
-                                Payment confirmation within 24hrs</li>
+                            <li class="flex items-center gap-3 text-gray-600 text-sm">
+                                <i class="fas fa-check text-green-500 flex-shrink-0 w-4"></i>
+                                Flexible payment plans available
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600 text-sm">
+                                <i class="fas fa-check text-green-500 flex-shrink-0 w-4"></i>
+                                Industry-relevant curriculum
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600 text-sm">
+                                <i class="fas fa-check text-green-500 flex-shrink-0 w-4"></i>
+                                Real-world hands-on projects
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600 text-sm">
+                                <i class="fas fa-check text-green-500 flex-shrink-0 w-4"></i>
+                                Dedicated mentorship & support
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600 text-sm">
+                                <i class="fas fa-check text-green-500 flex-shrink-0 w-4"></i>
+                                Certificate upon completion
+                            </li>
                         </ul>
                     </div>
 
@@ -278,7 +307,7 @@
                         <h4 class="text-gray-900 font-bold mb-3 flex items-center gap-2">
                             <i class="fas fa-headset text-orange-500"></i> Need Help?
                         </h4>
-                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">If you have questions about enrollment, our team is ready to help:</p>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">Have questions about the application? Our team is ready to help:</p>
                         <div class="space-y-2">
                             <a href="mailto:Kodenestlimited@gmail.com"
                                 class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors">
@@ -305,47 +334,43 @@
         const nextBtn = document.getElementById('nextBtn');
         const prevBtn = document.getElementById('prevBtn');
         const submitBtn = document.getElementById('submitBtn');
-        const form = document.getElementById('enrollmentForm');
+        const form = document.getElementById('applicationForm');
         const successMessage = document.getElementById('successMessage');
 
         function showStep(step) {
-            // Hide all steps
             document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
             document.querySelector(`[data-step="${step}"]`).classList.remove('hidden');
 
-            // Update step indicators
             document.querySelectorAll('.step').forEach((s, i) => {
                 const stepNum = s.querySelector('.step-number');
+                const stepLabel = s.querySelector('div:last-child');
                 if (i + 1 === step) {
-                    stepNum.classList.remove('bg-gray-300', 'text-gray-500', 'bg-green-600');
-                    stepNum.classList.add('bg-gradient-to-r', 'from-orange-600', 'to-orange-500', 'text-white');
+                    stepNum.className = 'step-number w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2 shadow-md shadow-orange-200';
+                    stepLabel.className = 'text-xs font-bold text-gray-700 uppercase tracking-wide';
                 } else if (i + 1 < step) {
-                    stepNum.classList.remove('bg-gray-300', 'text-gray-500', 'bg-gradient-to-r', 'from-orange-600', 'to-orange-500');
-                    stepNum.classList.add('bg-green-600', 'text-white');
+                    stepNum.className = 'step-number w-10 h-10 bg-green-500 text-white rounded-full inline-flex items-center justify-center font-bold mb-2';
+                    stepLabel.className = 'text-xs font-bold text-green-600 uppercase tracking-wide';
                 } else {
-                    stepNum.classList.remove('bg-gradient-to-r', 'from-orange-600', 'to-orange-500', 'text-white', 'bg-green-600');
-                    stepNum.classList.add('bg-gray-300', 'text-gray-500');
+                    stepNum.className = 'step-number w-10 h-10 bg-gray-200 text-gray-500 rounded-full inline-flex items-center justify-center font-bold mb-2';
+                    stepLabel.className = 'text-xs font-bold text-gray-400 uppercase tracking-wide';
                 }
             });
 
-            // Update buttons
             prevBtn.classList.toggle('hidden', step === 1);
             nextBtn.classList.toggle('hidden', step === totalSteps);
             submitBtn.classList.toggle('hidden', step !== totalSteps);
 
-            if (step === 3) {
-                showReview();
-            }
+            if (step === 3) showReview();
         }
 
         function validateStep(step) {
             const currentStepEl = document.querySelector(`[data-step="${step}"]`);
             const inputs = currentStepEl.querySelectorAll('input[required], select[required], textarea[required]');
-
             for (let input of inputs) {
-                if (!input.value) {
+                if (!input.value.trim()) {
                     input.focus();
-                    alert('Please fill in all required fields');
+                    input.classList.add('border-red-400');
+                    setTimeout(() => input.classList.remove('border-red-400'), 2000);
                     return false;
                 }
             }
@@ -356,7 +381,6 @@
             const formDataObj = new FormData(form);
             const data = Object.fromEntries(formDataObj);
 
-            // Get selected option texts to show "Online" instead of "online"
             const programSelect = form.querySelector('[name="program"]');
             const selectedProgramName = programSelect.options[programSelect.selectedIndex]?.text || data.program;
 
@@ -366,23 +390,49 @@
             const expSelect = form.querySelector('[name="experience"]');
             const selectedExp = expSelect.options[expSelect.selectedIndex]?.text || data.experience;
 
-            const reviewHTML = `
-                    <h3 class="text-orange-600 text-xl font-bold mb-4">Review Your Information</h3>
-                    <p class="mb-2"><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
-                    <p class="mb-2"><strong>Email:</strong> ${data.email}</p>
-                    <p class="mb-2"><strong>Phone:</strong> ${data.phone}</p>
-                    <p class="mb-2"><strong>Program:</strong> ${selectedProgramName}</p>
-                    <p class="mb-2"><strong>Learning Mode:</strong> ${selectedMode}</p>
-                    <p class="mb-2"><strong>Experience Level:</strong> ${selectedExp}</p>
-                `;
+            const motivation = data.motivation || '—';
 
-            document.getElementById('reviewInfo').innerHTML = reviewHTML;
+            document.getElementById('reviewInfo').innerHTML = `
+                <h3 class="text-orange-600 text-lg font-bold mb-4 pb-3 border-b border-gray-100">Your Application Summary</h3>
+
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-user text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Full Name</p><p class="text-gray-800 font-semibold">${data.firstName} ${data.lastName}</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-envelope text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Email</p><p class="text-gray-800 font-semibold">${data.email}</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-phone text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Phone</p><p class="text-gray-800 font-semibold">${data.phone}</p></div>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3 mt-3 flex items-start gap-3">
+                        <i class="fas fa-graduation-cap text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Programme</p><p class="text-gray-800 font-semibold">${selectedProgramName}</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-laptop text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Learning Mode</p><p class="text-gray-800 font-semibold">${selectedMode}</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-chart-line text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Experience Level</p><p class="text-gray-800 font-semibold">${selectedExp}</p></div>
+                    </div>
+                    <div class="border-t border-gray-100 pt-3 mt-3 flex items-start gap-3">
+                        <i class="fas fa-comment-dots text-orange-400 w-4 mt-0.5 flex-shrink-0"></i>
+                        <div><p class="text-xs text-gray-400 uppercase font-bold tracking-wide">Motivation</p><p class="text-gray-700 text-sm leading-relaxed">${motivation}</p></div>
+                    </div>
+                </div>
+            `;
         }
 
         nextBtn.addEventListener('click', () => {
             if (validateStep(currentStep)) {
                 currentStep++;
                 showStep(currentStep);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
 
@@ -393,19 +443,15 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-
             if (!document.getElementById('terms').checked) {
-                alert('Please agree to the Terms and Conditions');
+                alert('Please agree to the Terms and Conditions to proceed.');
                 return;
             }
-
-            // Hide form and show success message
+            // Hide step indicators and form, show success
+            document.querySelector('.step').closest('.flex').style.display = 'none';
             form.style.display = 'none';
-            document.querySelector('.step').parentElement.style.display = 'none';
             successMessage.classList.remove('hidden');
-
-            // Here you would typically send the data to your server
-            console.log('Form submitted:', Object.fromEntries(new FormData(form)));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         // Initialize

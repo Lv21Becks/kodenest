@@ -90,7 +90,7 @@ class ContentSeeder extends Seeder
             [
                 'name' => 'Adaeze Okoro',
                 'position' => 'Data Analytics Graduate',
-                'content' => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors are knowledgeable and truly care about your success.',
+                'content' => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors truly care about your success.',
                 'rating' => 5,
                 'status' => true,
             ],

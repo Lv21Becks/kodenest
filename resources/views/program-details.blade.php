@@ -42,7 +42,7 @@
                     <div class="flex flex-wrap gap-4">
                         <a href="/enroll?program={{ $program->slug }}"
                             class="px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-orange-600 hover:shadow-lg hover:-translate-y-1 transition-all flex items-center gap-2 shadow-xl">
-                            Enroll Now <i class="fas fa-arrow-right"></i>
+                            Apply Now <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="#curriculum"
                             class="px-8 py-4 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
