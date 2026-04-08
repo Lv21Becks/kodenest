@@ -62,9 +62,9 @@
                         <div class="text-6xl text-orange-200 absolute top-4 right-6 font-serif opacity-50">"</div>
                         <p class="text-gray-700 leading-relaxed mb-8 relative z-10">{{ $testimonial->content }}</p>
                         <div class="flex items-center gap-4 border-t border-gray-200 pt-6">
-                            @if($testimonial->image)
-                                <img src="{{ asset('storage/' . $testimonial->image) }}" alt="{{ $testimonial->name }}"
-                                    class="w-12 h-12 rounded-full object-cover ring-2 ring-white">
+                                                        @if($testimonial->photo_url)
+                                <img src="{{ $testimonial->photo_url }}" alt="{{ $testimonial->name }}"
+                                    class="w-12 h-12 rounded-full object-cover object-top ring-2 ring-white">
                             @else
                                 <div
                                     class="w-12 h-12 bg-gradient-to-br from-orange-600 to-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold ring-2 ring-white">

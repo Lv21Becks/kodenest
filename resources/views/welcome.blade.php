@@ -368,9 +368,9 @@
                         </div>
                         <p class="text-gray-700 mb-6 leading-relaxed">"{{ $testimonial->content }}"</p>
                         <div class="flex items-center gap-4">
-                            @if($testimonial->image)
-                                <img src="{{ asset('storage/' . $testimonial->image) }}"
-                                    class="w-10 h-10 rounded-full object-cover">
+                                                    @if($testimonial->photo_url)
+                                <img src="{{ $testimonial->photo_url }}"
+                                    class="w-10 h-10 rounded-full object-cover object-top">
                             @else
                                 <div
                                     class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold">

@@ -32,4 +32,18 @@ class Testimonial extends Model
     {
         return $query->where('featured', true)->where('status', true);
     }
+
+    /**
+     * Returns the correct public URL for the testimonial photo.
+     * Supports both admin-uploaded images (via storage) and
+     * static seeded images in public/images (prefixed with 'public:').
+     */
+    public function getPhotoUrlAttribute(): ?string
+    {
+        if (!$this->image) return null;
+        if (str_starts_with($this->image, 'public:')) {
+            return asset(substr($this->image, 7));
+        }
+        return asset('storage/' . $this->image);
+    }
 }
