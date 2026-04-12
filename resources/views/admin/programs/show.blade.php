@@ -25,8 +25,8 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-orange-50/50 rounded-bl-full -mr-16 -mt-16"></div>
                 
                 <div class="relative flex items-start gap-6">
-                    @if($program->image_icon)
-                        <img src="{{ asset('storage/' . $program->image_icon) }}" class="w-20 h-20 rounded-2xl object-cover shadow-sm ring-4 ring-white">
+                    @if($program->photo_url)
+                        <img src="{{ $program->photo_url }}" class="w-20 h-20 rounded-2xl object-cover shadow-sm ring-4 ring-white">
                     @else
                         <div class="w-20 h-20 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-3xl shadow-sm ring-4 ring-white">
                             <i class="fas fa-laptop-code"></i>

@@ -62,7 +62,7 @@ class TestimonialController extends Controller
         $request->validate(['ids' => 'required|array']);
         $testimonials = Testimonial::whereIn('id', $request->ids)->get();
         foreach ($testimonials as $t) {
-            if ($t->image) {
+            if ($t->image && !str_starts_with($t->image, 'public:')) {
                 Storage::disk('public')->delete($t->image);
             }
         }
@@ -126,13 +126,13 @@ class TestimonialController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image
-            if ($testimonial->image) {
+            if ($testimonial->image && !str_starts_with($testimonial->image, 'public:')) {
                 Storage::disk('public')->delete($testimonial->image);
             }
             $validated['image'] = $request->file('image')->store('testimonials', 'public');
         } elseif ($request->boolean('remove_image')) {
             // Admin explicitly removed the image
-            if ($testimonial->image) {
+            if ($testimonial->image && !str_starts_with($testimonial->image, 'public:')) {
                 Storage::disk('public')->delete($testimonial->image);
             }
             $validated['image'] = null;
@@ -150,7 +150,7 @@ class TestimonialController extends Controller
 
     public function destroy(Testimonial $testimonial)
     {
-        if ($testimonial->image) {
+        if ($testimonial->image && !str_starts_with($testimonial->image, 'public:')) {
             Storage::disk('public')->delete($testimonial->image);
         }
         $testimonial->delete();

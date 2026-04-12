@@ -65,8 +65,8 @@
                     <tr class="even:bg-gray-50/50 hover:bg-orange-50/30 transition-colors group">
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-4">
-                                @if($program->image_icon)
-                                    <img src="{{ asset('storage/' . $program->image_icon) }}" class="w-10 h-10 rounded-lg object-cover shadow-sm">
+                                @if($program->photo_url)
+                                    <img src="{{ $program->photo_url }}" class="w-10 h-10 rounded-lg object-cover shadow-sm">
                                 @else
                                     <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center text-sm shadow-sm">
                                         <i class="fas fa-laptop-code"></i>

@@ -61,8 +61,8 @@
                         {{-- Image Area --}}
                         <div class="h-56 relative p-4 pb-0">
                             <div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
-                                @if($post->featured_image)
-                                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                @if($post->photo_url)
+                                    <img src="{{ $post->photo_url }}" alt="{{ $post->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center text-4xl text-gray-300">

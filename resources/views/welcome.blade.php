@@ -213,8 +213,8 @@
                         <div class="h-64 relative p-4 pb-0">
                             <div
                                 class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100 shadow-sm border border-gray-100">
-                                @if($program->image_icon)
-                                    <img src="{{ asset('storage/' . $program->image_icon) }}" alt="{{ $program->title }}"
+                                @if($program->photo_url)
+                                    <img src="{{ $program->photo_url }}" alt="{{ $program->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">

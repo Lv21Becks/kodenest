@@ -45,4 +45,18 @@ class Program extends Model
     {
         return $query->where('status', true)->orderBy('order');
     }
+
+    /**
+     * Returns the correct public URL for the program image.
+     * Supports both admin-uploaded images (via storage) and
+     * static seeded images in public/images (prefixed with 'public:').
+     */
+    public function getPhotoUrlAttribute(): ?string
+    {
+        if (!$this->image_icon) return null;
+        if (str_starts_with($this->image_icon, 'public:')) {
+            return asset(substr($this->image_icon, 7));
+        }
+        return asset('storage/' . $this->image_icon);
+    }
 }

@@ -7,8 +7,8 @@
     {{-- Hero Background --}}
     <div class="relative">
         <div class="absolute top-0 left-0 w-full h-[56vh] -z-10 overflow-hidden">
-            @if($post->featured_image)
-                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+            @if($post->photo_url)
+                <img src="{{ $post->photo_url }}" alt="{{ $post->title }}"
                     class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/50 to-gray-50"></div>
             @else

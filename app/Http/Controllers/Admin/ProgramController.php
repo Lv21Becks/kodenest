@@ -141,8 +141,8 @@ class ProgramController extends Controller
         $validated['coming_soon'] = $request->has('coming_soon');
 
         if ($request->hasFile('image_icon')) {
-            // Delete old image if exists
-            if ($program->image_icon && \Illuminate\Support\Facades\Storage::disk('public')->exists($program->image_icon)) {
+            // Delete old image if exists and it is a storage image
+            if ($program->image_icon && !str_starts_with($program->image_icon, 'public:') && \Illuminate\Support\Facades\Storage::disk('public')->exists($program->image_icon)) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($program->image_icon);
             }
             $validated['image_icon'] = $request->file('image_icon')->store('programs', 'public');

@@ -52,9 +52,9 @@
                 </div>
 
                 <div class="md:w-2/5 flex justify-center relative">
-                    @if($program->image_icon)
+                    @if($program->photo_url)
                         <div class="p-8 animate-[float_6s_ease-in-out_infinite] relative z-10">
-                            <img src="{{ asset('storage/' . $program->image_icon) }}" alt="{{ $program->title }}"
+                            <img src="{{ $program->photo_url }}" alt="{{ $program->title }}"
                                 class="w-80 h-80 object-contain filter drop-shadow-2xl">
                         </div>
                     @else

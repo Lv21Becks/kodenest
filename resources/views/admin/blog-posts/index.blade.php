@@ -41,7 +41,7 @@
                                         <div class="flex items-center gap-4">
                                             <div class="flex-shrink-0 h-12 w-16">
                                                 <img class="h-12 w-16 rounded-md object-cover border border-gray-200 shadow-sm"
-                                                    src="{{ $post->featured_image ? (Str::startsWith($post->featured_image, 'http') ? $post->featured_image : asset('storage/' . $post->featured_image)) : 'https://via.placeholder.com/150' }}"
+                                                    src="{{ $post->photo_url ?? 'https://via.placeholder.com/150' }}"
                                                     alt="{{ $post->title }}">
                                             </div>
                                             <div>

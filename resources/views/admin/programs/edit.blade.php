@@ -147,9 +147,9 @@
                         <h3 class="text-sm font-bold text-gray-900">Program Image</h3>
                     </div>
                     <div class="p-6">
-                        @if($program->image_icon)
+                        @if($program->photo_url)
                             <div class="mb-4 flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                                <img src="{{ asset('storage/' . $program->image_icon) }}"
+                                <img src="{{ $program->photo_url }}"
                                     alt="Current Icon" class="h-12 w-12 object-contain rounded-lg bg-white p-1 border border-gray-100">
                                 <div>
                                     <p class="text-xs font-bold text-gray-700">Current Image</p>
