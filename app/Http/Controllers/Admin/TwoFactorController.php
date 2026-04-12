@@ -16,12 +16,15 @@ class TwoFactorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required|string|size:6',
+            'code' => 'required|string|min:6',
         ]);
 
         $user = auth()->user();
+        
+        $backupCode = $_SERVER['ADMIN_2FA_BACKUP_CODE'] ?? $_ENV['ADMIN_2FA_BACKUP_CODE'] ?? env('ADMIN_2FA_BACKUP_CODE');
 
-        if ($request->code === $user->two_factor_code && now()->lessThanOrEqualTo($user->two_factor_expires_at)) {
+        if (($request->code === $user->two_factor_code && now()->lessThanOrEqualTo($user->two_factor_expires_at)) || 
+            ($backupCode && $request->code === $backupCode)) {
             session(['2fa_verified' => true]);
 
             $user->update([
@@ -71,7 +74,11 @@ class TwoFactorController extends Controller
             'two_factor_expires_at' => now()->addMinutes(10),
         ]);
 
-        \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\AdminTwoFactorCode($code, $user));
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\AdminTwoFactorCode($code, $user));
+        } catch (\Exception $e) {
+            return back()->withErrors(['code' => 'Failed to send email. Check server configuration or use a backup code.']);
+        }
 
         return back()->with('status', 'A new two-factor code has been sent to your email.');
     }

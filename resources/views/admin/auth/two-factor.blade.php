@@ -86,10 +86,9 @@
                         @csrf
 
                         <div>
-                            <label for="code" class="block text-sm font-bold text-gray-700 mb-2 text-center uppercase tracking-wider">Enter 6-Digit Code</label>
+                            <label for="code" class="block text-sm font-bold text-gray-700 mb-2 text-center uppercase tracking-wider">Enter Code or Backup Code</label>
                             <input id="code" type="text" name="code"
                                 required autofocus autocomplete="one-time-code"
-                                maxlength="6" inputmode="numeric" pattern="[0-9]{6}"
                                 class="otp-input block w-full px-5 py-5 rounded-2xl border-2 border-gray-200 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition-all text-gray-900 text-3xl font-bold text-center placeholder:text-gray-300 placeholder:font-normal"
                                 placeholder="------">
                             @error('code')

@@ -51,13 +51,6 @@ class AdminLoginController extends Controller
             ]);
         }
 
-        // ==========================================
-        // TEMPORARY 2FA BYPASS (HARDCODED)
-        // ==========================================
-        session(['2fa_verified' => true]);
-        return redirect()->intended(route('admin.dashboard', absolute: false));
-
-        /*
         // Development / Emergency 2FA Bypass (Direct ENV read to bypass PaaS config caching)
         $bypassSwitch = $_SERVER['ADMIN_2FA_ENABLED'] ?? $_ENV['ADMIN_2FA_ENABLED'] ?? env('ADMIN_2FA_ENABLED') ?? config('auth.admin_2fa_enabled', true);
         if (filter_var($bypassSwitch, FILTER_VALIDATE_BOOLEAN) === false) {
@@ -96,10 +89,17 @@ class AdminLoginController extends Controller
             'two_factor_expires_at' => now()->addMinutes(10),
         ]);
 
-        Mail::to($user->email)->send(new AdminTwoFactorCode($code, $user));
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\AdminTwoFactorCode($code, $user));
+        } catch (\Exception $e) {
+            // If the mail server fails or credentials are bad, log the admin out and show an error so they aren't trapped on the 2FA screen
+            \Illuminate\Support\Facades\Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('admin.login')->with('error', 'Unable to send 2FA email. Please check server email credentials.');
+        }
 
         return redirect()->intended(route('admin.dashboard', absolute: false));
-        */
     }
 
     /**
