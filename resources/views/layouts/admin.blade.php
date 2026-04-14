@@ -67,46 +67,66 @@
                         </a>
 
                         <!-- Notifications Dropdown -->
-                        <div class="relative" x-data="{ notifOpen: false }">
+                        <div class="relative" x-data="{ 
+                            notifOpen: false,
+                            items: [
+                                @foreach($pendingApplicationsList ?? [] as $app) 'app_{{ $app->id }}', @endforeach
+                                @foreach($pendingPaymentsList ?? [] as $payment) 'pay_{{ $payment->id }}', @endforeach
+                            ],
+                            dismissed: JSON.parse(localStorage.getItem('dismissedNotifs') || '[]'),
+                            get unreadCount() {
+                                return this.items.filter(id => !this.dismissed.includes(id)).length;
+                            },
+                            dismiss(id) {
+                                if (!this.dismissed.includes(id)) {
+                                    this.dismissed.push(id);
+                                    localStorage.setItem('dismissedNotifs', JSON.stringify(this.dismissed));
+                                }
+                            }
+                        }">
                             <button @click="notifOpen = !notifOpen" @click.away="notifOpen = false"
                                 class="relative p-2 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
                                 <span class="sr-only">View notifications</span>
                                 <i class="fas fa-bell text-lg"></i>
-                                @if(($totalNotificationsCount ?? 0) > 0)
+                                <template x-if="unreadCount > 0">
                                     <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500 ring-2 ring-white"></span>
                                     </span>
-                                @endif
+                                </template>
                             </button>
 
                             <!-- Dropdown Panel -->
-                            <div x-show="notifOpen" x-transition:enter="transition ease-out duration-100"
+                            <div x-cloak x-show="notifOpen" x-transition:enter="transition ease-out duration-100"
                                 x-transition:enter-start="transform opacity-0 scale-95"
                                 x-transition:enter-end="transform opacity-100 scale-100"
                                 x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="transform opacity-100 scale-100"
                                 x-transition:leave-end="transform opacity-0 scale-95"
-                                class="absolute right-0 z-50 mt-2 w-80 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden"
-                                style="display: none;">
+                                class="absolute right-0 z-50 mt-2 w-80 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
                                 
                                 <div class="px-4 py-3 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
                                     <span class="text-sm font-bold text-gray-900">Notifications</span>
-                                    @if(($totalNotificationsCount ?? 0) > 0)
-                                        <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-bold">{{ $totalNotificationsCount }} New</span>
-                                    @endif
+                                    <template x-if="unreadCount > 0">
+                                        <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-bold" x-text="unreadCount + ' New'"></span>
+                                    </template>
                                 </div>
 
                                 <div class="max-h-96 overflow-y-auto">
-                                    @if(($totalNotificationsCount ?? 0) === 0)
+                                    <template x-if="unreadCount === 0">
                                         <div class="px-4 py-6 text-center text-sm text-gray-500">
                                             <i class="fas fa-check-circle text-green-400 text-2xl mb-2"></i>
                                             <p>You're all caught up!</p>
                                         </div>
-                                    @else
+                                    </template>
+
+                                    <div x-show="unreadCount > 0">
                                         <!-- Pending Applications -->
                                         @foreach($pendingApplicationsList ?? [] as $app)
-                                            <a href="{{ route('admin.applications.index') }}" class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
+                                            <a href="{{ route('admin.applications.index') }}" 
+                                               x-show="!dismissed.includes('app_{{ $app->id }}')" 
+                                               @click="dismiss('app_{{ $app->id }}')"
+                                               class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
                                                 <div class="flex items-start gap-3">
                                                     <div class="mt-0.5 flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                                         <i class="fas fa-file-signature text-xs"></i>
@@ -122,7 +142,10 @@
 
                                         <!-- Pending Payments -->
                                         @foreach($pendingPaymentsList ?? [] as $payment)
-                                            <a href="{{ route('admin.payments.index') }}" class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
+                                            <a href="{{ route('admin.payments.index') }}" 
+                                               x-show="!dismissed.includes('pay_{{ $payment->id }}')" 
+                                               @click="dismiss('pay_{{ $payment->id }}')"
+                                               class="block px-4 py-3 border-b border-gray-50 hover:bg-orange-50 transition-colors">
                                                 <div class="flex items-start gap-3">
                                                     <div class="mt-0.5 flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                                         <i class="fas fa-file-invoice-dollar text-xs"></i>
@@ -135,7 +158,7 @@
                                                 </div>
                                             </a>
                                         @endforeach
-                                    @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
