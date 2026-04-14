@@ -90,7 +90,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Adaeze Okoro',
                 'position' => 'Data Analytics Graduate',
-                'content'  => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors truly care about your success.',
+                'content'  => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors truly care about your success. I wholeheartedly recommend this program!',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-1.png',
@@ -98,7 +98,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Chukwudi Eze',
                 'position' => 'Software Development Graduate',
-                'content'  => 'As someone switching careers from banking to tech, I was nervous about learning to code. KodeNest made the transition smooth with their hands-on approach. Within 6 months, I was building real applications!',
+                'content'  => 'As someone switching careers from banking to tech, I was nervous about learning to code. KodeNest made the transition smooth with their hands-on approach. Within 6 months, I was building real applications and found my dream job.',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-2.png',
@@ -106,7 +106,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Fatima Abubakar',
                 'position' => 'UI/UX Design Graduate',
-                'content'  => 'The UI/UX program at KodeNest opened my eyes to the world of design. The practical projects and portfolio-building approach helped me secure an internship at a top design agency before I even graduated.',
+                'content'  => 'The UI/UX program at KodeNest opened my eyes to the world of design. The practical projects and portfolio-building approach helped me secure an internship at a top design agency before I even graduated. The mentorship was excellent!',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-3.png',
@@ -114,7 +114,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Mrs. Blessing',
                 'position' => 'Parent of Student',
-                'content'  => 'I enrolled my son in the Coding for Kids program and watched him grow from playing video games to creating them! The instructors make learning fun and engaging. Highly recommend for any parent.',
+                'content'  => 'I enrolled my son in the Coding for Kids program and watched him grow from playing video games to creating them! The instructors make learning fun and absolutely engaging. Highly recommend this incredible program for any parent out there.',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-4.png',
@@ -122,7 +122,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Olumide Ibrahim',
                 'position' => 'Cybersecurity Graduate',
-                'content'  => 'The Cybersecurity course at KodeNest was exactly what I needed to advance my IT career. The curriculum is current, relevant, and taught by experienced professionals. I\'m now working as a Security Analyst.',
+                'content'  => 'The Cybersecurity course at KodeNest was exactly what I needed to advance my IT career. The curriculum is current, relevant, and taught by experienced industry professionals. I\'m now proudly working as a Senior Security Analyst.',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-5.png',
@@ -130,7 +130,7 @@ class ContentSeeder extends Seeder
             [
                 'name'     => 'Ngozi Grace',
                 'position' => 'Office Productivity Graduate',
-                'content'  => 'KodeNest\'s Office Productivity course boosted my efficiency at work tremendously. I learned Excel tricks and productivity tools that saved me hours every week. My boss even noticed the improvement!',
+                'content'  => 'KodeNest\'s Office Productivity course boosted my efficiency at work tremendously. I learned advanced Excel tricks and productivity tools that saved me hours every week. My boss even noticed the improvement and gave me a big promotion!',
                 'rating'   => 5,
                 'status'   => true,
                 'image'    => 'public:images/testimonial-6.png',
