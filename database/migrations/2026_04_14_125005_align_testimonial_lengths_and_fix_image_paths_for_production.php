@@ -13,12 +13,12 @@ return new class extends Migration
     {
         // 1. PROGRAMS IMAGE PATHS
         $programMap = [
-            'data-analytics' => 'public:images/programs/da_program.png',
-            'cybersecurity' => 'public:images/programs/cyber_program.png',
-            'software-development' => 'public:images/programs/sw_program.png',
-            'ui-ux-design' => 'public:images/programs/ui_program.png',
-            'office-productivity' => 'public:images/programs/office_program.png',
-            'coding-for-kids' => 'public:images/programs/kids_program.png'
+            'data-analytics' => 'public:images/testimonials/adaeze_okoro_1775680233955.png',
+            'cybersecurity' => 'public:images/testimonials/olumide_ibrahim_1775680322819.png',
+            'software-development' => 'public:images/testimonials/chukwudi_eze_1775680255227.png',
+            'ui-ux-design' => 'public:images/testimonials/fatima_abubakar_1775680279239.png',
+            'office-productivity' => 'public:images/testimonials/ngozi_grace_1775680349582.png',
+            'coding-for-kids' => 'public:images/programs/kids_program.png' // Left unchanged as Mrs Blessing was not specified
         ];
         foreach ($programMap as $slug => $img) {
             \App\Models\Program::where('slug', $slug)
