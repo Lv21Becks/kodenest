@@ -54,7 +54,7 @@ class BlogPost extends Model
     {
         if (!$this->featured_image) return null;
         if (str_starts_with($this->featured_image, 'public:')) {
-            return asset(substr($this->featured_image, 7));
+            return asset(substr($this->featured_image, 7)) . '?v=2';
         }
         return asset('storage/' . $this->featured_image);
     }

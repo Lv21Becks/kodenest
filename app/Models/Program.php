@@ -55,7 +55,7 @@ class Program extends Model
     {
         if (!$this->image_icon) return null;
         if (str_starts_with($this->image_icon, 'public:')) {
-            return asset(substr($this->image_icon, 7));
+            return asset(substr($this->image_icon, 7)) . '?v=2';
         }
         return asset('storage/' . $this->image_icon);
     }
