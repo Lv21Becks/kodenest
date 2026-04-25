@@ -93,7 +93,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors truly care about your success. I wholeheartedly recommend this program!',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-1.png',
+                'image'    => 'public:images/testimonials/adaeze_okoro_1775680233955.png',
             ],
             [
                 'name'     => 'Chukwudi Eze',
@@ -101,7 +101,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'As someone switching careers from banking to tech, I was nervous about learning to code. KodeNest made the transition smooth with their hands-on approach. Within 6 months, I was building real applications and found my dream job.',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-2.png',
+                'image'    => 'public:images/testimonials/chukwudi_eze_1775680255227.png',
             ],
             [
                 'name'     => 'Fatima Abubakar',
@@ -109,7 +109,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'The UI/UX program at KodeNest opened my eyes to the world of design. The practical projects and portfolio-building approach helped me secure an internship at a top design agency before I even graduated. The mentorship was excellent!',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-3.png',
+                'image'    => 'public:images/testimonials/fatima_abubakar_1775680279239.png',
             ],
             [
                 'name'     => 'Mrs. Blessing',
@@ -117,7 +117,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'I enrolled my son in the Coding for Kids program and watched him grow from playing video games to creating them! The instructors make learning fun and absolutely engaging. Highly recommend this incredible program for any parent out there.',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-4.png',
+                'image'    => 'public:images/testimonials/mrs_blessing_1775680295102.png',
             ],
             [
                 'name'     => 'Olumide Ibrahim',
@@ -125,7 +125,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'The Cybersecurity course at KodeNest was exactly what I needed to advance my IT career. The curriculum is current, relevant, and taught by experienced industry professionals. I\'m now proudly working as a Senior Security Analyst.',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-5.png',
+                'image'    => 'public:images/testimonials/olumide_ibrahim_1775680322819.png',
             ],
             [
                 'name'     => 'Ngozi Grace',
@@ -133,7 +133,7 @@ class ContentSeeder extends Seeder
                 'content'  => 'KodeNest\'s Office Productivity course boosted my efficiency at work tremendously. I learned advanced Excel tricks and productivity tools that saved me hours every week. My boss even noticed the improvement and gave me a big promotion!',
                 'rating'   => 5,
                 'status'   => true,
-                'image'    => 'public:images/testimonial-6.png',
+                'image'    => 'public:images/testimonials/ngozi_grace_1775680349582.png',
             ],
         ];
 
