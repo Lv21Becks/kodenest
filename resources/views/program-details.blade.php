@@ -55,7 +55,7 @@
                     @if($program->photo_url)
                         <div class="p-8 animate-[float_6s_ease-in-out_infinite] relative z-10">
                             <img src="{{ $program->photo_url }}" alt="{{ $program->title }}"
-                                class="w-80 h-80 object-contain filter drop-shadow-2xl">
+                                class="w-80 h-80 object-cover rounded-3xl filter shadow-2xl border-4 border-white">
                         </div>
                     @else
                         <div class="p-8 animate-[float_6s_ease-in-out_infinite]">
