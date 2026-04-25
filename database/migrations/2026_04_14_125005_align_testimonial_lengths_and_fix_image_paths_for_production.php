@@ -13,12 +13,12 @@ return new class extends Migration
     {
         // 1. PROGRAMS IMAGE PATHS
         $programMap = [
-            'data-analytics' => 'public:images/testimonials/adaeze_okoro_1775680233955.png',
-            'cybersecurity' => 'public:images/testimonials/olumide_ibrahim_1775680322819.png',
-            'software-development' => 'public:images/testimonials/chukwudi_eze_1775680255227.png',
-            'ui-ux-design' => 'public:images/testimonials/fatima_abubakar_1775680279239.png',
-            'office-productivity' => 'public:images/testimonials/ngozi_grace_1775680349582.png',
-            'coding-for-kids' => 'public:images/programs/kids_program.png' // Left unchanged as Mrs Blessing was not specified
+            'data-analytics' => 'public:images/programs/da_program.png',
+            'cybersecurity' => 'public:images/programs/cyber_program.png',
+            'software-development' => 'public:images/programs/sw_program.png',
+            'ui-ux-design' => 'public:images/programs/ui_program.png',
+            'office-productivity' => 'public:images/programs/office_program.png',
+            'coding-for-kids' => 'public:images/programs/kids_program.png'
         ];
         foreach ($programMap as $slug => $img) {
             \App\Models\Program::where('slug', $slug)
@@ -47,27 +47,27 @@ return new class extends Migration
         // 3. TESTIMONIALS PATHS & 6-LINE LENGTH FIXES (Expanded slightly to hit exactly 6 lines of text wrap)
         $testimonialsMap = [
             'Adaeze Okoro' => [
-                'image' => 'public:images/testimonials/adaeze_okoro_1775680233955.png',
+                'image' => 'public:images/testimonial-1.png',
                 'content' => 'KodeNest completely changed my life. I came in with zero tech experience and left with the skills to land my first job as a Data Analyst. The instructors truly care about your success. I wholeheartedly recommend this program!'
             ],
             'Chukwudi Eze' => [
-                'image' => 'public:images/testimonials/chukwudi_eze_1775680255227.png',
+                'image' => 'public:images/testimonial-2.png',
                 'content' => 'As someone switching careers from banking to tech, I was nervous about learning to code. KodeNest made the transition smooth with their hands-on approach. Within 6 months, I was building real applications and found my dream job.'
             ],
             'Fatima Abubakar' => [
-                'image' => 'public:images/testimonials/fatima_abubakar_1775680279239.png',
+                'image' => 'public:images/testimonial-3.png',
                 'content' => 'The UI/UX program at KodeNest opened my eyes to the world of design. The practical projects and portfolio-building approach helped me secure an internship at a top design agency before I even graduated. The mentorship was excellent!'
             ],
             'Mrs. Blessing' => [
-                'image' => 'public:images/testimonials/mrs_blessing_1775680295102.png',
+                'image' => 'public:images/testimonial-4.png',
                 'content' => 'I enrolled my son in the Coding for Kids program and watched him grow from playing video games to creating them! The instructors make learning fun and absolutely engaging. Highly recommend this incredible program for any parent out there.'
             ],
             'Olumide Ibrahim' => [
-                'image' => 'public:images/testimonials/olumide_ibrahim_1775680322819.png',
+                'image' => 'public:images/testimonial-5.png',
                 'content' => 'The Cybersecurity course at KodeNest was exactly what I needed to advance my IT career. The curriculum is current, relevant, and taught by experienced industry professionals. I’m now proudly working as a Senior Security Analyst.'
             ],
             'Ngozi Grace' => [
-                'image' => 'public:images/testimonials/ngozi_grace_1775680349582.png',
+                'image' => 'public:images/testimonial-6.png',
                 'content' => 'KodeNest\'s Office Productivity course boosted my efficiency at work tremendously. I learned advanced Excel tricks and productivity tools that saved me hours every week. My boss even noticed the improvement and gave me a big promotion!'
             ],
         ];
