@@ -41,10 +41,13 @@ class Testimonial extends Model
     public function getPhotoUrlAttribute(): ?string
     {
         if (!$this->image) return null;
-        $imagePath = $this->image;
-        if (str_starts_with($imagePath, 'public:')) {
-            return asset(substr($imagePath, 7)) . '?v=2';
+        if (str_starts_with($this->image, 'public:')) {
+            $path = substr($this->image, 7);
+            $v = file_exists(public_path($path)) ? filemtime(public_path($path)) : 1;
+            return asset($path) . '?v=' . $v;
         }
-        return asset('storage/' . $this->image) . '?v=2';
+        $storagePath = 'storage/' . $this->image;
+        $v = file_exists(public_path($storagePath)) ? filemtime(public_path($storagePath)) : 1;
+        return asset($storagePath) . '?v=' . $v;
     }
 }

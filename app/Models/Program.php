@@ -55,8 +55,12 @@ class Program extends Model
     {
         if (!$this->image_icon) return null;
         if (str_starts_with($this->image_icon, 'public:')) {
-            return asset(substr($this->image_icon, 7)) . '?v=2';
+            $path = substr($this->image_icon, 7);
+            $v = file_exists(public_path($path)) ? filemtime(public_path($path)) : 1;
+            return asset($path) . '?v=' . $v;
         }
-        return asset('storage/' . $this->image_icon);
+        $storagePath = 'storage/' . $this->image_icon;
+        $v = file_exists(public_path($storagePath)) ? filemtime(public_path($storagePath)) : 1;
+        return asset($storagePath) . '?v=' . $v;
     }
 }

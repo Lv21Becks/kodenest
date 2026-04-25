@@ -54,8 +54,12 @@ class BlogPost extends Model
     {
         if (!$this->featured_image) return null;
         if (str_starts_with($this->featured_image, 'public:')) {
-            return asset(substr($this->featured_image, 7)) . '?v=2';
+            $path = substr($this->featured_image, 7);
+            $v = file_exists(public_path($path)) ? filemtime(public_path($path)) : 1;
+            return asset($path) . '?v=' . $v;
         }
-        return asset('storage/' . $this->featured_image);
+        $storagePath = 'storage/' . $this->featured_image;
+        $v = file_exists(public_path($storagePath)) ? filemtime(public_path($storagePath)) : 1;
+        return asset($storagePath) . '?v=' . $v;
     }
 }
